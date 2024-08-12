@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Formulário de Contato</h1>
+    <form action="/login" method="post">
+        <div class="form-group">
+            <label>Usuário:</label>
+            <input type="text" name="username" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Senha:</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+
+    <!-- Botão para abrir o modal -->
+    <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#cadastroModal">
+        Cadastro de Usuário
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="cadastroModal" tabindex="-1" role="dialog" aria-labelledby="cadastroModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cadastroModalLabel">Cadastro de Usuário</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="cadastroForm" method="post" action="/salvarUsuario">
+                        <div class="form-group">
+                            <label>Nome</label>
+                            <input type="text" class="form-control" name="nome" placeholder="Digite seu nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Login</label>
+                            <input type="text" class="form-control" name="login" placeholder="Login" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Senha</label>
+                            <input type="password" class="form-control" name="senha" placeholder="Digite sua senha" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Confirmar Senha</label>
+                            <input type="password" class="form-control" name="confirmarSenha" placeholder="Confirme sua senha" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Telefone</label>
+                            <input type="text" class="form-control" name="telefone" placeholder="Digite seu telefone" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
