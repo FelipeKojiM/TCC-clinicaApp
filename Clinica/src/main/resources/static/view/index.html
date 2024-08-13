@@ -5,30 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário</title>
     <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
 </head>
 <body>
 <div class="container">
-    <h1>Formulário de Contato</h1>
-    <form action="/login" method="post">
-        <div class="form-group">
-            <label>Usuário:</label>
-            <input type="text" name="username" class="form-control" required>
+    <body>
+    <div class="container">
+        <div class="login">
+            <label class="text"><b>Usuário</b></label>
+            <input style="margin-bottom: 4px" type="text" placeholder="Digite seu nome de usuário" name="username" required>
+            <label class="text"><b>Senha</b></label>
+            <input style="margin-bottom: 8px" type="password" placeholder="Digite sua senha" name="password" required>
+            <div class="row">
+                <div class="col-6">
+                    <button id="btCadastrar" class="btCadastrar" type="submit">Cadastrar</button>
+                </div>
+                <div class="col-6">
+                    <button id="btLogin" class="btLogin" type="submit">Login</button>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Senha:</label>
-            <input type="password" name="password" class="form-control" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Login</button>
-    </form>
 
-    <!-- Botão para abrir o modal -->
-    <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#cadastroModal">
-        Cadastro de Usuário
-    </button>
+    </div>
+    </body>
 
     <!-- Modal -->
     <div class="modal fade" id="cadastroModal" tabindex="-1" role="dialog" aria-labelledby="cadastroModalLabel" aria-hidden="true">
@@ -41,7 +41,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="cadastroForm" method="post" action="/salvarUsuario">
+                    <form id="cadastroForm" method="post" action="/cadastrarUsuarios">
                         <div class="form-group">
                             <label>Nome</label>
                             <input type="text" class="form-control" name="nome" placeholder="Digite seu nome" required>
@@ -70,5 +70,9 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="/js/index.js"></script>
 </body>
 </html>

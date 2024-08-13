@@ -27,7 +27,7 @@ public class Login {
         }
     }
 
-    @PostMapping("/salvarUsuario")
+    @PostMapping("/cadastrarUsuarios")
     public String cadastrarUsuarios(@RequestParam("nome") String nome, @RequestParam("login") String login,
                                     @RequestParam("senha") String senha, @RequestParam("confirmarSenha") String confirmarSenha,
                                     @RequestParam("telefone") String telefone, Model model) {
