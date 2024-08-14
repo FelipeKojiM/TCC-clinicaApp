@@ -10,25 +10,19 @@
 </head>
 <body>
 <div class="container">
-    <body>
     <div class="container">
         <div class="login">
-            <label class="text"><b>Usuário</b></label>
-            <input style="margin-bottom: 4px" type="text" placeholder="Digite seu nome de usuário" name="username" required>
-            <label class="text"><b>Senha</b></label>
-            <input style="margin-bottom: 8px" type="password" placeholder="Digite sua senha" name="password" required>
-            <div class="row">
-                <div class="col-6">
-                    <button id="btCadastrar" class="btCadastrar" type="submit">Cadastrar</button>
-                </div>
+            <form action="paginaInicial.html" method="post">
+                <label class="text"><b>Usuário</b></label>
+                <input style="margin-bottom: 4px" type="text" placeholder="Digite seu nome de usuário" name="username" required>
+                <label class="text"><b>Senha</b></label>
+                <input style="margin-bottom: 8px" type="password" placeholder="Digite sua senha" name="password" required>
                 <div class="col-6">
                     <button id="btLogin" class="btLogin" type="submit">Login</button>
                 </div>
-            </div>
+            </form>
         </div>
-
     </div>
-    </body>
 
     <!-- Modal -->
     <div class="modal fade" id="cadastroModal" tabindex="-1" role="dialog" aria-labelledby="cadastroModalLabel" aria-hidden="true">
