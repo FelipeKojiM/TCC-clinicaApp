@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            display: flex;
+            font-family: Arial, sans-serif;
+            background-color: #e8e8e8;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        header {
+            display: flex;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .container {
+            width: 300px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        label {
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+
+        input {
+            margin-bottom: 12px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .bemVindo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bemVindo h3 {
+            margin: 0;
+            margin-right: 4px;
+        }
+
+        .buttonVoltar {
+            width: 80px;
+            margin-bottom: 16px;
+        }
+
+        .labelCadastrar {
+            margin-bottom: 4px;
+        }
+
+        .col-6 {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <form th:action="@{/login}" method="post">
+        <div class="bemVindo" style="margin-bottom: 24px">
+            <h3>Bem-vindo(a),</h3>
+            <h3 th:text="${session.UsuarioLogado}"></h3>
+        </div>
+            <label for="username">Usuário</label>
+            <input id="username" type="text" placeholder="Digite seu nome de usuário" name="username" required>
+            <label for="password">Senha</label>
+            <input id="password" type="password" placeholder="Digite sua senha" name="password" required>
+            <button id="btLogin" type="submit">Login</button>
+    </form>
+</div>
+
+</body>
+</html>

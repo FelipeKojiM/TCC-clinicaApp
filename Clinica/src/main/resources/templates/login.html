@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            display: flex;
+            font-family: Arial, sans-serif;
+            background-color: #e8e8e8;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        form {
+            display: flex;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            justify-content: center;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            margin-top: 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            padding: 16px;
+        }
+        .cadastro {
+            justify-content: center;
+            display: grid;
+        }
+        .buttonCadastrar{
+            max-width: 80px;
+            margin: auto;
+        }
+        .labelCadastrar{
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div>
+        <form th:action="@{/login}" method="post">
+            <div class="container">
+                <label><b>Usuário</b></label>
+                <input type="text" placeholder="Digite seu nome de usuário" name="username" required>
+
+                <label><b>Senha</b></label>
+                <input type="password" placeholder="Digite sua senha" name="password" required>
+
+                <button type="submit">Login</button>
+            </div>
+        </form>
+        <form th:action="@{/cadastrarUsuarios}" method="post">
+            <div class="cadastro">
+                <label class="labelCadastrar"><b>Cadastrar Usuario</b></label>
+                <button class="buttonCadastrar" type="submit">Cadastrar</button>
+            </div>
+        </form>
+</div>
+</body>
+</html>
