@@ -30,16 +30,6 @@ public class MedicosWebController {
         return "medicos";
     }
 
-    @PostMapping(path = "medicos/save")
-    public String saveMedico(Medico medico, @RequestParam("nome") String nome, Model model) {
-        String erro = medicoService.validarNomeDisponivel(nome);
-        if (erro != null) {
-            model.addAttribute("erro", "Nome já disponível!");
-            return "redirect:/medicos";
-        } else {
-            medicoService.save(medico);
-            return "redirect:/medicos";
-        }
-    }
+
 
 }
