@@ -70,3 +70,19 @@ body {
 .procedimento p strong {
     color: #000;
 }
+
+.section {
+    display: none; /* Esconde todas as seções por padrão */
+    padding: 30px 0;
+}
+
+.section.active {
+    display: block; /* Exibe a seção ativa */
+}
+
+.textarea-expand {
+    width: 100%;
+    min-height: 50px; /* Altura mínima do textarea */
+    box-sizing: border-box;
+    overflow: hidden; /* Oculta barras de rolagem */
+}
