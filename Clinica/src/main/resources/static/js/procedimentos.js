@@ -1,11 +1,10 @@
-
-$(document).ready(function() {
+$(document).ready(function () {
     function showSection(selector) {
         $('.section').removeClass('active');
         $(selector).addClass('active');
     }
 
-    $('.nav-link').on('click', function(e) {
+    $('.nav-link').on('click', function (e) {
         e.preventDefault();
         var target = $(this).data('target');
         showSection(target);
@@ -14,7 +13,7 @@ $(document).ready(function() {
     showSection('#botox');
     console.log('aaaaaaaaa')
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         function autoResizeTextarea(textarea) {
             // Redefine a altura para recalcular
             $(textarea).css('height', 'auto');
@@ -23,13 +22,53 @@ $(document).ready(function() {
         }
 
         // Inicializa o ajuste de altura
-        $('textarea').each(function() {
+        $('textarea').each(function () {
             autoResizeTextarea(this);
         });
 
         // Ajusta a altura conforme o usuário digita
-        $('textarea').on('input', function() {
+        $('textarea').on('input', function () {
             autoResizeTextarea(this);
         });
     });
 });
+
+new MultiSelectTag('condicaoProblema', {
+    rounded: true,
+    placeholder: 'Search',
+    tagColor: {
+        textColor: '#000000',
+        borderColor: '#7a7a7a',
+        bgColor: '#ffffff',
+    }
+})
+
+new MultiSelectTag('condicaoCabelo', {
+    rounded: true,
+    placeholder: 'Search',
+    tagColor: {
+        textColor: '#000000',
+        borderColor: '#7a7a7a',
+        bgColor: '#ffffff',
+    }
+})
+
+new MultiSelectTag('novosFios', {
+    rounded: true,
+    placeholder: 'Search',
+    tagColor: {
+        textColor: '#000000',
+        borderColor: '#7a7a7a',
+        bgColor: '#ffffff',
+    }
+})
+
+new MultiSelectTag('couroCabeludo', {
+    rounded: true,
+    placeholder: 'Search',
+    tagColor: {
+        textColor: '#000000',
+        borderColor: '#7a7a7a',
+        bgColor: '#ffffff',
+    }
+})

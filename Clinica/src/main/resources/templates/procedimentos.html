@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Procedimentos</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/css/multi-select-tag.css">
     <link rel="stylesheet" href="/static/css/procedimentos.css">
 </head>
 <body>
@@ -80,42 +82,67 @@
                     <textarea id="dynamic-textarea" class="form-control textarea-expand" rows="1"></textarea>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <div class="form-group">
                     <label for="dynamic-textarea">O problema está?</label>
-                    <select id="inputState" class="form-control">
-                        <option selected>Open this select menu</option>
+                    <select class="form-group" id="condicaoProblema" multiple>
                         <option value="1">Estável</option>
                         <option value="2">Aumentando</option>
                         <option value="3">Aumentando Muito</option>
                     </select>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <div class="form-group">
                     <label for="dynamic-textarea">Nota presença de novos fios?</label>
-                    <select id="inputState" class="form-control">
-                        <option selected>Open this select menu</option>
+                    <select class="form-group" id="novosFios" multiple>
                         <option value="1">Sim</option>
                         <option value="2">Não</option>
                     </select>
                 </div>
             </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="dynamic-textarea">Condião do Cabelo?</label>
+                    <select class="form-group" id="condicaoCabelo" multiple>
+                        <option value="1">Mais fino</option>
+                        <option value="1">Mais crespo</option>
+                        <option value="1">Mudou coloração</option>
+                        <option value="2">Quebradiço</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label>Couro cabeludo</label>
+                    <div class="col-12" style="padding: 0px">
+                        <select class="form-group" id="couroCabeludo" multiple>
+                                <option value="1">Dor</option>
+                                <option value="2">Coceira</option>
+                                <option value="3">Inflamação</option>
+                                <option value="4">Feridas</option>
+                                <option value="5">Caspa</option>
+                                <option value="6">Oleosidade</option>
+                                <option value="7">Odor</option>
+                                <option value="8">Descamação</option>
+                                <option value="9">Alta Sensibilidade</option>
+                            </select>
+                    </div>
+                </div>
+            </div>
             <div class="col-4">
                 <div class="form-group">
-                    <label for="dynamic-textarea">Couro cabeludo</label>
-                    <select id="inputState" class="form-control">
-                    <option selected>Open this select menu</option>
-                        <option value="1">Dor</option>
-                        <option value="2">Coceira</option>
-                        <option value="2">Inflamação</option>
-                        <option value="2">Feridas</option>
-                        <option value="2">Caspa</option>
-                        <option value="2">Oleosidade</option>
-                        <option value="2">Odor</option>
-                        <option value="2">Descamação</option>
-                        <option value="2">Alta Sensibilidade</option>
-                    </select>
+                    <label for="dynamic-textarea">Tratamento anterior?</label>
+                    <textarea id="dynamic-textarea" class="form-control textarea-expand" rows="1"></textarea>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="dynamic-textarea">Tratamento anterior?</label>
+                </div>
+                <div class="form-group">
+                    <label for="dynamic-textarea">Tratamento anterior?</label>
+                    <input type="checkbox">
                 </div>
             </div>
         </div>
@@ -152,6 +179,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/js/multi-select-tag.js"></script>
 <script src="/static/js/procedimentos.js"></script>
 </body>
 </html>
