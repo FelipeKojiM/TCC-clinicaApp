@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/paginaInicial.css">
+</head>
+<body>
+
+<div class="container">
+    <form th:action="@{/login}" method="post">
+        <div class="bemVindo" style="margin-bottom: 24px">
+            <h3>Bem-vindo(a),</h3>
+            <h3 th:text="${session.UsuarioLogado}"></h3>
+        </div>
+            <label for="username">Usuário</label>
+            <input id="username" type="text" placeholder="Digite seu nome de usuário" name="username" required>
+            <label for="password">Senha</label>
+            <input id="password" type="password" placeholder="Digite sua senha" name="password" required>
+            <button id="btLogin" type="submit">Login</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
