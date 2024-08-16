@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrto de Paciente</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f4f8; /* Azul muito claro */
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form, table {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        form label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"], button {
+            margin-top: 8px;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 24px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            float: right;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+            font-weight: 700;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Cadastrar Paciente</h1>
+    <form method="post" th:action="@{/paciente/save}">
+        <div class="form-group">
+            <label>
+                Nome
+                <input type="text" placeholder="Nome" name="nome"/>
+            </label>
+            <label>
+                Telefone
+                <input type="text" placeholder="Telefone" name="telefone"/>
+            </label>
+            <label>
+                Data de Nascimento
+                <input type="text" placeholder="Data de Nascimento" name="data_nascimento"/>
+            </label>
+            <label>
+                Plano
+                <input type="text" placeholder="Plano" name="plano"/>
+            </label>
+            <button type="submit">Salvar</button>
+        </div>
+    </form>
+
+    <h1>Lista de Pacientes</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>Data de Nascimento</th>
+            <th>Plano</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="paciente : ${paciente}">
+            <td th:text="${paciente.id}"></td>
+            <td th:text="${paciente.nome}"></td>
+            <td th:text="${paciente.telefone}"></td>
+            <td th:text="${paciente.data_nascimento}"></td>
+            <td th:text="${paciente.plano}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
