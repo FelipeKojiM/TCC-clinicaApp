@@ -118,7 +118,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="agendamento : ${agendamento}">
+        <tr th:each="agendamentos : ${agendamentos}">
             <td th:text="${agendamento.paciente.nome}"></td>
             <td th:text="${agendamento.medico.nome}"></td>
             <td th:text="${agendamento.data_hora}"></td>

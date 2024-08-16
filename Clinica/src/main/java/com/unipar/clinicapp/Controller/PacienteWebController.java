@@ -19,6 +19,11 @@ public class PacienteWebController {
         this.pacienteService = pacienteService;
     }
 
+    @GetMapping("/paciente")
+    public String paciente(){
+        return "paciente";
+    }
+
     @Operation(summary = "Obter todos os pacientes", description = "Retorna uma lista de todos os pacientes cadastrados.")
     @GetMapping(path = "/cadastroPaciente")
     public String getAllPaciente(Model model) {
@@ -31,7 +36,7 @@ public class PacienteWebController {
     @PostMapping(path = "/paciente/save")
     public String savePaciente(Paciente paciente) {
         pacienteService.save(paciente);
-        return "redirect:/pacientes";
+        return "redirect:/paciente";
     }
 
 }

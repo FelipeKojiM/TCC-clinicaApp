@@ -30,6 +30,4 @@ public class MedicosWebController {
         return "medicos";
     }
 
-
-
 }
