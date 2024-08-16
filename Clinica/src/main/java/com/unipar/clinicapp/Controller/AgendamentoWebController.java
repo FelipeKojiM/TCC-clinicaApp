@@ -29,6 +29,7 @@ public class AgendamentoWebController {
         this.pacienteService = pacienteService;
     }
 
+<<<<<<< HEAD
     @GetMapping(path = "/abrirAgenda")
     public String getAllAgendamento(Model model) {
         List<Agendamento> agendamentos = agendamentoService.getAll();
@@ -39,6 +40,24 @@ public class AgendamentoWebController {
         model.addAttribute("pacientes", pacientes);
         return "agenda"; // Verifique se o nome do template corresponde ao arquivo HTML
     }
+=======
+   // @GetMapping(path = "/agendamento")
+    //public String getAllAgendamento(Model model) {
+       // List<Agendamento> agendamentos = agendamentoService.getAll();
+       // List<Medico> medicos = medicoService.getAll();
+       // List<Paciente> pacientes = pacienteService.getAll();
+       // model.addAttribute("agendamento", agendamentos); // Certifique-se de que o nome está correto
+        //model.addAttribute("medicos", medicos);
+       // model.addAttribute("pacientes", pacientes);
+        //return "agendamento"; // Verifique se o nome do template corresponde ao arquivo HTML
+    //}
+   @GetMapping(path = "/agendamento")
+   public String getAllAgendamento (Model model) {
+       List<Agendamento> agendamento = agendamentoService.getAll();
+       model.addAttribute("agendamento", agendamento);
+       return "agendamento";
+   }
+>>>>>>> e05eb991d6bd83e95bcc24de8ed836846f2d2a8f
 
 
 
