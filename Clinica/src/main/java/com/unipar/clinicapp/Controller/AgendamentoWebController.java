@@ -26,16 +26,22 @@ public class AgendamentoWebController {
         this.pacienteService = pacienteService;
     }
 
-    @GetMapping(path = "/agendamento")
-    public String getAllAgendamento(Model model) {
-        List<Agendamento> agendamentos = agendamentoService.getAll();
-        List<Medico> medicos = medicoService.getAll();
-        List<Paciente> pacientes = pacienteService.getAll();
-        model.addAttribute("agendamento", agendamentos); // Certifique-se de que o nome está correto
-        model.addAttribute("medicos", medicos);
-        model.addAttribute("pacientes", pacientes);
-        return "agendamento"; // Verifique se o nome do template corresponde ao arquivo HTML
-    }
+   // @GetMapping(path = "/agendamento")
+    //public String getAllAgendamento(Model model) {
+       // List<Agendamento> agendamentos = agendamentoService.getAll();
+       // List<Medico> medicos = medicoService.getAll();
+       // List<Paciente> pacientes = pacienteService.getAll();
+       // model.addAttribute("agendamento", agendamentos); // Certifique-se de que o nome está correto
+        //model.addAttribute("medicos", medicos);
+       // model.addAttribute("pacientes", pacientes);
+        //return "agendamento"; // Verifique se o nome do template corresponde ao arquivo HTML
+    //}
+   @GetMapping(path = "/agendamento")
+   public String getAllAgendamento (Model model) {
+       List<Agendamento> agendamento = agendamentoService.getAll();
+       model.addAttribute("agendamento", agendamento);
+       return "agendamento";
+   }
 
     @PostMapping(path = "/agendamento/save")
     public String saveAgendamento(Agendamento agendamento) {
