@@ -16,6 +16,9 @@ import java.util.List;
 @Controller
 public class AgendamentoWebController {
 
+    @GetMapping("/agenda")
+    public String abrirAgenda(){return "agenda";}
+
     private final AgendamentoService agendamentoService;
     private final MedicoService medicoService;
     private final PacienteService pacienteService;
@@ -26,16 +29,18 @@ public class AgendamentoWebController {
         this.pacienteService = pacienteService;
     }
 
-    @GetMapping(path = "/agendamento")
+    @GetMapping(path = "/abrirAgenda")
     public String getAllAgendamento(Model model) {
         List<Agendamento> agendamentos = agendamentoService.getAll();
         List<Medico> medicos = medicoService.getAll();
         List<Paciente> pacientes = pacienteService.getAll();
-        model.addAttribute("agendamento", agendamentos); // Certifique-se de que o nome está correto
+        model.addAttribute("agendamentos", agendamentos); // Certifique-se de que o nome está correto
         model.addAttribute("medicos", medicos);
         model.addAttribute("pacientes", pacientes);
-        return "agendamento"; // Verifique se o nome do template corresponde ao arquivo HTML
+        return "agenda"; // Verifique se o nome do template corresponde ao arquivo HTML
     }
+
+
 
     @PostMapping(path = "/agendamento/save")
     public String saveAgendamento(Agendamento agendamento) {

@@ -19,24 +19,23 @@ public class PacienteWebController {
         this.pacienteService = pacienteService;
     }
 
-    @GetMapping("/paciente")
+    @GetMapping("/abrirPacientes")
     public String paciente(){
-        return "paciente";
+        return "pacientes";
     }
 
-    @Operation(summary = "Obter todos os pacientes", description = "Retorna uma lista de todos os pacientes cadastrados.")
-    @GetMapping(path = "/cadastroPaciente")
-    public String getAllPaciente(Model model) {
-        List<Paciente> paciente = pacienteService.getAll();
-        model.addAttribute("paciente", paciente);
-        return "paciente";
+    @GetMapping(path = "/pacientes")
+    public String getAllPacientes(Model model){
+        List<Paciente> pacientes = pacienteService.getAll();
+        model.addAttribute("pacientes", pacientes);
+        return "pacientes";
     }
 
     @Operation(summary = "Salvar um paciente", description = "Salva um novo paciente no sistema.")
-    @PostMapping(path = "/paciente/save")
+    @PostMapping(path = "/pacientes/save")
     public String savePaciente(Paciente paciente) {
         pacienteService.save(paciente);
-        return "redirect:/paciente";
+        return "redirect:/pacientes";
     }
 
 }

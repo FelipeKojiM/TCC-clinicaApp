@@ -20,9 +20,6 @@ public class bemVindoWebController {
         return "bemVindo";
     }
 
-    @GetMapping("/agenda")
-    public String abrirAgenda(){return "agenda";}
-
     @GetMapping("/procedimentos")
     public String abrirProcedimentos(){return "procedimentos";}
 
