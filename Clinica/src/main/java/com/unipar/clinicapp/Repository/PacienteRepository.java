@@ -8,4 +8,9 @@ import org.springframework.stereotype.Repository;
 public interface PacienteRepository extends JpaRepository<Paciente, Integer> {
 
     Paciente findByNome(String nome);
+
+    void deleteById(Integer id);
+
+    Paciente getPacienteById(Integer id);
+
 }

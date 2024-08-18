@@ -20,6 +20,12 @@ public class PacienteService {
 
     public Paciente save(Paciente paciente){return this.pacienteRepository.save(paciente);}
 
+    public void delete(Integer id) {pacienteRepository.deleteById(id);}
+
+    public Paciente getPaciente(Integer id) {return pacienteRepository.getPacienteById(id);}
+
+    public Paciente update(Paciente paciente){return this.pacienteRepository.save(paciente);}
+
     public String validarNomeDisponivel(String nome) {
         Paciente pacienteExistente = pacienteRepository.findByNome(nome);
         if (pacienteExistente != null) {

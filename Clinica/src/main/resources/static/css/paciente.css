@@ -53,3 +53,12 @@ body {
     margin-bottom: 20px;
 }
 
+.hidden {
+    display: none;
+}
+
+.required-field::after {
+    content: "*";
+    color: red;
+    margin-left: 5px;
+}
