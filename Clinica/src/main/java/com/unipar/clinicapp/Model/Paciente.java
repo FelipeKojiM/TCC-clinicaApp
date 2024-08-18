@@ -17,6 +17,11 @@ public class Paciente implements Serializable{
     private String nome;
     private String telefone;
     private String data_nascimento;
-    private String plano;
+    private String sexo;
+    private String cpf;
+    private String email;
+    private String endereco;
+    private String estadoCivil;
+    private String obsMedica;
 
 }

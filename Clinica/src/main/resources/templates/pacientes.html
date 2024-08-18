@@ -33,21 +33,19 @@
             <table id="tabelaPacientes" class="table table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Nome</th>
                     <th>Telefone</th>
-                    <th>Data Nascimento</th>
-                    <th>Plano</th>
+                    <th>CPF</th>
+                    <th>E-mail</th>
                     <th>Ações</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="paciente : ${pacientes}">
-                    <td class="id"              th:text="${paciente.id}"></td>
                     <td class="nome"            th:text="${paciente.nome}"></td>
                     <td class="telefone"        th:text="${paciente.telefone}"></td>
-                    <td class="data_nascimento" th:text="${paciente.data_nascimento}"></td>
-                    <td class="plano"           th:text="${paciente.plano}"></td>
+                    <td class="cpf" th:text="${paciente.cpf}"></td>
+                    <td class="email" th:text="${paciente.email}"></td>
                     <td id="botaoAcao">
                         <ul class="list-inline m-0">
                             <li class="list-inline-item">
@@ -55,6 +53,9 @@
                             </li>
                             <li class="list-inline-item">
                                 <button class="btn btn-danger btn-sm rounded-0 botaoDeletarPaciente" type="button" title="Delete" th:data-id="${paciente.id}"><i class="fa fa-trash"></i></button>
+                            </li>
+                            <li class="list-inline-item">
+                                <button class="btn btn-danger btn-sm rounded-0 botaoMostrarPaciente" type="button" title="Mostrar" th:data-id="${paciente.id}"><i class="fa fa-plus"></i></button>
                             </li>
                         </ul>
                     </td>
@@ -89,8 +90,28 @@
                     <input type="text" class="form-control" id="data_nascimento" placeholder="Data de Nascimento" name="data_nascimento"/>
                 </div>
                 <div class="form-group">
-                    <label for="plano">Plano</label>
-                    <input type="text" class="form-control" id="plano" placeholder="Plano" name="plano"/>
+                    <label for="sexo">Sexo</label>
+                    <input type="text" class="form-control" id="sexo" placeholder="Sexo" name="sexo"/>
+                </div>
+                <div class="form-group">
+                    <label for="cpf">CPF</label>
+                    <input type="text" class="form-control" id="cpf" placeholder="CPF" name="cpf"/>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="text" class="form-control" id="email" placeholder="E-mail" name="email"/>
+                </div>
+                <div class="form-group">
+                    <label for="endereco">Endereço</label>
+                    <input type="text" class="form-control" id="endereco" placeholder="Endereço" name="endereco"/>
+                </div>
+                <div class="form-group">
+                    <label for="estadoCivil">Estado Civil</label>
+                    <input type="text" class="form-control" id="estadoCivil" placeholder="Estado Civil" name="estadoCivil"/>
+                </div>
+                <div class="form-group">
+                    <label for="obsMedica">Informação Médica</label>
+                    <input type="text" class="form-control" id="obsMedica" placeholder="Informação Médica" name="obsMedica"/>
                 </div>
                 <div class="d-grid gap-12 d-md-flex justify-content-md-end">
                     <input id="idPacienteEditar" class="hidden">
@@ -122,6 +143,64 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="mostrarMaisModal" tabindex="-1" role="dialog" aria-labelledby="mostrarMaisModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mostrarMaisModalLabel">Detalhes do Paciente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="detalhesPacienteForm">
+                    <div class="form-group">
+                        <label for="modalNome">Nome</label>
+                        <input type="text" class="form-control" id="modalNome" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalTelefone">Telefone</label>
+                        <input type="text" class="form-control" id="modalTelefone" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalCpf">CPF</label>
+                        <input type="text" class="form-control" id="modalCpf" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalEmail">E-mail</label>
+                        <input type="text" class="form-control" id="modalEmail" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalDataNascimento">Data de Nascimento</label>
+                        <input type="text" class="form-control" id="modalDataNascimento" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalSexo">Sexo</label>
+                        <input type="text" class="form-control" id="modalSexo" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalEndereco">Endereço</label>
+                        <input type="text" class="form-control" id="modalEndereco" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalEstadoCivil">Estado Civil</label>
+                        <input type="text" class="form-control" id="modalEstadoCivil" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalObsMedica">Informação Médica</label>
+                        <input type="text" class="form-control" id="modalObsMedica" readonly>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>

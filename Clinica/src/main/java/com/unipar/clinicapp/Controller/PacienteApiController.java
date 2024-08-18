@@ -35,4 +35,14 @@ public class PacienteApiController {
             return ResponseEntity.ok("Paciente salvo com sucesso");
         }
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Paciente> getPacienteById(@PathVariable Integer id) {
+        Paciente paciente = pacienteService.getPaciente(id);
+        if (paciente != null) {
+            return ResponseEntity.ok(paciente);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

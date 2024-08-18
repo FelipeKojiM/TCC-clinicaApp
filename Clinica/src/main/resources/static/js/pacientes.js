@@ -39,11 +39,23 @@ $(".editarPaciente").on("click", function (){
             console.log(data.nome);
             console.log(data.telefone);
             console.log(data.data_nascimento);
-            console.log(data.plano);
+            console.log(data.cpf);
+            console.log(data.endereco);
+
+            console.log(data.email);
+            console.log(data.estadoCivil);
+            console.log(data.obsMedica);
+            console.log(data.sexo);
             $("#cadastrarPacientes").find("#nome").val(data.nome);
             $("#cadastrarPacientes").find("#telefone").val(data.telefone);
             $("#cadastrarPacientes").find("#data_nascimento").val(data.data_nascimento);
-            $("#cadastrarPacientes").find("#plano").val(data.plano);
+            $("#cadastrarPacientes").find("#cpf").val(data.cpf);
+            $("#cadastrarPacientes").find("#endereco").val(data.endereco);
+
+            $("#cadastrarPacientes").find("#email").val(data.email);
+            $("#cadastrarPacientes").find("#estadoCivil").val(data.estadoCivil);
+            $("#cadastrarPacientes").find("#obsMedica").val(data.obsMedica);
+            $("#cadastrarPacientes").find("#sexo").val(data.sexo);
         }
     });
 
@@ -61,7 +73,13 @@ $("#buttonCadastrarPacientes").on("click", function (){
     $("#nome").val("");
     $("#telefone").val("");
     $("#data_nascimento").val("");
-    $("#plano").val("");
+    $("#cpf").val("");
+    $("#endereco").val("");
+
+    $("#email").val("");
+    $("#estadoCivil").val("");
+    $("#obsMedica").val("");
+    $("#sexo").val("");
 });
 
 $("#botaoCadastrarPaciente").on("click", function(){
@@ -69,10 +87,16 @@ $("#botaoCadastrarPaciente").on("click", function(){
     var nome            = $("#nome").val();
     var telefone        = $("#telefone").val();
     var data_nascimento = $("#data_nascimento").val();
-    var plano           = $("#plano").val();
+    var cpf           = $("#cpf").val();
+    var endereco           = $("#endereco").val();
 
-    if(nome !== "" && telefone !== "" && data_nascimento !== "" && plano !== ""){
-        $.post("/pacientes/save", {nome:nome,telefone:telefone,data_nascimento:data_nascimento,plano:plano},function(data){
+    var email           = $("#email").val();
+    var estadoCivil           = $("#estadoCivil").val();
+    var obsMedica           = $("#obsMedica").val();
+    var sexo           = $("#sexo").val();
+
+    if(nome !== "" && telefone !== "" && data_nascimento !== "" && cpf !== "" && endereco !== "" && email !== "" && estadoCivil !== "" && obsMedica !== "" && sexo !== ""){
+        $.post("/pacientes/save", {nome:nome,telefone:telefone,data_nascimento:data_nascimento,cpf:cpf, endereco:endereco, email:email, estadoCivil:estadoCivil, obsMedica:obsMedica, sexo:sexo},function(data){
 
             $("#cadastrarPacientes").modal("hide");
             $(".alertModalLabel").text("Sucesso!");
@@ -101,13 +125,18 @@ $("#botaoEditarPaciente").on("click", function(){
     var nome            = $("#nome").val();
     var telefone        = $("#telefone").val();
     var data_nascimento = $("#data_nascimento").val();
-    var plano           = $("#plano").val();
+    var cpf           = $("#cpf").val();
+    var endereco           = $("#endereco").val();
+    var email           = $("#email").val();
+    var estadoCivil           = $("#estadoCivil").val();
+    var obsMedica           = $("#obsMedica").val();
+    var sexo           = $("#sexo").val();
 
-    if(nome !== "" && telefone !== "" && data_nascimento !== "" && plano !== ""){
+    if(nome !== "" && telefone !== "" && data_nascimento !== "" && cpf !== "" && endereco !== "" && email !== "" && estadoCivil !== "" && obsMedica !== "" && sexo !== "" ){
         $.ajax({
             type: "POST",
             url: "/pacientes/" + pacienteId,
-            data: {nome:nome,telefone:telefone,data_nascimento:data_nascimento,plano:plano},
+            data: {nome:nome,telefone:telefone,data_nascimento:data_nascimento,cpf:cpf, endereco:endereco, obsMedica:obsMedica},
             success: function(data){
                 $("#cadastrarPacientes").modal("hide");
                 $(".alertModalLabel").text("Sucesso!");
@@ -141,6 +170,33 @@ $('.botaoDeletarPaciente').on('click', function() {
     $("#alertModal").modal("show");
 
 });
+
+$('.botaoMostrarPaciente').on('click', function() {
+    var pacienteId = $(this).data('id');
+
+    $.ajax({
+        url: "/api/pacientes/" + pacienteId, // Use o novo endpoint
+        type: "GET",
+        success: function(data) {
+            $("#modalNome").val(data.nome);
+            $("#modalTelefone").val(data.telefone);
+            $("#modalCpf").val(data.cpf);
+            $("#modalEmail").val(data.email);
+            $("#modalDataNascimento").val(data.data_nascimento);
+            $("#modalSexo").val(data.sexo);
+            $("#modalEndereco").val(data.endereco);
+            $("#modalEstadoCivil").val(data.estadoCivil);
+            $("#modalObsMedica").val(data.obsMedica);
+            $("#mostrarMaisModal").modal("show");
+        },
+        error: function(xhr, status, error) {
+            console.error("Erro ao obter detalhes do paciente:", error);
+        }
+    });
+});
+
+
+
 
 $("#alertModalConfirmDelete").on("click", function (){
 

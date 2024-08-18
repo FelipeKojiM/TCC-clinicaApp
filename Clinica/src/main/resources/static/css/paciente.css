@@ -62,3 +62,19 @@ body {
     color: red;
     margin-left: 5px;
 }
+
+.botaoMostrarPaciente {
+    background-color: darkorange;
+    border: none;
+    color: white;
+    padding: 9px 7.5px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.botaoMostrarPaciente i {
+    color: white;
+
+}
+
