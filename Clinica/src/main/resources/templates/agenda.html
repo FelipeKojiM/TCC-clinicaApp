@@ -113,17 +113,13 @@
         <thead>
         <tr>
             <th>Paciente</th>
-            <th>Médico</th>
             <th>Data e Hora</th>
-            <th>Procedimento</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="agendamentos : ${agendamentos}">
-            <td th:text="${agendamento.paciente.nome}"></td>
-            <td th:text="${agendamento.medico.nome}"></td>
+        <tr th:each="agendamento : ${agendamentos}">
+            <td th:text="${agendamento.paciente.nome}"></td> <!-- Ajuste o nome do método de acordo com seu modelo -->
             <td th:text="${agendamento.data_hora}"></td>
-            <td th:text="${agendamento.procedimento?.nome}">N/A</td>
         </tr>
         </tbody>
     </table>
