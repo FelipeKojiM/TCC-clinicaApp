@@ -35,6 +35,7 @@
                     <table id="tabelaPacientes" class="table table-striped table-bordered">
                         <thead>
                         <tr>
+                            <th>Id</th>
                             <th>Nome</th>
                             <th>Telefone</th>
                             <th>CPF</th>
@@ -44,10 +45,11 @@
                         </thead>
                             <tbody>
                                 <tr th:each="paciente : ${pacientes}">
-                                    <td class="nome text-left"     th:text="${paciente.nome}"></td>
-                                    <td class="telefone text-left" th:text="${paciente.telefone}"></td>
-                                    <td class="cpf text-left"      th:text="${paciente.cpf}"></td>
-                                    <td class="email text-left"    th:text="${paciente.email}"></td>
+                                    <td                  th:text="${paciente.id}"></td>
+                                    <td class="nome"     th:text="${paciente.nome}"></td>
+                                    <td class="telefone" th:text="${paciente.telefone}"></td>
+                                    <td class="cpf"      th:text="${paciente.cpf}"></td>
+                                    <td class="email"    th:text="${paciente.email}"></td>
                                     <td>
                                         <ul class="list-inline m-0">
                                             <li class="list-inline-item">

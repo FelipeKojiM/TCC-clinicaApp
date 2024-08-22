@@ -1,5 +1,5 @@
 $('#tabelaPacientes').DataTable({
-    pageLength: 10, // Número de registros por página
+    pageLength: 10,
     paging: true,
     responsive: true,
     dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 text-md-right"f>>' +
@@ -11,26 +11,25 @@ $('#tabelaPacientes').DataTable({
         info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
     },
     columnDefs: [
-        { width: "20%", targets: 0 }, // Aumenta o tamanho da coluna de email
-        { width: "20%", targets: 3 }, // Aumenta o tamanho da coluna de email
-        { width: "10%", targets: 4 }, // Diminui o tamanho da coluna de ações
+        { width: "10%", targets: 0, className: "text-left"},
+        { width: "20%", targets: 1, className: "text-left"},
+        { width: "20%", targets: 2, className: "text-left"},
+        { width: "20%", targets: 3, className: "text-left"},
+        { width: "20%", targets: 4, className: "text-left"},
+        { width: "10%", targets: 5, className: "text-left"},
     ],
     drawCallback: function (settings) {
-        // Ajusta a altura da tabela com base no número de registros
         var api = this.api();
         var pageInfo = api.page.info();
         var numRecords = pageInfo.recordsDisplay;
 
-        // Ajusta a altura da tabela conforme o número de registros
         if (numRecords <= 10) {
-            $('#tabelaPacientes').css('height', 'auto'); // Ajuste para altura automática
+            $('#tabelaPacientes').css('height', 'auto');
         } else {
-            $('#tabelaPacientes').css('height', '400px'); // Ajuste para altura fixa
+            $('#tabelaPacientes').css('height', '400px'); 
         }
     }
 });
-
-
 
 $(".editarPaciente").on("click", function (){
 
@@ -209,7 +208,7 @@ $('.botaoMostrarPaciente').on('click', function() {
         success: function(data) {
             $("#nome").val(data.nome);
             $("#telefone").val(data.telefone);
-            $("#modalDataNascimento").val(data.data_nascimento);
+            $("#data_nascimento").val(data.data_nascimento);
             $("#cpf").val(data.cpf);
             $("#cep").val(data.cep);
             $("#bairro").val(data.bairro);

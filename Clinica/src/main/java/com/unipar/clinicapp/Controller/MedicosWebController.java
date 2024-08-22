@@ -17,8 +17,7 @@ public class MedicosWebController {
     @Autowired
     private final MedicoService medicoService;
 
-    public MedicosWebController(MedicoService medicoService) {this.medicoService = medicoService;
-    }
+    public MedicosWebController(MedicoService medicoService) {this.medicoService = medicoService;}
 
     @PostMapping("/retornarBemVindo")
     public String retornar(){ return "redirect:/bemvindo";}

@@ -33,36 +33,6 @@ $(document).ready(function () {
     });
 });
 
-new MultiSelectTag('condicaoProblema', {
-    rounded: true,
-    placeholder: 'Search',
-    tagColor: {
-        textColor: '#000000',
-        borderColor: '#7a7a7a',
-        bgColor: '#ffffff',
-    }
-})
-
-new MultiSelectTag('condicaoCabelo', {
-    rounded: true,
-    placeholder: 'Search',
-    tagColor: {
-        textColor: '#000000',
-        borderColor: '#7a7a7a',
-        bgColor: '#ffffff',
-    }
-})
-
-new MultiSelectTag('novosFios', {
-    rounded: true,
-    placeholder: 'Search',
-    tagColor: {
-        textColor: '#000000',
-        borderColor: '#7a7a7a',
-        bgColor: '#ffffff',
-    }
-})
-
 new MultiSelectTag('couroCabeludo', {
     rounded: true,
     placeholder: 'Search',

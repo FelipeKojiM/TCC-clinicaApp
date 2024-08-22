@@ -2,7 +2,6 @@ package com.unipar.clinicapp.Service;
 
 import com.unipar.clinicapp.Model.Medico;
 import com.unipar.clinicapp.Repository.MedicoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

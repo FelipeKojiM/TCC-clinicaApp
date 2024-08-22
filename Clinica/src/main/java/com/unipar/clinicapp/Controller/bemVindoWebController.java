@@ -20,7 +20,7 @@ public class bemVindoWebController {
         return "bemVindo";
     }
 
-    @GetMapping("/procedimentos")
+    @GetMapping("/abrirProcedimentos")
     public String abrirProcedimentos(){return "procedimentos";}
 
     @PostMapping("/login")
@@ -31,7 +31,7 @@ public class bemVindoWebController {
             return "redirect:/paginaInicial";
         } else {
             model.addAttribute("erro", "Usuário ou Senha inválidos!");
-            return "login";
+            return "bemVindo";
         }
     }
 }
