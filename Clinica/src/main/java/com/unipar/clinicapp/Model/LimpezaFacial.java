@@ -16,6 +16,9 @@ public class LimpezaFacial implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @ManyToOne
+    private Paciente paciente;
+
     private String tipoLimpeza;
 
     private String produtosUtilizados;

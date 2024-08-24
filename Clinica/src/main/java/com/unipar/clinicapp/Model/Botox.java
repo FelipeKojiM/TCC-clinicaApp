@@ -27,4 +27,7 @@ public class Botox implements Serializable {
     private Integer duracaoEfeito; // em semanas ou meses
 
     private String recomendacoes;
+
+    @ManyToOne
+    private Paciente paciente;
 }
