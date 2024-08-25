@@ -52,4 +52,9 @@ public class ProcedimentoCapilarWebController {
         return "redirect:/procedimentos#capilar";
     }
 
+    @PostMapping("/procedimento/delete")
+    public String deleteProcedimento(@RequestBody ProcedimentoCapilar procedimentoCapilar) {
+        procedimentoCapilarService.delete(procedimentoCapilar.getId());
+        return "redirect:/pacientes";
+    }
 }

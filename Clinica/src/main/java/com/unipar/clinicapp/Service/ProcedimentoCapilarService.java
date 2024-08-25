@@ -21,4 +21,6 @@ public class ProcedimentoCapilarService {
     public ProcedimentoCapilar getProcedimento(Integer id) {return procedimentoCapilarRepository.getProcedimentoById(id);}
 
     public ProcedimentoCapilar update(ProcedimentoCapilar procedimentoCapilar){return this.procedimentoCapilarRepository.save(procedimentoCapilar);}
+
+    public void delete(Integer id) {procedimentoCapilarRepository.deleteById(id);}
 }

@@ -97,7 +97,6 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-
     var tabelaCapilarProc = $("#tabelaCapilarProc").DataTable({
         pageLength: 10,
         paging: true,
@@ -151,7 +150,7 @@ $(document).ready(function () {
                 url: "/procedimentos/" + pacienteId,
                 type: "GET",
                 success: function (data) {
-                    tabelaCapilarProc.clear();
+                    tabelaCapilarProc.clear(); // Clear the table before adding new data
 
                     if (Array.isArray(data) && data.length > 0) {
                         $.each(data, function (index, item) {
@@ -165,24 +164,21 @@ $(document).ready(function () {
                             }).draw();
                         });
                     } else {
-                        tabelaCapilarProc.clear().draw();
+                        tabelaCapilarProc.clear().draw(); // Clear the table if no data
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    tabelaCapilarProc.clear().draw();
+                    tabelaCapilarProc.clear().draw(); // Clear the table on error
                     console.error("Erro na requisição: ", textStatus, errorThrown);
                 }
             });
         } else {
-            tabelaCapilarProc.clear().draw();
+            tabelaCapilarProc.clear().draw(); // Clear the table if no paciente selected
         }
     });
 
     $("#formSalvarProcedimentoCapilar").on("submit", function (e) {
         e.preventDefault();
-
-        var x = $("#pacienteId").val();
-        console.log(x);
 
         var form = $(this);
         var formData = form.serialize();
@@ -208,56 +204,37 @@ $(document).ready(function () {
                             text: "Procedimento salvo com sucesso!",
                             icon: "success"
                         });
+                        // Refresh the DataTable after saving
+                        var pacienteId = $("#pacienteId").val();
+                        if (pacienteId) {
+                            $.ajax({
+                                url: "/procedimentos/" + pacienteId,
+                                type: "GET",
+                                success: function (data) {
+                                    tabelaCapilarProc.clear(); // Clear existing data
+                                    if (Array.isArray(data) && data.length > 0) {
+                                        $.each(data, function (index, item) {
+                                            tabelaCapilarProc.row.add({
+                                                id: item.id,
+                                                data: item.data,
+                                                protocoloUtilizado: item.protocoloUtilizado,
+                                                resultadoObservado: item.resultadoObservado,
+                                                acoes: '<ul class="list-inline m-0"><li class="list-inline-item"><button class="btn btn-danger btn-sm rounded-0 botaoDeletarProcedimento" type="button" title="Delete" data-id="' + item.id + '"><i class="fa fa-trash"></i></button></li>' +
+                                                    '<li class="list-inline-item"><button class="btn btn-success btn-sm rounded-0 editarProcedimento" type="button" title="Editar" data-id="' + item.id + '"><i class="fa fa-edit"></i></button></li></ul>'
+                                            }).draw();
+                                        });
+                                    } else {
+                                        tabelaCapilarProc.clear().draw();
+                                    }
+                                },
+                                error: function (jqXHR, textStatus, errorThrown) {
+                                    tabelaCapilarProc.clear().draw();
+                                    console.error("Erro na requisição: ", textStatus, errorThrown);
+                                }
+                            });
+                        }
                         setTimeout(function () {
-                            window.location.href = "/procedimentos#capilar";
-                        }, 2000);
-                    },
-                    error: function (xhr, status, error) {
-                        Swal.fire({
-                            title: "Erro!",
-                            text: "Verifique se o Paciente foi Selecionado!",
-                            icon: "error"
-                        });
-                    }
-                });
-            }
-        });
-    });
-});
-
-$(document).ready(function() {
-    $("#formSalvarProcedimentoCapilar").on("submit", function (e) {
-        e.preventDefault();
-
-        var x = $("#pacienteId").val();
-        console.log(x);
-
-        var form = $(this);
-        var formData = form.serialize();
-
-        Swal.fire({
-            title: "Tem certeza?",
-            text: "Você deseja salvar essas informações?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor:"#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Sim!",
-            cancelButtonText: "Cancelar"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: form.attr("action"),
-                    type: "POST",
-                    data: formData,
-                    success: function (response) {
-                        Swal.fire({
-                            title: "Sucesso!",
-                            text: "Procedimento salvo com sucesso!",
-                            icon: "success"
-                        });
-                        setTimeout(function () {
-                            window.location.href = "/procedimentos#capilar";
+                            $('#modalProcedimento').modal('hide'); // Assuming you have a modal with this ID
                         }, 2000);
                     },
                     error: function (xhr, status, error) {
@@ -274,7 +251,31 @@ $(document).ready(function() {
 });
 
 $(document).ready(function () {
+    // Código para mostrar e preencher o modal
+    $(document).on("click", ".editarProcedimento", function () {
+        $("#editarProcedimentoCapilar").modal("show");
 
+        var procedimentoCapilarId = $(this).data("id");
+        $("#idEditarProcedimentoCapilar").val(procedimentoCapilarId);
+
+        $.ajax({
+            url: "/procedimentoCapilar/getById",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ id: procedimentoCapilarId }),
+            success: function (data) {
+                $("#upIdPacienteProcedimento").val(data.pacienteId);
+                $("#upDataProcedimento").val(data.data);
+                $("#upProtocoloUtilizado").val(data.protocoloUtilizado);
+                $("#upResultadoObservado").val(data.resultadoObservado);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error("Erro ao buscar dados do procedimento:", textStatus, errorThrown);
+            }
+        });
+    });
+
+$(document).ready(function () {
 
     // Código para mostrar e preencher o modal
     $(document).on("click", ".editarProcedimento", function () {
@@ -365,10 +366,59 @@ $(document).ready(function () {
                 title: "Campos obrigatórios",
                 text: "Preencha todos os campos obrigatórios.",
                 icon: "warning"
-            });
-        }
+                });
+            }
+        });
     });
+});
 
+$(document).ready(function () {
+    $(document).on("click", ".botaoDeletarProcedimento", function () {
+        var idProcedimentoCapilar = $(this).data('id');
+
+        Swal.fire({
+            title: "Tem certeza?",
+            text: "Deseja realmente deletar este procedimento?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Deletar!",
+            cancelButtonText: "Cancelar",
+            customClass: {
+                confirmButton: 'btn btn-primary custom-border',
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/procedimento/delete",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ id: idProcedimentoCapilar }),
+                    success: function (response) {
+                        Swal.fire({
+                            title: "Sucesso!",
+                            text: "O Procedimento foi deletado com Sucesso.",
+                            icon: "success"
+                        }).then(() => {
+                            var table = $("#tabelaCapilarProc").DataTable();
+                            var row = table.row(function(idx, data, node) {
+                                return data.id == idProcedimentoCapilar;
+                            });
+                            row.remove().draw(false); // Remover a linha e atualizar a tabela
+                        });
+                    },
+                    error: function (xhr) {
+                        Swal.fire({
+                            title: "Erro!",
+                            text: "Ocorreu um erro ao tentar deletar o procedimento.",
+                            icon: "error"
+                        });
+                    }
+                });
+            }
+        });
+    });
 });
 
 $("#limparCampos").on("click", function(e) {
