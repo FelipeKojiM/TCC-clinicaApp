@@ -1,13 +1,12 @@
 package com.unipar.clinicapp.Controller;
-import com.unipar.clinicapp.Model.Capilar;
+import com.unipar.clinicapp.Model.FichaCapilar;
 import com.unipar.clinicapp.Model.Paciente;
-import com.unipar.clinicapp.Service.CapilarService;
+import com.unipar.clinicapp.Service.FichaCapilarService;
 import com.unipar.clinicapp.Service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,12 +14,12 @@ import java.util.List;
 @Controller
 public class CapilarWebController {
 
-    private final CapilarService capilarService;
+    private final FichaCapilarService fichaCapilarService;
     private final PacienteService pacienteService;
 
     @Autowired
-    public CapilarWebController(CapilarService capilarService, PacienteService pacienteService) {
-        this.capilarService = capilarService;
+    public CapilarWebController(FichaCapilarService fichaCapilarService, PacienteService pacienteService) {
+        this.fichaCapilarService = fichaCapilarService;
         this.pacienteService = pacienteService;
     }
 
@@ -32,8 +31,15 @@ public class CapilarWebController {
     }
 
     @PostMapping(path = "/salvarFichaCapilar")
-    public String saveCapilar(Capilar capilar) {
-        capilarService.save(capilar);
+    public String saveCapilar(FichaCapilar fichaCapilar) {
+        fichaCapilarService.save(fichaCapilar);
         return "redirect:/procedimentos";
     }
+
+    @GetMapping("/procedimento/paciente/{id}")
+    @ResponseBody
+    public FichaCapilar getFichaProcedimentoByPacienteId(@PathVariable("id") Integer id) {
+        return fichaCapilarService.getFichaProcedimentoByPacienteId(id);
+    }
+
 }

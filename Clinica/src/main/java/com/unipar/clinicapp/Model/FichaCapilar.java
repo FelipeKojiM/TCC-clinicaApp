@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Entity
 @Getter
 @Setter
-public class Capilar implements Serializable {
+public class FichaCapilar implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +24,8 @@ public class Capilar implements Serializable {
     private String tempoProblema;
 
     private String doencaExistente;
+
+    private String tricoscopia;
 
     private String medicacao;
 

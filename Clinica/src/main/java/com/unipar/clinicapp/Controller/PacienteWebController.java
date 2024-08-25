@@ -2,8 +2,6 @@ package com.unipar.clinicapp.Controller;
 
 import com.unipar.clinicapp.Model.Paciente;
 import com.unipar.clinicapp.Service.PacienteService;
-import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -54,8 +52,6 @@ public class PacienteWebController {
         pacienteService.update(paciente);
         return "redirect:/pacientes";
     }
-
-
 
 
 }

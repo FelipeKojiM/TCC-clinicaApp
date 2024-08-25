@@ -1,9 +1,7 @@
 package com.unipar.clinicapp.Service;
 
 import com.unipar.clinicapp.Model.Botox;
-import com.unipar.clinicapp.Model.Capilar;
 import com.unipar.clinicapp.Repository.BotoxRepository;
-import com.unipar.clinicapp.Repository.CapilarRepository;
 import org.springframework.stereotype.Service;
 
 @Service

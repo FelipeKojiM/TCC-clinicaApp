@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Procedimentos</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/css/multi-select-tag.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/procedimentos.css">
 </head>
 <body>
@@ -28,6 +31,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#procedimentos" data-target="#procedimentos">Procedimentos</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#botox" data-target="#botox">Botox</a>
                 </li>
@@ -55,19 +61,23 @@
     <div class="card">
         <div class="card-body">
 
+            <div id="procedimentos" class="section">
+
+            </div>
+
             <div id="botox" class="section">
                 <form th:action="@{/salvarFichaBotox}" method="post">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-md-12">
                             <h2>Botox</h2>
                         </div>
-                        <div class="col-6">
+                        <div class="col-md-6">
                             <p>Ficha de aplicação de Botox.</p>
                         </div>
-                        <div class="col-6 d-flex justify-content-end">
+                        <div class="col-md-6 d-flex justify-content-end">
                             <button type="submit" class="btn btn-outline-dark">Salvar Ficha</button>
                         </div>
-                        <div class="col-12">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label>Paciente</label>
                                 <select class="form-control w-25"  name="paciente" placeholder="Digite o nome do Paciente" required>
@@ -98,8 +108,6 @@
                                     <option value="Linhas do Sorriso">Linhas do Sorriso</option>
                                     <option value="Mandíbula ">Mandíbula </option>
                                     <option value="Axilas ">Axilas </option>
-
-
                                 </select>
                             </div>
                         </div>
@@ -140,186 +148,242 @@
 
 
             <div id="capilar" class="section">
-                <form th:action="@{/salvarFichaCapilar}" method="post">
-                    <div class="row">
-                        <div class="col-12">
-                            <h2>Capilar</h2>
-                        </div>
-                        <div class="col-6">
-                            <p>Anamnese capilar.</p>
-                        </div>
-                        <div class="col-6 d-flex justify-content-end">
-                            <button type="submit" class="btn btn-outline-dark">Salvar Ficha</button>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label>Paciente</label>
-                                <select class="form-control w-25" id="paciente" name="paciente" placeholder="Digite o nome do Paciente" required>
-                                    <option value="">Selecione o Paciente</option>
-                                    <option th:each="paciente : ${pacientes}"
-                                            th:value="${paciente.id}"
-                                            th:text="${paciente.nome}"></option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="queixaPrincipal">Queixa Principal</label>
-                                <textarea id="queixaPrincipal" name="queixaPrincipal" class="form-control textarea-expand" rows="1" required></textarea>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="tempoProblema">Quanto tempo o problema existe?</label>
-                                <textarea id="tempoProblema" name="tempoProblema" class="form-control textarea-expand" rows="1" required></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="doencaExistente">Doenças pré-existentes?</label>
-                                <textarea id="doencaExistente" name="doencaExistente" class="form-control textarea-expand" rows="1" required></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="medicacao">Usa medicação?</label>
-                                <textarea id="medicacao" name="medicacao" class="form-control textarea-expand" rows="1" required></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="condicaoProblema">O problema está?</label>
-                                <select class="form-control" id="condicaoProblema" name="condicaoProblema" required>
-                                    <option value="">Selecione uma Opção</option>
-                                    <option value="Estável">Estável</option>
-                                    <option value="Aumentando">Aumentando</option>
-                                    <option value="Aumentando Muito">Aumentando Muito</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="condicaoCabelo">Condição do Cabelo?</label>
-                                <select class="form-control" id="condicaoCabelo" name="condicaoCabelo" required>
-                                    <option value="">Selecione uma Opção</option>
-                                    <option value="Mais fino">Mais fino</option>
-                                    <option value="Mais crespo">Mais crespo</option>
-                                    <option value="Mudou coloração">Mudou coloração</option>
-                                    <option value="Quebradiço">Quebradiço</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="form-group">
-                                <label>Couro cabeludo</label>
-                                <div class="col-12" style="padding: 0px">
-                                    <select class="form-group" id="couroCabeludo" name="couroCabeludo" multiple>
-                                        <option value="1">Dor</option>
-                                        <option value="2">Coceira</option>
-                                        <option value="3">Inflamação</option>
-                                        <option value="4">Feridas</option>
-                                        <option value="5">Caspa</option>
-                                        <option value="6">Oleosidade</option>
-                                        <option value="7">Odor</option>
-                                        <option value="8">Descamação</option>
-                                        <option value="9">Alta Sensibilidade</option>
-                                    </select>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="formSalvarFichaCapilar" th:action="@{/salvarFichaCapilar}" method="post">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h2>Capilar</h2>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>Anamnese Capilar</p>
+                                </div>
+                                <div class="col-md-6 d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-outline-dark">Salvar Ficha</button>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Paciente</label>
+                                        <select class="form-control w-25" id="paciente" name="paciente" placeholder="Digite o nome do Paciente" required>
+                                            <option value="">Selecione o Paciente</option>
+                                            <option th:each="paciente : ${pacientes}"
+                                                    th:value="${paciente.id}"
+                                                    th:text="${paciente.nome}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="queixaPrincipal">Queixa Principal</label>
+                                        <textarea id="queixaPrincipal" name="queixaPrincipal" class="form-control textarea-expand" rows="1" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="tempoProblema">Tempo que o problema existe?</label>
+                                        <textarea id="tempoProblema" name="tempoProblema" class="form-control textarea-expand" rows="1" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="doencaExistente">Doenças pré-existentes?</label>
+                                        <textarea id="doencaExistente" name="doencaExistente" class="form-control textarea-expand" rows="1" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="medicacao">Usa medicação?</label>
+                                        <textarea id="medicacao" name="medicacao" class="form-control textarea-expand" rows="1" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Tricoscopia</label>
+                                        <textarea id="tricoscopia" name="tricoscopia" class="form-control textarea-expand" rows="1" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="condicaoProblema">O problema está?</label>
+                                        <select class="form-control" id="condicaoProblema" name="condicaoProblema" required>
+                                            <option value="">Selecione uma Opção</option>
+                                            <option value="Estável">Estável</option>
+                                            <option value="Aumentando">Aumentando</option>
+                                            <option value="Aumentando Muito">Aumentando Muito</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="condicaoCabelo">Condição do Cabelo?</label>
+                                        <select class="form-control" id="condicaoCabelo" name="condicaoCabelo" required>
+                                            <option value="">Selecione uma Opção</option>
+                                            <option value="Mais fino">Mais fino</option>
+                                            <option value="Mais crespo">Mais crespo</option>
+                                            <option value="Mudou coloração">Mudou coloração</option>
+                                            <option value="Quebradiço">Quebradiço</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Couro cabeludo</label>
+                                        <div class="col-md-12" style="padding: 0px">
+                                            <select class="form-control select2" id="couroCabeludo" name="couroCabeludo" multiple="multiple">
+                                                <option value="1">Dor</option>
+                                                <option value="2">Coceira</option>
+                                                <option value="3">Inflamação</option>
+                                                <option value="4">Feridas</option>
+                                                <option value="5">Caspa</option>
+                                                <option value="6">Oleosidade</option>
+                                                <option value="7">Odor</option>
+                                                <option value="8">Descamação</option>
+                                                <option value="9">Alta Sensibilidade</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="novosFios">Nota a presença de novos Fios?</label>
+                                        <select class="form-control" id="novosFios" name="novosFios" required>
+                                            <option value="">Selecione uma Opção</option>
+                                            <option value="Sim">Sim</option>
+                                            <option value="Não">Não</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="tratamentoAnterior">Tratamento anterior?</label>
+                                        <select class="form-control" id="tratamentoAnterior" name="tratamentoAnterior" required>
+                                            <option value="">Selecione uma Opção</option>
+                                            <option value="Sim">Sim</option>
+                                            <option value="Não">Não</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="suplemento">Usa suplementação?</label>
+                                        <select class="form-control" id="suplemento" name="suplemento" required>
+                                            <option value="">Selecione uma Opção</option>
+                                            <option value="Sim">Sim</option>
+                                            <option value="Não">Não</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="contraceptivo">Método contraceptivo?</label>
+                                        <select class="form-control" id="contraceptivo" name="contraceptivo" required>
+                                            <option value="">Selecione uma Opção</option>
+                                            <option value="Sim">Sim</option>
+                                            <option value="Não">Não</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="alimentacao">Alimentação?</label>
+                                        <select class="form-control" id="alimentacao" name="alimentacao" required>
+                                            <option value="">Selecione uma Opção</option>
+                                            <option value="Ruim">Ruim</option>
+                                            <option value="Média">Média</option>
+                                            <option value="Boa">Boa</option>
+                                            <option value="Saudável">Saudável</option>
+                                            <option value="Dieta Regrada">Dieta Regrada</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="atividadeFisica">Atividade Fisica?</label>
+                                        <select class="form-control" id="atividadeFisica" name="atividadeFisica" required>
+                                            <option value="">Selecione uma Opção</option>
+                                            <option value="1x por Semana">1x por Semana</option>
+                                            <option value="2x por Semana">2x por Semana</option>
+                                            <option value="3x por Semana">3x por Semana</option>
+                                            <option value="4x por Semana">4x ou mais por Semana</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="sono">Sono?</label>
+                                        <select class="form-control" id="sono" name="sono" required>
+                                            <option value="">Selecione uma Opção</option>
+                                            <option value="Ruim">Ruim</option>
+                                            <option value="Médio">Médio</option>
+                                            <option value="Bom">Bom</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="estresse">Estresse?</label>
+                                        <select class="form-control" id="estresse" name="estresse" required>
+                                            <option value="">Selecione uma Opção</option>
+                                            <option value="Baixo">Baixo</option>
+                                            <option value="Médio">Médio</option>
+                                            <option value="Alto">Alto</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 d-flex justify-content-end" style="margin-top: 16px">
+                                    <button id="limparCampos" type="submit" class="btn btn-secondary">Limpar</button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="novosFios">Nota a presença de novos Fios?</label>
-                                <select class="form-control" id="novosFios" name="novosFios" required>
-                                    <option value="">Selecione uma Opção</option>
-                                    <option value="Sim">Sim</option>
-                                    <option value="Não">Não</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="tratamentoAnterior">Tratamento anterior?</label>
-                                <select class="form-control" id="tratamentoAnterior" name="tratamentoAnterior" required>
-                                    <option value="">Selecione uma Opção</option>
-                                    <option value="Sim">Sim</option>
-                                    <option value="Não">Não</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="suplemento">Usa suplementação?</label>
-                                <select class="form-control" id="suplemento" name="suplemento" required>
-                                    <option value="">Selecione uma Opção</option>
-                                    <option value="Sim">Sim</option>
-                                    <option value="Não">Não</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="contraceptivo">Método contraceptivo?</label>
-                                <select class="form-control" id="contraceptivo" name="contraceptivo" required>
-                                    <option value="">Selecione uma Opção</option>
-                                    <option value="Sim">Sim</option>
-                                    <option value="Não">Não</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="alimentacao">Alimentação?</label>
-                                <select class="form-control" id="alimentacao" name="alimentacao" required>
-                                    <option value="">Selecione uma Opção</option>
-                                    <option value="Ruim">Ruim</option>
-                                    <option value="Média">Média</option>
-                                    <option value="Boa">Boa</option>
-                                    <option value="Saudável">Saudável</option>
-                                    <option value="Dieta Regrada">Dieta Regrada</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="atividadeFisica">Atividade Fisica?</label>
-                                <select class="form-control" id="atividadeFisica" name="atividadeFisica" required>
-                                    <option value="">Selecione uma Opção</option>
-                                    <option value="1x por Semana">1x por Semana</option>
-                                    <option value="2x por Semana">2x por Semana</option>
-                                    <option value="3x por Semana">3x por Semana</option>
-                                    <option value="4x por Semana">4x ou mais por Semana</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="sono">Sono?</label>
-                                <select class="form-control" id="sono" name="sono" required>
-                                    <option value="">Selecione uma Opção</option>
-                                    <option value="Ruim">Ruim</option>
-                                    <option value="Médio">Médio</option>
-                                    <option value="Bom">Bom</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="estresse">Estresse?</label>
-                                <select class="form-control" id="estresse" name="estresse" required>
-                                    <option value="">Selecione uma Opção</option>
-                                    <option value="Baixo">Baixo</option>
-                                    <option value="Médio">Médio</option>
-                                    <option value="Alto">Alto</option>
-                                </select>
-                            </div>
-                        </div>
+                        </form>
                     </div>
-                </form>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="formSalvarProcedimentoCapilar" th:action="@{/procedimentoCapilar/salvar}" method="post">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h2>Tratamento</h2>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="protocoloUtilizado">Protocolo Utilizado</label>
+                                        <textarea id="protocoloUtilizado" name="protocoloUtilizado" class="form-control textarea-expand" rows="1" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="resultadoObservado">Resultado Observado</label>
+                                        <textarea id="resultadoObservado" name="resultadoObservado" class="form-control textarea-expand" rows="1" required></textarea>
+                                    </div>
+                                </div>
+                                <input id="pacienteId" name="pacienteId" class="hidden">
+                                <div class="col-md-12 d-flex justify-content-end" style="margin-top: 16px">
+                                    <button id="salvarProcedimentoCapilar" type="submit" class="btn btn-secondary" >Salvar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="tabelaCapilarProc" class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Data</th>
+                                <th>Protocolo Utilizado</th>
+                                <th>Resultado Observado</th>
+                                <th>Ações</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
             </div>
-
-
-
 
             <div id="limpezaFacial" class="section">
                 <h2>Limpeza Facial</h2>
@@ -327,7 +391,7 @@
 
                 <form th:action="@{/salvarFichaLimpezaFacial}" method="post">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label>Paciente</label>
                                 <select class="form-control w-25" name="paciente" placeholder="Selecione o Paciente" required>
@@ -388,7 +452,7 @@
                                 <textarea id="resultadoEsperado" name="resultadoEsperado" class="form-control textarea-expand" rows="2" required></textarea>
                             </div>
                         </div>
-                        <div class="col-12 d-flex justify-content-end">
+                        <div class="col-md-12 d-flex justify-content-end">
                             <button type="submit" class="btn btn-outline-dark">Salvar Ficha</button>
                         </div>
                     </div>
@@ -409,10 +473,55 @@
     </div>
 </div>
 
+<div class="modal fade" id="editarProcedimentoCapilar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <label class="modal-title">Editar Tratamento</label>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="protocoloUtilizado">Protocolo Utilizado</label>
+                            <input type="text" class="form-control" id="upProtocoloUtilizado" placeholder="protocoloUtilizado" name="nome"/>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="resultadoObservado">Resultado Observado</label>
+                            <input type="text" class="form-control" id="upResultadoObservado" placeholder="resultadoObservado" name="telefone"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="d-grid gap-12 d-md-flex justify-content-md-end">
+                    <input id="idEditarProcedimentoCapilar" class="hidden">
+                    <input id="upIdPacienteProcedimento" class="hidden">
+                    <input id="upDataProcedimento" class="hidden">
+                    <button id="botaoEditarProcedimentoCapilar" type="submit" class="btn btn-success">Salvar</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" style="margin-left: 8px">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.1.4/js/dataTables.bootstrap4.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/js/multi-select-tag.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/static/js/procedimentos.js"></script>
+<script src="/static/js/capilarProcedimentos.js"></script>
+
 </body>
 </html>

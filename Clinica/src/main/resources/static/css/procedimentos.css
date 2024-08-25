@@ -72,17 +72,40 @@ body {
 }
 
 .section {
-    display: none; /* Esconde todas as seções por padrão */
+    display: none;
     padding: 30px 0;
 }
 
 .section.active {
-    display: block; /* Exibe a seção ativa */
+    display: block;
 }
 
 .textarea-expand {
     width: 100%;
-    min-height: 50px; /* Altura mínima do textarea */
+    min-height: 50px;
     box-sizing: border-box;
-    overflow: hidden; /* Oculta barras de rolagem */
+    overflow: hidden;
+}
+
+.select2-container--default .select2-selection--multiple {
+    height: auto;
+    min-height: 38px;
+    padding: 5px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    padding: 0;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    margin: 2px;
+}
+
+button{
+    margin-bottom: 16px;
+}
+
+.pagination{
+    display: flex;
+    justify-content: flex-end;
 }

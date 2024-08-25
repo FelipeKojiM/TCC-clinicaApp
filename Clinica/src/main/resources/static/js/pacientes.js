@@ -1,4 +1,4 @@
-$('#tabelaPacientes').DataTable({
+$("#tabelaPacientes").DataTable({
     pageLength: 10,
     paging: true,
     responsive: true,
@@ -26,13 +26,12 @@ $('#tabelaPacientes').DataTable({
         if (numRecords <= 10) {
             $('#tabelaPacientes').css('height', 'auto');
         } else {
-            $('#tabelaPacientes').css('height', '400px'); 
+            $('#tabelaPacientes').css('height', '400px');
         }
     }
 });
 
-$(".editarPaciente").on("click", function (){
-
+$(".editarPaciente").on("click", function () {
     var pacienteId = $(this).data('id');
     $("#idPacienteEditar").val(pacienteId);
 
@@ -61,7 +60,7 @@ $(".editarPaciente").on("click", function (){
     $("#botaoEditarPaciente").removeClass("hidden", true);
 });
 
-$("#buttonCadastrarPacientes").on("click", function (){
+$("#buttonModalPacientes").on("click", function () {
     $("#cadastrarPacientes").modal("show");
     $("#tituloModalPaciente").html("Cadastrar Paciente");
     $("#botaoEditarPaciente").addClass("hidden", true);
@@ -78,8 +77,7 @@ $("#buttonCadastrarPacientes").on("click", function (){
     $("#email").val("");
 });
 
-$("#botaoCadastrarPaciente").on("click", function(){
-
+$("#botaoCadastrarPaciente").on("click", function () {
     var nome            = $("#nome").val();
     var telefone        = $("#telefone").val();
     var data_nascimento = $("#data_nascimento").val();
@@ -90,31 +88,26 @@ $("#botaoCadastrarPaciente").on("click", function(){
     var numero          = $("#numero").val();
     var email           = $("#email").val();
 
-    if(nome !== "" && telefone !== "" && data_nascimento !== "" && cpf !== "" && cep !== "" && email !== ""){
-        $.post("/pacientes/save", {nome:nome,telefone:telefone,data_nascimento:data_nascimento,cpf:cpf,cep:cep,bairro:bairro,logradouro:logradouro,numero:numero,email:email},function(data){
-
-            $("#cadastrarPacientes").modal("hide");
-            $(".alertModalLabel").text("Sucesso!");
-            $(".alertModalMsg").text("Paciente salvo com Sucesso");
-            $("#alertModalBtn").addClass("btn-success");
-            $("#alertModal").modal("show");
-
-            setTimeout(function(){
+    if (nome !== "" && telefone !== "" && data_nascimento !== "" && cpf !== "" && cep !== "" && email !== "") {
+        $.post("/pacientes/save", { nome: nome, telefone: telefone, data_nascimento: data_nascimento, cpf: cpf, cep: cep, bairro: bairro, logradouro: logradouro, numero: numero, email: email }, function (data) {
+            Swal.fire({
+                title: "Sucesso!",
+                text: "Paciente salvo com sucesso.",
+                icon: "success"
+            }).then(() => {
                 window.location.href = '/pacientes';
-            }, 2000);
+            });
         });
-    }else{
-        $(".alertModalLabel").text("Erro!");
-        $(".alertModalMsg").text("Informe todas as Opções");
-        $("#alertModalConfirmDelete").addClass("hidden");
-        $("#alertModalBtn").addClass("btn-secondary");
-        $("#alertModal").modal("show");
+    } else {
+        Swal.fire({
+            title: "Erro!",
+            text: "Informe todas as opções.",
+            icon: "error"
+        });
     }
-
 });
 
-$("#botaoEditarPaciente").on("click", function(){
-
+$("#botaoEditarPaciente").on("click", function () {
     var pacienteId      = $("#idPacienteEditar").val();
     var nome            = $("#nome").val();
     var telefone        = $("#telefone").val();
@@ -126,86 +119,110 @@ $("#botaoEditarPaciente").on("click", function(){
     var numero          = $("#numero").val();
     var email           = $("#email").val();
 
-    if(nome !== "" && telefone !== "" && data_nascimento !== "" && cpf !== "" && cep !== "" && email !== ""){
-        $.ajax({
-            type: "POST",
-            url: "/pacientes/" + pacienteId,
-            data: {nome:nome,telefone:telefone,data_nascimento:data_nascimento,cpf:cpf,cep:cep,bairro:bairro,logradouro:logradouro,numero:numero,email:email},
-            success: function(data){
-                $("#cadastrarPacientes").modal("hide");
-                $(".alertModalLabel").text("Sucesso!");
-                $(".alertModalMsg").text("Paciente atualizado com Sucesso");
-                $("#alertModalBtn").addClass("btn-success");
-                $("#alertModal").modal("show");
-
-                setTimeout(function(){
-                    window.location.href = '/pacientes';
-                }, 2000);
+    if (nome !== "" && telefone !== "" && data_nascimento !== "" && cpf !== "" && cep !== "" && email !== "") {
+        Swal.fire({
+            title: "Tem certeza?",
+            text: "Deseja realmente editar as informações do paciente?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sim!",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "/pacientes/" + pacienteId,
+                    data: {
+                        nome: nome,
+                        telefone: telefone,
+                        data_nascimento: data_nascimento,
+                        cpf: cpf,
+                        cep: cep,
+                        bairro: bairro,
+                        logradouro: logradouro,
+                        numero: numero,
+                        email: email
+                    },
+                    success: function (data) {
+                        Swal.fire({
+                            title: "Sucesso!",
+                            text: "As informações do paciente foram atualizadas.",
+                            icon: "success"
+                        }).then(() => {
+                            window.location.href = '/pacientes';
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire({
+                            title: "Erro!",
+                            text: "Ocorreu um erro ao tentar editar as informações do paciente.",
+                            icon: "error"
+                        });
+                    }
+                });
             }
         });
-    }else{
-        $(".alertModalLabel").text("Erro!");
-        $(".alertModalMsg").text("Informe todas as Opções");
-        $("#alertModalConfirmDelete").addClass("hidden");
-        $("#alertModalBtn").addClass("btn-secondary");
-        $("#alertModal").modal("show");
+    } else {
+        Swal.fire({
+            title: "Campos obrigatórios",
+            text: "Preencha todos os campos obrigatórios.",
+            icon: "warning"
+        });
     }
 });
 
-$('.botaoDeletarPaciente').on('click', function() {
-
+$('.botaoDeletarPaciente').on('click', function () {
     var pacienteId = $(this).data('id');
 
-    $("#idPacienteDeletar").val(pacienteId);
-    $(".alertModalLabel").text("Sucesso!");
-    $(".alertModalMsg").text("Deseja deletar esse Paciente?");
-    $("#alertModalBtn").addClass("btn-secondary");
-    $("#alertModalConfirmDelete").removeClass("hidden");
-    $("#alertModal").modal("show");
-
-});
-
-$("#alertModalConfirmDelete").on("click", function (){
-
-    var pacienteId = $("#idPacienteDeletar").val();
-    console.log(pacienteId);
-
-    $.ajax({
-        url: "/pacientes/delete",
-        type: "POST",
-        contentType: "application/json",
-        data: JSON.stringify({ id: pacienteId }),
-        success: function(data) {
-            $(".alertModalLabel").text("Sucesso!");
-            $(".alertModalMsg").text("Paciente deletado com sucesso");
-            $("#alertModalBtn").removeClass("btn-danger").addClass("btn-success");
-            $("#alertModalConfirmDelete").addClass("hidden");
-            $("#alertModal").modal("show");
-
-            setTimeout(function() {
-                window.location.href = '/pacientes';
-            }, 1000);
-        },
-
-        error: function(xhr) {
-            $("#cadastrarPacientes").modal("hide");
-            $(".alertModalLabel").text("Erro!");
-            $(".alertModalMsg").text("Cliente com Procedimento Pendente!");
-            $("#alertModalConfirmDelete").addClass("hidden");
-            $("#alertModalBtn").addClass("btn-secondary");
-            $("#alertModal").modal("show");
+    Swal.fire({
+        title: "Tem certeza?",
+        text: "Deseja realmente deletar este paciente?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Deletar!",
+        cancelButtonText: "Cancelar",
+        customClass: {
+            confirmButton: 'btn btn-primary custom-border',
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "/pacientes/delete",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ id: pacienteId }),
+                success: function (data) {
+                    Swal.fire({
+                        title: "Sucesso!",
+                        text: "Paciente deletado com sucesso.",
+                        icon: "success"
+                    }).then(() => {
+                        window.location.href = '/pacientes';
+                    });
+                },
+                error: function (xhr) {
+                    Swal.fire({
+                        title: "Erro!",
+                        text: "Ocorreu um erro ao tentar deletar o paciente.",
+                        icon: "error"
+                    });
+                }
+            });
         }
     });
 });
 
-$('.botaoMostrarPaciente').on('click', function() {
-
+$('.botaoMostrarPaciente').on('click', function () {
     var pacienteId = $(this).data('id');
 
     $.ajax({
         url: "/api/pacientes/" + pacienteId,
         type: "GET",
-        success: function(data) {
+        success: function (data) {
             $("#nome").val(data.nome);
             $("#telefone").val(data.telefone);
             $("#data_nascimento").val(data.data_nascimento);
