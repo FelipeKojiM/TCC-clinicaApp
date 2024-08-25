@@ -143,7 +143,7 @@ $(document).ready(function () {
 
     $("#paciente").change(function () {
         var pacienteId = $(this).val();
-        $("#pacienteId").val(pacienteId);
+        $("#pacienteIdFicha").val(pacienteId);
 
         if (pacienteId) {
             $.ajax({
@@ -204,7 +204,6 @@ $(document).ready(function () {
                             text: "Procedimento salvo com sucesso!",
                             icon: "success"
                         });
-                        // Refresh the DataTable after saving
                         var pacienteId = $("#pacienteId").val();
                         if (pacienteId) {
                             $.ajax({

@@ -157,8 +157,8 @@
                                     <p>Anamnese Capilar</p>
                                 </div>
                                 <div class="col-md-6 d-flex justify-content-end">
-                                    <input type="hidden" id="fichaId" name="fichaId" value="">
-                                    <input type="hidden" id="pacienteId" name="pacienteId" value="">
+                                    <input type="hidden" id="fichaId" name="fichaId" class="hidden">
+                                    <input type="hidden" id="pacienteIdFicha" name="pacienteIdFicha">
                                     <button type="submit" class="btn btn-outline-dark">Salvar Ficha</button>
                                 </div>
                                 <div class="col-md-12">
@@ -356,7 +356,7 @@
                                         <textarea id="resultadoObservado" name="resultadoObservado" class="form-control textarea-expand" rows="1" required></textarea>
                                     </div>
                                 </div>
-                                <input id="pacienteId" name="pacienteId" class="hidden">
+                                <input type="hidden" id="pacienteId" name="pacienteId" class="hidden">
                                 <div class="col-md-12 d-flex justify-content-end" style="margin-top: 16px">
                                     <button id="salvarProcedimentoCapilar" type="submit" class="btn btn-secondary" >Salvar</button>
                                 </div>
@@ -500,9 +500,9 @@
             </div>
             <div class="modal-footer">
                 <div class="d-grid gap-12 d-md-flex justify-content-md-end">
-                    <input id="idEditarProcedimentoCapilar" class="hidden">
-                    <input id="upIdPacienteProcedimento" class="hidden">
-                    <input id="upDataProcedimento" class="hidden">
+                    <input type="hidden" id="idEditarProcedimentoCapilar" class="hidden">
+                    <input type="hidden" id="upIdPacienteProcedimento" class="hidden">
+                    <input type="hidden" id="upDataProcedimento" class="hidden">
                     <button id="botaoEditarProcedimentoCapilar" type="submit" class="btn btn-success">Salvar</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal" style="margin-left: 8px">Cancelar</button>
                 </div>
@@ -518,7 +518,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/js/multi-select-tag.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/static/js/procedimentos.js"></script>
 <script src="/static/js/capilarProcedimentos.js"></script>
