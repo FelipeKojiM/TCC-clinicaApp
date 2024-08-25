@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Entity
 @Getter
 @Setter
+@Table(name = "ficha_capilar", uniqueConstraints = @UniqueConstraint(columnNames = "paciente_id"))
 public class FichaCapilar implements Serializable {
 
     @Id

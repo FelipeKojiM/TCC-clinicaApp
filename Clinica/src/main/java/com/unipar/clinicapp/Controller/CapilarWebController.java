@@ -24,17 +24,22 @@ public class CapilarWebController {
     }
 
     @GetMapping("/procedimentos")
-    public String showProcedimentosPage(Model model) {
+    public String retornaPacientes(Model model) {
         List<Paciente> pacientes = pacienteService.getAll();
         model.addAttribute("pacientes", pacientes);
         return "procedimentos";
     }
 
-    @PostMapping(path = "/salvarFichaCapilar")
+    @PostMapping("/salvarFichaCapilar")
     public String saveCapilar(FichaCapilar fichaCapilar) {
-        fichaCapilarService.save(fichaCapilar);
-        return "redirect:/procedimentos";
+        if (fichaCapilar.getPaciente() == null) {
+            fichaCapilarService.save(fichaCapilar);
+        } else {
+            fichaCapilarService.update(fichaCapilar);
+        }
+        return "redirect:/procedimentos#capilar";
     }
+
 
     @GetMapping("/procedimento/paciente/{id}")
     @ResponseBody

@@ -50,11 +50,8 @@ $(document).ready(function() {
             }
         });
     });
-});
 
-$(document).ready(function () {
     $("#paciente").change(function () {
-
         var pacienteId = $(this).val();
         $("#pacienteId").val(pacienteId);
 
@@ -85,6 +82,8 @@ $(document).ready(function () {
                         $("#sono").val(data.sono);
                         $("#estresse").val(data.estresse);
 
+                        // Adicionar o ID da ficha no formulário para identificar a atualização
+                        $("#fichaId").val(data.fichaId || ""); // Defina um campo escondido para o ID da ficha
                     } else {
                         limparCampos();
                     }
@@ -95,6 +94,7 @@ $(document).ready(function () {
         }
     });
 });
+
 
 $(document).ready(function () {
     var tabelaCapilarProc = $("#tabelaCapilarProc").DataTable({

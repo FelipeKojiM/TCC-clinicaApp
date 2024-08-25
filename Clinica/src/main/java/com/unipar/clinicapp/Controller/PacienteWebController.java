@@ -48,7 +48,7 @@ public class PacienteWebController {
     }
 
     @PostMapping(path = "/pacientes/{id}")
-    public String updatePaciente(@PathVariable Long id, Paciente paciente) {
+    public String updatePaciente(Paciente paciente) {
         pacienteService.update(paciente);
         return "redirect:/pacientes";
     }
