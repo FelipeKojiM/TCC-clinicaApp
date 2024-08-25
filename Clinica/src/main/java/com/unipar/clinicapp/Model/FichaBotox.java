@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Entity
 @Getter
 @Setter
-public class Botox implements Serializable {
+public class FichaBotox implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -19,7 +19,7 @@ public class ProcedimentoCapilarWebController {
         this.procedimentoCapilarService = procedimentoCapilarService;
     }
 
-    @GetMapping("/procedimentos/{pacienteId}")
+    @GetMapping("/procedimentosCapilar/{pacienteId}")
     @ResponseBody
     public List<ProcedimentoCapilar> getProcedimentosByPaciente(@PathVariable("pacienteId") Integer pacienteId) {
         return procedimentoCapilarService.findByPacienteId(pacienteId);

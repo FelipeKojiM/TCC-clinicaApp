@@ -208,7 +208,7 @@ $(document).ready(function () {
                         var pacienteId = $("#pacienteId").val();
                         if (pacienteId) {
                             $.ajax({
-                                url: "/procedimentos/" + pacienteId,
+                                url: "/procedimentosCapilar/" + pacienteId,
                                 type: "GET",
                                 success: function (data) {
                                     tabelaCapilarProc.clear(); // Clear existing data

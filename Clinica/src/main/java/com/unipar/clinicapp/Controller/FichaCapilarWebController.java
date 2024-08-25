@@ -12,13 +12,13 @@ import java.util.List;
 
 
 @Controller
-public class CapilarWebController {
+public class FichaCapilarWebController {
 
     private final FichaCapilarService fichaCapilarService;
     private final PacienteService pacienteService;
 
     @Autowired
-    public CapilarWebController(FichaCapilarService fichaCapilarService, PacienteService pacienteService) {
+    public FichaCapilarWebController(FichaCapilarService fichaCapilarService, PacienteService pacienteService) {
         this.fichaCapilarService = fichaCapilarService;
         this.pacienteService = pacienteService;
     }

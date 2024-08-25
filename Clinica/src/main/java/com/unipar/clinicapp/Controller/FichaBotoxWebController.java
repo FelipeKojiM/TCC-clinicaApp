@@ -1,8 +1,8 @@
 package com.unipar.clinicapp.Controller;
 
-import com.unipar.clinicapp.Model.Botox;
+import com.unipar.clinicapp.Model.FichaBotox;
 import com.unipar.clinicapp.Model.Paciente;
-import com.unipar.clinicapp.Service.BotoxService;
+import com.unipar.clinicapp.Service.FichaBotoxService;
 import com.unipar.clinicapp.Service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 @Controller
-public class BotoxWebController {
+public class FichaBotoxWebController {
 
-    private final BotoxService botoxService;
+    private final FichaBotoxService botoxService;
     private final PacienteService pacienteService;
 
     @Autowired
-    public BotoxWebController(BotoxService botoxService, PacienteService pacienteService) {
+    public FichaBotoxWebController(FichaBotoxService botoxService, PacienteService pacienteService) {
         this.botoxService = botoxService;
         this.pacienteService = pacienteService;
     }
@@ -31,7 +31,7 @@ public class BotoxWebController {
     }
 
     @PostMapping(path = "/salvarFichaBotox")
-    public String saveBotox(Botox botox) {
+    public String saveBotox(FichaBotox botox) {
         botoxService.save(botox);
         return "redirect:/procedimentos";
     }

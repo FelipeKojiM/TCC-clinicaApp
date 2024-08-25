@@ -48,7 +48,7 @@
                     <a class="nav-link" href="#dengue" data-target="#dengue">Dengue</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#dentista" data-target="#dentista">Dentista</a>
+                    <a class="nav-link" href="#Hiperidrose" data-target="#Hiperidrose">Hiperidrose</a>
                 </li>
             </ul>
         </div>
@@ -143,9 +143,69 @@
                     </div>
                 </form>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form id="formSalvarProcedimentoBotox" action="/procedimentoBotox/salvar" method="post">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2>Tratamento</h2>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Paciente</label>
+                                    <select class="form-control w-25" name="pacienteId" required>
+                                        <option value="">Selecione o Paciente</option>
+                                        <option th:each="paciente : ${pacientes}"
+                                                th:value="${paciente.id}"
+                                                th:text="${paciente.nome}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="protocoloUtilizado">Protocolo Utilizado</label>
+                                    <textarea name="protocoloUtilizado" class="form-control textarea-expand" rows="1" required></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="resultadoObservado">Resultado Observado</label>
+                                    <textarea name="resultadoObservado" class="form-control textarea-expand" rows="1" required></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12 d-flex justify-content-end" style="margin-top: 16px">
+                                <button id="salvarProcedimentoBotox" type="submit" class="btn btn-secondary">Salvar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="container-fluid d-flex flex-column min-vh-100">
+                    <div class="row flex-grow-1">
+                        <div class="col-md-12 d-flex flex-column">
+                            <table id="tabelaBotoxProc" class="table table-striped table-bordered flex-fill">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Data</th>
+                                    <th>Protocolo Utilizado</th>
+                                    <th>Resultado Observado</th>
+                                    <th>Ações</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                                <tfoot>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
 
-            <div id="capilar" class="section">
+
+
+                <div id="capilar" class="section">
                 <div class="row">
                     <div class="col-md-12">
                         <form id="formSalvarFichaCapilar" th:action="@{/salvarFichaCapilar}" method="post">
@@ -366,7 +426,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <table id="tabelaCapilarProc" class="table table-striped table-bordered">
+                        <table name="tabelaBotoxProc" class="table table-striped table-bordered">
                             <thead>
                             <tr>
                                 <th>Id</th>
@@ -377,10 +437,10 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <!-- As linhas serão inseridas aqui -->
                             </tbody>
-                            <tfoot>
-                            </tfoot>
                         </table>
+
                     </div>
                 </div>
             </div>
@@ -465,9 +525,66 @@
                 <p>Descrição sobre o procedimento relacionado à dengue.</p>
             </div>
 
-            <div id="dentista" class="section">
-                <h2>Dentista</h2>
-                <p>Descrição sobre os procedimentos dentários.</p>
+            <div id="hiperidrose" class="section">
+                <h2>Hiperidrose</h2>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="formSalvarProcedimentoHiperidrose" action="/procedimentoHiperidrose/salvar" method="post">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h2>Tratamento</h2>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Paciente</label>
+                                        <select class="form-control w-25" name="pacienteId" required>
+                                            <option value="">Selecione o Paciente</option>
+                                            <option th:each="paciente : ${pacientes}"
+                                                    th:value="${paciente.id}"
+                                                    th:text="${paciente.nome}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="protocoloUtilizado">Protocolo Utilizado</label>
+                                        <textarea name="protocoloUtilizado" class="form-control textarea-expand" rows="1" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="resultadoObservado">Resultado Observado</label>
+                                        <textarea name="resultadoObservado" class="form-control textarea-expand" rows="1" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 d-flex justify-content-end" style="margin-top: 16px">
+                                    <button id="salvarProcedimentoHiperidrose" type="submit" class="btn btn-secondary">Salvar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="container-fluid d-flex flex-column min-vh-100">
+                        <div class="row flex-grow-1">
+                            <div class="col-md-12 d-flex flex-column">
+                                <table id="tabelaHiperidroseProc" class="table table-striped table-bordered flex-fill">
+                                    <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Data</th>
+                                        <th>Protocolo Utilizado</th>
+                                        <th>Resultado Observado</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                    <tfoot>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>
@@ -522,6 +639,8 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/static/js/procedimentos.js"></script>
 <script src="/static/js/capilarProcedimentos.js"></script>
+<script src="/static/js/botoxProcedimentos.js"></script>
+<script src="/static/js/hiperidroseProcedimentos.js"></script>
 
 </body>
 </html>

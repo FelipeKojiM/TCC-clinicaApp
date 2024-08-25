@@ -1,6 +1,5 @@
 package com.unipar.clinicapp.Service;
 
-import com.unipar.clinicapp.Model.Paciente;
 import com.unipar.clinicapp.Model.ProcedimentoCapilar;
 import com.unipar.clinicapp.Repository.ProcedimentoCapilarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
