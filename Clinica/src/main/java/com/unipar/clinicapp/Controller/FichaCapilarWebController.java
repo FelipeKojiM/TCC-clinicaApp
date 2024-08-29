@@ -41,7 +41,7 @@ public class FichaCapilarWebController {
     }
 
 
-    @GetMapping("/procedimento/paciente/{id}")
+    @GetMapping("/getFichaCapilarById/{id}")
     @ResponseBody
     public FichaCapilar getFichaProcedimentoByPacienteId(@PathVariable("id") Integer id) {
         return fichaCapilarService.getFichaProcedimentoByPacienteId(id);

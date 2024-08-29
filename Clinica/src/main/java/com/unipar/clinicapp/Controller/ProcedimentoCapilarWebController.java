@@ -1,10 +1,8 @@
 package com.unipar.clinicapp.Controller;
 
-import com.unipar.clinicapp.Model.Paciente;
 import com.unipar.clinicapp.Model.ProcedimentoCapilar;
 import com.unipar.clinicapp.Service.ProcedimentoCapilarService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -19,13 +17,13 @@ public class ProcedimentoCapilarWebController {
         this.procedimentoCapilarService = procedimentoCapilarService;
     }
 
-    @GetMapping("/procedimentosCapilar/{pacienteId}")
+    @GetMapping("/listProcedimentosCapilarById/{pacienteId}")
     @ResponseBody
     public List<ProcedimentoCapilar> getProcedimentosByPaciente(@PathVariable("pacienteId") Integer pacienteId) {
         return procedimentoCapilarService.findByPacienteId(pacienteId);
     }
 
-    @PostMapping("/procedimentoCapilar/salvar")
+    @PostMapping("/salvarProcedimentoCapilar")
     public String salvarProcedimento(@RequestParam("pacienteId") Integer pacienteId,
                                      @RequestParam("protocoloUtilizado") String protocoloUtilizado,
                                      @RequestParam("resultadoObservado") String resultadoObservado) {
@@ -40,19 +38,19 @@ public class ProcedimentoCapilarWebController {
         return "redirect:/procedimentos";
     }
 
-    @PostMapping("/procedimentoCapilar/getById")
+    @PostMapping("/getProcedimentoCapilarById")
     @ResponseBody
     public ProcedimentoCapilar getId(@RequestBody ProcedimentoCapilar procedimentoCapilar) {
         return procedimentoCapilarService.getProcedimento(procedimentoCapilar.getId());
     }
 
-    @PostMapping("/procedimentoCapilar/{id}")
+    @PostMapping("/editarProcedimentoCapilar/{id}")
     public String updateProcedimentoCapilar(ProcedimentoCapilar procedimentoCapilar) {
         procedimentoCapilarService.update(procedimentoCapilar);
         return "redirect:/procedimentos#capilar";
     }
 
-    @PostMapping("/procedimento/delete")
+    @PostMapping("/deleteProcedimentoCapilar")
     public String deleteProcedimento(@RequestBody ProcedimentoCapilar procedimentoCapilar) {
         procedimentoCapilarService.delete(procedimentoCapilar.getId());
         return "redirect:/pacientes";

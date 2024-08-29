@@ -25,7 +25,7 @@ public class ProcedimentoBotoxWebController {
         return procedimentoBotoxService.findByPacienteId(pacienteId);
     }
 
-    @PostMapping("/salvar")
+    @PostMapping("/procedimentoBotox/salvar")
     public String salvarProcedimento(@RequestParam("pacienteId") Integer pacienteId,
                                      @RequestParam("protocoloUtilizado") String protocoloUtilizado,
                                      @RequestParam("resultadoObservado") String resultadoObservado) {
@@ -40,19 +40,19 @@ public class ProcedimentoBotoxWebController {
         return "redirect:/procedimentos";
     }
 
-    @PostMapping("/procedimentoBotox/getById")
+    @PostMapping("/getProcedimentoBotoxById")
     @ResponseBody
     public ProcedimentoBotox getId(@RequestBody ProcedimentoBotox procedimentoBotox) {
         return procedimentoBotoxService.getProcedimento(procedimentoBotox.getId());
     }
 
-    @PostMapping("/procedimentoBotox/{id}")
+    @PostMapping("/editarProcedimentoBotox/{id}")
     public String updateProcedimentoBotox(@RequestBody ProcedimentoBotox procedimentoBotox) {
         procedimentoBotoxService.update(procedimentoBotox);
         return "redirect:/procedimentos#botox";
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/deleteProcedimentoBotox")
     public String deleteProcedimento(@RequestBody ProcedimentoBotox procedimentoBotox) {
         procedimentoBotoxService.delete(procedimentoBotox.getId());
         return "redirect:/pacientes";

@@ -19,7 +19,7 @@ public class ProcedimentoHiperidroseWebController {
         this.procedimentoHiperidroseService = procedimentoHiperidroseService;
     }
 
-    @GetMapping("/procedimentos/{pacienteId}")
+    @GetMapping("/getProcedimentoHiperhidroseById/{pacienteId}")
     @ResponseBody
     public List<ProcedimentoHiperidrose> getProcedimentosByPaciente(@PathVariable("pacienteId") Integer pacienteId) {
         return procedimentoHiperidroseService.findByPacienteId(pacienteId);
@@ -40,20 +40,20 @@ public class ProcedimentoHiperidroseWebController {
         return "redirect:/procedimentos";
     }
 
-    @PostMapping("/procedimentoHiperidrose/getById")
+    @PostMapping("/getProcedimentoHiperhidroseById")
     @ResponseBody
     public ProcedimentoHiperidrose getId(@RequestParam Integer id) {
         return procedimentoHiperidroseService.getProcedimento(id);
     }
 
 
-    @PostMapping("/procedimentoHiperidrose/{id}")
+    @PostMapping("/editarProcedimentoHiperhidrose/{id}")
     public String updateProcedimentoHiperidrose(@RequestBody ProcedimentoHiperidrose procedimentoHiperidrose) {
         procedimentoHiperidroseService.update(procedimentoHiperidrose);
         return "redirect:/procedimentos#hiperidrose";
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/deleteProcedimentoHiperhidrose")
     public String deleteProcedimento(@RequestBody ProcedimentoHiperidrose procedimentoHiperidrose) {
         procedimentoHiperidroseService.delete(procedimentoHiperidrose.getId());
         return "redirect:/pacientes";
