@@ -12,22 +12,16 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
-public class ProcedimentoBotox {
+public class HistoricoVinculoBotox {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer idVinculoProcedimento;
+    private Integer vinculoProcedimentoBotox;
 
-    private Integer pacienteId;
+    private LocalDate dataProcedimento;
 
-    private LocalDate data;
-
-    private String corUtilizada;
-
-    private String quantidadeBotox;
-
-    private String observacoesBotox;
+    private String areaAplicada;
 
 }

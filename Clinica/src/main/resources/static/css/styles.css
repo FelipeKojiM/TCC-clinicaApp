@@ -1,0 +1,47 @@
+#canvasContainer {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    height: 650px; /* Ajuste conforme necessário */
+    position: relative; /* Necessário para posicionamento absoluto dos canvases */
+}
+
+#fotoCanvas,
+#desenhoCanvas {
+    border: 1px solid #000;
+    cursor: crosshair;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#paletaCores {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.cor {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #000;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.cor:hover {
+    border: 2px solid #333;
+}
+
+#usarBorracha {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+#formularioSalvarProcedimentoBotox {
+    display: none;
+}
+

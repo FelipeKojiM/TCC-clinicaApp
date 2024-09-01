@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="/static/css/procedimentos.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
 <div class="sidebar">
@@ -64,148 +65,116 @@
             </div>
 
             <div id="botox" class="section">
-                <form id="formSalvarFichaBotox" th:action="@{/salvarFichaBotox}" method="post">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Botox</h2>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Ficha de aplicação de Botox.</p>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-end">
+                        <button id="iniciarProcedimentoBotox" class="btn btn-outline-dark">Iniciar Procedimento</button>
+                    </div>
+                    <div class="col-md-6" style="margin-bottom: 40px">
+                        <label>Paciente</label>
+                        <select class="form-control w-25" id="pacienteBotox">
+                            <option value="">Selecione o Paciente</option>
+                            <option th:each="paciente : ${pacientes}"
+                                    th:value="${paciente.id}"
+                                    th:text="${paciente.nome}"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-6" style="margin-bottom: 40px">
+                        <label>Paciente</label>
+                        <select class="form-control w-25" id="areaAplicada">
+                            <option value="">Selecione a área Aplicada</option>
+                            <option value="area1">area1</option>
+                        </select>
+                    </div>
+                </div>
+                <form id="formSalvarProcedimentoBotox" th:action="@{/procedimentoBotox/salvar}" method="post">
+                    <div id="formularioSalvarProcedimentoBotox">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <div id="canvasContainer">
+                                        <canvas id="fotoCanvas" width="500" height="600"></canvas>
+                                        <canvas id="desenhoCanvas" width="500" height="600"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="corUtilizada">Cor Utilizada</label>
+                                            <select id="corUtilizada" name="corUtilizada" class="form-control" required>
+                                                <option value="">Selecione uma Cor</option>
+                                                <option value="Vermelho">Vermelho</option>
+                                                <option value="Verde">Verde</option>
+                                                <option value="Azul">Azul</option>
+                                                <option value="Rosa">Rosa</option>
+                                                <option value="Ciano">Ciano</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Quantidade Utilizada</label>
+                                            <textarea id="quantidadeBotox" class="form-control textarea-expand" rows="1"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Anotações sobre aplicação</label>
+                                            <textarea id="observacoesBotoxAplicacao" class="form-control textarea-expand" rows="1"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div id="paletaCores">
+                                            <div class="cor" style="background-color: #FF0000;" data-cor="#FF0000"></div>
+                                            <div class="cor" style="background-color: #83ff00;" data-cor="#00FF00"></div>
+                                            <div class="cor" style="background-color: #0000FF;" data-cor="#0000FF"></div>
+                                            <div class="cor" style="background-color: #FF00FF;" data-cor="#FF00FF"></div>
+                                            <div class="cor" style="background-color: #00FFFF;" data-cor="#00FFFF"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <button id="usarBorracha" class="btn btn-secondary">Usar Borracha</button>
+                                            </div>
+                                            <div class="col-md-6 d-flex justify-content-end">
+                                                <button id="adicionarProcedimentoBotox" type="button" class="btn btn-secondary">Adicionar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 d-flex justify-content-end" style="margin-top: 8px">
+                                <input type="hidden" id="pacienteIdProcedimentoBotox" name="pacienteId">
+                                <button id="salvarProcedimentosBotox" type="submit" class="btn btn-secondary">Salvar Procedimento</button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <h2>Botox</h2>
-                        </div>
-                        <div class="col-md-6">
-                            <p>Ficha de aplicação de Botox.</p>
-                        </div>
-                        <div class="col-md-6 d-flex justify-content-end">
-                            <input type="hidden" id="fichaBotoxId" name="fichaBotoxId" class="hidden">
-                            <input type="hidden" id="pacienteIdBotox" name="pacienteIdBotox">
-                            <button type="submit" class="btn btn-outline-dark">Salvar Ficha</button>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Paciente</label>
-                                <select class="form-control w-25"  name="paciente" placeholder="Digite o nome do Paciente" required>
-                                    <option value="">Selecione o Paciente</option>
-                                    <option th:each="paciente : ${pacientes}"
-                                            th:value="${paciente.id}"
-                                            th:text="${paciente.nome}"></option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="quantidadeUnidades">Quantidade de Unidades</label>
-                                <input type="number" id="quantidadeUnidades" name="quantidadeUnidades" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="areaAplicacao">Área de Aplicação</label>
-                                <select class="form-control" id="areaAplicacao" name="areaAplicacao" required>
-                                    <option value="">Selecione uma Opção</option>
-                                    <option value="Testa">Testa</option>
-                                    <option value="Entre as Sombrancelhas">Entre as Sombrancelhas</option>
-                                    <option value="Linhas ao Redor dos Olhos">Linhas ao Redor dos Olhos</option>
-                                    <option value="Sobrancelhas">Sobrancelhas</option>
-                                    <option value="Linhas ao Redor da Boca">Linhas ao Redor da Boca</option>
-                                    <option value="Pescoço">Pescoço</option>
-                                    <option value="Linhas do Sorriso">Linhas do Sorriso</option>
-                                    <option value="Mandíbula ">Mandíbula </option>
-                                    <option value="Axilas ">Axilas </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="tipoBotox">Tipo de Botox</label>
-                                <select class="form-control" id="tipoBotox" name="tipoBotox" required>
-                                    <option value="">Selecione uma Opção</option>
-                                    <option value="Botox® (OnabotulinumtoxinA)">Botox® (OnabotulinumtoxinA)</option>
-                                    <option value="Dysport® (AbobotulinumtoxinA)">Dysport® (AbobotulinumtoxinA)</option>
-                                    <option value="Xeomin® (IncobotulinumtoxinA)">Xeomin® (IncobotulinumtoxinA)</option>
-                                    <option value="Jeuveau® (PrabotulinumtoxinA-xvfs)">Jeuveau® (PrabotulinumtoxinA-xvfs)</option>
-                                    <option value="Botox de Uso Médico">Botox de Uso Médico</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="dataAplicacao">Data de Aplicação</label>
-                                <input type="date" id="dataAplicacao" name="dataAplicacao" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="duracaoEfeito">Duração do Efeito (em semanas)</label>
-                                <input type="number" id="duracaoEfeito" name="duracaoEfeito" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="recomendacoes">Recomendações</label>
-                                <textarea id="recomendacoes" name="recomendacoes" class="form-control textarea-expand" rows="2" required></textarea>
-                            </div>
+                            <table name="tabelaBotoxDuranteProc" id="tabelaBotoxDuranteProc" class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Data</th>
+                                    <th>Cor</th>
+                                    <th>Quantidade</th>
+                                    <th>Observações</th>
+                                    <th>Ações</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </form>
-                <div class="row">
-                    <div class="col-md-12">
-                        <form id="formSalvarProcedimentoBotox" th:action="@{/procedimentoBotox/salvar}" method="post">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h2>Tratamento</h2>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Paciente</label>
-                                        <select class="form-control w-25" name="pacienteId" required>
-                                            <option value="">Selecione o Paciente</option>
-                                            <option th:each="paciente : ${pacientes}"
-                                                    th:value="${paciente.id}"
-                                                    th:text="${paciente.nome}"></option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="protocoloUtilizado">Protocolo Utilizado</label>
-                                        <textarea name="protocoloUtilizado" class="form-control textarea-expand" rows="1" required></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="resultadoObservado">Resultado Observado</label>
-                                        <textarea name="resultadoObservado" class="form-control textarea-expand" rows="1" required></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 d-flex justify-content-end" style="margin-top: 16px">
-                                    <button id="salvarProcedimentoBotox" type="submit" class="btn btn-secondary">Salvar</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="container-fluid d-flex flex-column min-vh-100">
-                        <div class="row flex-grow-1">
-                            <div class="col-md-12 d-flex flex-column">
-                                <table id="tabelaBotoxProc" class="table table-striped table-bordered flex-fill">
-                                    <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Data</th>
-                                        <th>Protocolo Utilizado</th>
-                                        <th>Resultado Observado</th>
-                                        <th>Ações</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                    <tfoot>
-                                    </tfoot>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
-                <div id="capilar" class="section">
+            <div id="capilar" class="section">
                 <div class="row">
                     <div class="col-md-12">
                         <form id="formSalvarFichaCapilar" th:action="@{/salvarFichaCapilar}" method="post">
@@ -639,6 +608,7 @@
 <script src="/static/js/capilarProcedimentos.js"></script>
 <script src="/static/js/botoxProcedimentos.js"></script>
 <script src="/static/js/hiperidroseProcedimentos.js"></script>
+<script src="/static/js/script.js"></script>
 
 </body>
 </html>

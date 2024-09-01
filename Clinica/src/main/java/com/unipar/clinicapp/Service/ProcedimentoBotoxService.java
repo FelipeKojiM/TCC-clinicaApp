@@ -6,13 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ProcedimentoBotoxService {
 
     @Autowired
     ProcedimentoBotoxRepository procedimentoBotoxRepository;
 
-    public void save(ProcedimentoBotox procedimentoBotox) {procedimentoBotoxRepository.save(procedimentoBotox);}
+    public void salvar(ProcedimentoBotox procedimento) {procedimentoBotoxRepository.save(procedimento);}
 
     public List<ProcedimentoBotox> findByPacienteId(Integer pacienteId) {return procedimentoBotoxRepository.findByPacienteId(pacienteId);}
 
@@ -21,4 +23,8 @@ public class ProcedimentoBotoxService {
     public ProcedimentoBotox update(ProcedimentoBotox procedimentoBotox){return this.procedimentoBotoxRepository.save(procedimentoBotox);}
 
     public void delete(Integer id) {procedimentoBotoxRepository.deleteById(id);}
+
+    public Integer obterUltimoIdProcedimento() {return procedimentoBotoxRepository.findMaxId();}
+
+    public List<Object[]> listarVinculosAgrupados() {return procedimentoBotoxRepository.findByVinculosProcedimento();}
 }
