@@ -6,6 +6,8 @@ import com.unipar.clinicapp.Repository.HistoricoVinculoBotoxRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class HistoricoVinculoBotoxService {
 
@@ -17,5 +19,7 @@ public class HistoricoVinculoBotoxService {
     }
 
     public void save(HistoricoVinculoBotox historicoVinculoBotox) {historicoVinculoBotoxRepository.save(historicoVinculoBotox);}
+
+    public List<HistoricoVinculoBotox> findByPacienteId(Integer pacienteId) {return historicoVinculoBotoxRepository.findByPacienteId(pacienteId);}
 
 }

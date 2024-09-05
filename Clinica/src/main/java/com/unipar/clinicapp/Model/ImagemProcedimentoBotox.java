@@ -4,12 +4,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Entity
 @Getter
 @Setter
-public class ProcedimentoBotox {
+public class ImagemProcedimentoBotox {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,13 +15,5 @@ public class ProcedimentoBotox {
 
     private Integer idVinculoProcedimento;
 
-    private Integer pacienteId;
-
-    private LocalDate data;
-
-    private String corUtilizada;
-
-    private String quantidadeBotox;
-
-    private String observacoesBotox;
+    private byte[] imagem;
 }

@@ -69,11 +69,8 @@
                     <div class="col-md-12">
                         <h2>Botox</h2>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <p>Ficha de aplicação de Botox.</p>
-                    </div>
-                    <div class="col-md-6 d-flex justify-content-end">
-                        <button id="iniciarProcedimentoBotox" class="btn btn-outline-dark">Iniciar Procedimento</button>
                     </div>
                     <div class="col-md-6" style="margin-bottom: 40px">
                         <label>Paciente</label>
@@ -84,12 +81,8 @@
                                     th:text="${paciente.nome}"></option>
                         </select>
                     </div>
-                    <div class="col-md-6" style="margin-bottom: 40px">
-                        <label>Paciente</label>
-                        <select class="form-control w-25" id="areaAplicada">
-                            <option value="">Selecione a área Aplicada</option>
-                            <option value="area1">area1</option>
-                        </select>
+                    <div class="col-md-6 d-flex w-25 h-50 justify-content-end" style="margin-top: 22px">
+                        <button id="iniciarProcedimentoBotox" class="btn btn-outline-dark">Iniciar Procedimento</button>
                     </div>
                 </div>
                 <form id="formSalvarProcedimentoBotox" th:action="@{/procedimentoBotox/salvar}" method="post">
@@ -105,6 +98,14 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="col-md-12">
+                                    <div class="col-md-12" style="margin-bottom: 16px">
+                                        <label>Área de Aplicação</label>
+                                        <select class="form-control" id="areaAplicada">
+                                            <option value="">Selecione a área Aplicada</option>
+                                            <option value="tercoSuperior">Terço Superior</option>
+                                            <option value="regiao">Por Região</option>
+                                        </select>
+                                    </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="corUtilizada">Cor Utilizada</label>
@@ -133,36 +134,41 @@
                                             <div class="cor" style="background-color: #0000FF;" data-cor="#0000FF"></div>
                                             <div class="cor" style="background-color: #FF00FF;" data-cor="#FF00FF"></div>
                                             <div class="cor" style="background-color: #00FFFF;" data-cor="#00FFFF"></div>
+                                            <a id="usarBorracha" class="btn btn-dark" style="padding: 5px 10px 5px 10px; margin-top: 0px" ><i class="fa fa-eraser" aria-hidden="true"></i></a>
                                         </div>
+                                    </div>
+                                    <div class="col-md-12 w-10 d-flex justify-content-end">
+                                        <button id="adicionarProcedimentoBotox" type="button" class="btn btn-success"><i class="fa fa-plus"></i></button>
                                     </div>
                                     <div class="col-md-12">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <button id="usarBorracha" class="btn btn-secondary">Usar Borracha</button>
-                                            </div>
-                                            <div class="col-md-6 d-flex justify-content-end">
-                                                <button id="adicionarProcedimentoBotox" type="button" class="btn btn-secondary">Adicionar</button>
-                                            </div>
-                                        </div>
+                                        <table name="tabelaDuranteProcBotox" id="tabelaDuranteProcBotox" class="table table-striped table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>Cor Utilizada</th>
+                                                <th>Quantidade</th>
+                                                <th>Observações</th>
+                                                <th>Ações</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-12 d-flex justify-content-end" style="margin-top: 8px">
+                                        <input type="hidden" id="pacienteIdProcedimentoBotox" name="pacienteId">
+                                        <button id="salvarProcedimentosBotox" type="submit" class="btn btn-success">Salvar Procedimento</button>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6 d-flex justify-content-end" style="margin-top: 8px">
-                                <input type="hidden" id="pacienteIdProcedimentoBotox" name="pacienteId">
-                                <button id="salvarProcedimentosBotox" type="submit" class="btn btn-secondary">Salvar Procedimento</button>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
-                            <table name="tabelaBotoxDuranteProc" id="tabelaBotoxDuranteProc" class="table table-striped table-bordered">
+                        <div class="col-md-12" style="margin-top: 60px">
+                            <table name="tabelaHistoricoBotox" id="tabelaHistoricoBotox" class="table table-striped table-bordered">
                                 <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>Área aplicada</th>
                                     <th>Data</th>
-                                    <th>Cor</th>
-                                    <th>Quantidade</th>
-                                    <th>Observações</th>
                                     <th>Ações</th>
                                 </tr>
                                 </thead>
@@ -388,7 +394,7 @@
                                 <div class="col-md-12 d-flex justify-content-end" style="margin-top: 16px">
                                     <input type="hidden" id="procedimentoCapilarId" name="procedimentoCapilarId">
                                     <input type="hidden" id="pacienteIdProcedimentoCapilar" name="pacienteId">
-                                    <button id="salvarProcedimentoCapilar" type="submit" class="btn btn-secondary" >Salvar</button>
+                                    <button id="salvarProcedimentoCapilar" type="submit" class="btn btn-success" >Salvar</button>
                                 </div>
                             </div>
                         </form>
@@ -558,6 +564,47 @@
     </div>
 </div>
 
+<div class="modal fade" id="visualizarProcedimentoBotox" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <label class="modal-title" id="modalTitleHistoricoBotox"></label>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               <div class="row">
+                   <div class="col-md-6">
+                       <div class="image-container">
+                           <img src="/static/images/rostoExemplo.jpg" width="500" height="600" alt="Imagem Original">
+                           <img id="imagemExibida" alt="Imagem Procedimento">
+                       </div>
+                   </div>
+                    <div class="col-md-6">
+                        <table name="tabelaHistoricoPacienteBotox" id="tabelaHistoricoPacienteBotox" class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Cor Utilizada</th>
+                                <th>Quantidade Aplicada</th>
+                                <th>Observações</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="d-grid gap-12 d-md-flex justify-content-md-end">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="editarProcedimentoCapilar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -595,7 +642,6 @@
         </div>
     </div>
 </div>
-
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>

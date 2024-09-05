@@ -8,4 +8,5 @@ import java.util.List;
 public class ProcedimentoBotoxRequest {
     private Integer pacienteId;
     private List<ProcedimentoBotox> procedimentos;
+    private String imagemBase64;
 }

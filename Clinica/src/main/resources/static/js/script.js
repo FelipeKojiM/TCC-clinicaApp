@@ -84,51 +84,22 @@ $(document).ready(function() {
         desenhando = false;
     });
 
-    // // Enviar a imagem desenhada e os dados da tabela para o backend
-    // $('#salvarImagem').click(function() {
-    //     const formData = new FormData();
-    //     const dataURL = desenhoCanvas.toDataURL('image/png'); // Converte o canvas de desenho para uma URL de dados
-    //
-    //     // Converter a URL de dados em Blob
-    //     const blobBin = atob(dataURL.split(',')[1]);
-    //     const array = [];
-    //     for (let i = 0; i < blobBin.length; i++) {
-    //         array.push(blobBin.charCodeAt(i));
-    //     }
-    //     const file = new Blob([new Uint8Array(array)], { type: 'image/png' });
-    //
-    //     formData.append('imagem', file, 'imagem.png');
-    //
-    //     // Capturar os dados da tabela
-    //     const procedimentos = [];
-    //     tabelaBotoxDuranteProc.rows().every(function() {
-    //         const data = this.data();
-    //         procedimentos.push({
-    //             id: data.id,
-    //             data: data.data,
-    //             corUtilizada: data.cor,
-    //             quantidadeBotox: data.quantidadeBotox,
-    //             observacoesBotox: data.observacaoBotox
-    //         });
-    //     });
-    //
-    //     formData.append('procedimentos', JSON.stringify(procedimentos));
-    //
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: '/api/salvar-imagem', // Ajuste a URL para a rota correta no seu controlador Spring Boot
-    //         data: formData,
-    //         processData: false,
-    //         contentType: false,
-    //         success: function(response) {
-    //             alert('Imagem e procedimentos salvos com sucesso!');
-    //         },
-    //         error: function(error) {
-    //             alert('Erro ao salvar a imagem e os procedimentos.');
-    //             console.error(error);
-    //         }
-    //     });
-    // });
+    function capturarImagem() {
+        // Combinar os dois canvas (foto e desenho) em uma única imagem
+        const canvasContainer = document.createElement('canvas');
+        const contextContainer = canvasContainer.getContext('2d');
+
+        canvasContainer.width = fotoCanvas.width;
+        canvasContainer.height = fotoCanvas.height;
+
+        // Desenhar a imagem e o desenho no novo canvas
+        contextContainer.drawImage(fotoCanvas, 0, 0);
+        contextContainer.drawImage(desenhoCanvas, 0, 0);
+
+        // Capturar a imagem como string Base64
+        const imagemBase64 = canvasContainer.toDataURL('image/png');
+        return imagemBase64;
+    }
 
     $(document).on("click", "#iniciarProcedimentoBotox", function (){
         $('#formularioSalvarProcedimentoBotox').toggle();
@@ -140,8 +111,8 @@ $(document).ready(function() {
         }
     });
 
-    // Inicializa o DataTable
-    var tabelaBotoxDuranteProc = $("#tabelaBotoxDuranteProc").DataTable({
+    // dataTable historico por paciente
+    var tabelaHistoricoBotox = $("#tabelaHistoricoBotox").DataTable({
         pageLength: 10,
         paging: true,
         lengthChange: false,
@@ -159,20 +130,68 @@ $(document).ready(function() {
             '<"row"<"col-sm-12"tr>>' +
             '<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6 text-md-right"p>>',
         columns: [
-            { data: 'id' },
-            { data: 'data' },
-            { data: 'corUtilizada' },
-            { data: 'quantidadeBotox' },
-            { data: 'observacaoBotox' },
+            { data: 'areaAplicada' },
+            { data: 'dataProcedimento' },
             { data: 'acoes', orderable: false }
         ],
         columnDefs: [
             { width: "20%", targets: 0, className: "text-left" },
             { width: "20%", targets: 1, className: "text-left" },
             { width: "20%", targets: 2, className: "text-left" },
-            { width: "20%", targets: 3, className: "text-left" },
-            { width: "20%", targets: 4, className: "text-left" },
-            { width: "5%",  targets: 5, className: "text-left" }
+        ],
+    });
+
+    // datatable aplicacoes por vinculo/paciente
+    var tabelaHistoricoPacienteBotox = $("#tabelaHistoricoPacienteBotox").DataTable({
+        pageLength: 10,
+        paging: true,
+        lengthChange: false,
+        searching: true,
+        ordering: true,
+        info: true,
+        language: {
+            search: "Buscar:",
+            lengthMenu: "Mostrar _MENU_ registros por página",
+            info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            infoEmpty: "Nenhum registro disponível",
+            infoFiltered: "(filtrado de _MAX_ registros no total)",
+        },
+        dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 text-md-right"f>>' +
+            '<"row"<"col-sm-12"tr>>' +
+            '<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6 text-md-right"p>>',
+        columns: [
+            { data: 'corUtilizada' },
+            { data: 'quantidadeBotox' },
+            { data: 'observacoesBotox' },
+        ],
+        columnDefs: [
+            { width: "20%", targets: 0, className: "text-left" },
+            { width: "20%", targets: 1, className: "text-left" },
+            { width: "20%", targets: 2, className: "text-left" },
+        ],
+    });
+
+    // datatable aplicacoes por vinculo/paciente
+    var tabelaDuranteProcBotox = $("#tabelaDuranteProcBotox").DataTable({
+        pageLength: 10,
+        paging: true,
+        lengthChange: false,
+        language: {
+            infoEmpty: "",
+        },
+        dom: '<"row"<"col-sm-12"tr>>' + // Remove a parte do filtro e da paginação
+            '<"row"<"col-sm-12"i>>',  // Mostra apenas as informações
+        columns: [
+            { data: 'corUtilizada' },
+            { data: 'quantidadeBotox' },
+            { data: 'observacoesBotox' },
+            { data: 'acoes' },
+        ],
+        columnDefs: [
+            { width: "25%", targets: 0, className: "text-left" },
+            { width: "25%", targets: 1, className: "text-left" },
+            { width: "25%", targets: 2, className: "text-left" },
+            { width: "25%", targets: 3, className: "text-left" },
         ],
     });
 
@@ -182,32 +201,75 @@ $(document).ready(function() {
 
         if (pacienteId) {
             $.ajax({
-                url: "/procedimentoBotox/listProcedimentosBotoxById/" + pacienteId,
+                url: "/listHistoricoBotoxById/" + pacienteId,
                 type: "GET",
                 success: function (data) {
-                    tabelaBotoxDuranteProc.clear(); // Clear the table before adding new data
+                    tabelaHistoricoBotox.clear(); // Clear the table before adding new data
                     if (Array.isArray(data) && data.length > 0) {
                         $.each(data, function (index, item) {
-                            tabelaBotoxDuranteProc.row.add({
-                                id: item.id,
-                                data: item.data,
-                                corUtilizada: item.corUtilizada,
-                                quantidadeBotox: item.quantidadeBotox,
-                                observacaoBotox: item.observacoesBotox, // Adjust field name as needed
-                                acoes: '<ul class="list-inline m-0"><li class="list-inline-item"><button class="btn btn-danger btn-sm rounded-0 botaoDeletarProcedimento" type="button" title="Delete" data-id="' + item.id + '"><i class="fa fa-trash"></i></button></li>'
+                            tabelaHistoricoBotox.row.add({
+                                areaAplicada: item.areaAplicada,
+                                dataProcedimento: item.dataProcedimento,
+                                acoes: '<ul class="list-inline m-0"><li class="list-inline-item"><button class="btn btn-outline-success btn-sm rounded-0 botaoVisualizarProcedimento" type="button" title="Visualizar" data-vinculoprocedimentobotox="' + item.vinculoProcedimentoBotox + '"><i class="fa fa-address-card-o"></i></button></li>'
                             }).draw();
                         });
                     } else {
-                        tabelaBotoxDuranteProc.clear().draw();
+                        tabelaHistoricoBotox.clear().draw();
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    tabelaBotoxDuranteProc.clear().draw();
+                    tabelaHistoricoBotox.clear().draw();
                     console.error("Erro na requisição: ", textStatus, errorThrown);
                 }
             });
         } else {
-            tabelaBotoxDuranteProc.clear().draw();
+            tabelaHistoricoBotox.clear().draw();
+        }
+    });
+
+    $(document).on("click", ".botaoVisualizarProcedimento", function (){
+        var idVinculoProcedimento = $(this).data("vinculoprocedimentobotox");
+        $("#visualizarProcedimentoBotox").modal("show");
+
+        if (idVinculoProcedimento) {
+            $.ajax({
+                url: "/procedimentoBotox/listProcedimentosBotoxByVinculoId/" + idVinculoProcedimento,
+                type: "GET",
+                success: function (data) {
+                    tabelaHistoricoPacienteBotox.clear();
+                    if (Array.isArray(data) && data.length > 0) {
+                        $.each(data, function (index, item) {
+                            tabelaHistoricoPacienteBotox.row.add({
+                                corUtilizada: item.corUtilizada,
+                                quantidadeBotox: item.quantidadeBotox,
+                                observacoesBotox: item.observacoesBotox,
+                            }).draw();
+                        });
+                    } else {
+                        tabelaHistoricoPacienteBotox.clear().draw();
+                    }
+                },
+            });
+
+            // Retorno da Imagem pelo id do vinculo
+            $.ajax({
+                url: '/procedimentoBotox/visualizar/' + idVinculoProcedimento,
+                method: 'GET',
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function(response) {
+                    if (response.size > 0) {
+                        var url = URL.createObjectURL(response);
+                        $('#imagemExibida').attr('src', url).show();
+                    } else {
+                        console.error('Nenhuma imagem retornada.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Erro ao carregar a imagem:', error);
+                }
+            });
         }
     });
 
@@ -221,18 +283,17 @@ $(document).ready(function() {
         var cor         = $("#corUtilizada").val();
         var quantidade  = $("#quantidadeBotox").val();
         var observacoes = $("#observacoesBotoxAplicacao").val();
-        var data = formatDate(new Date());
+        var idCounter = 1;
 
         // Verifica se os campos estão preenchidos
         if (cor && quantidade && observacoes) {
             // Adicionar dados à tabela
-            tabelaBotoxDuranteProc.row.add({
-                id: null,
-                data: data,
+            tabelaDuranteProcBotox.row.add({
+                id: idCounter++,
                 corUtilizada: cor,
                 quantidadeBotox: quantidade,
-                observacaoBotox: observacoes,
-                acoes: '<ul class="list-inline m-0"><li class="list-inline-item"><button class="btn btn-danger btn-sm rounded-0 botaoDeletarProcedimento" type="button" title="Delete"><i class="fa fa-trash"></i></button></li>'
+                observacoesBotox: observacoes,
+                acoes: '<ul class="list-inline m-0"><li class="list-inline-item"><button class="btn btn-danger btn-sm rounded-0 botaoDeletarProcedimentoBotox" type="button" title="Delete"><i class="fa fa-trash"></i></button></li>'
             }).draw();
 
             // Adiciona o procedimento à lista
@@ -256,14 +317,14 @@ $(document).ready(function() {
     });
 
     // Adicionar funcionalidade para excluir linhas da tabela
-    $('#tabelaBotoxDuranteProc tbody').on('click', '.botaoDeletarProcedimento', function () {
-        var rowIndex = tabelaBotoxDuranteProc.row($(this).parents('tr')).index();
+    $('#tabelaDuranteProcBotox tbody').on('click', '.botaoDeletarProcedimentoBotox', function () {
+        var rowIndex = tabelaDuranteProcBotox.row($(this).parents('tr')).index();
 
         // Remove o procedimento da lista
         listaProcedimentos.splice(rowIndex, 1);
 
         // Remove a linha da tabela
-        tabelaBotoxDuranteProc.row($(this).parents('tr')).remove().draw();
+        tabelaDuranteProcBotox.row($(this).parents('tr')).remove().draw();
     });
 
     // Salva novos procedimentos do paciente
@@ -277,19 +338,25 @@ $(document).ready(function() {
                 title: "Erro!",
                 text: "Selecione um paciente!",
                 icon: "error"
-            })
+            });
+            return; // Impede a execução do restante do código se o paciente não estiver selecionado
         }
 
         var areaAplicada = $("#areaAplicada").val();
-        if(areaAplicada){
+        if (areaAplicada) {
             $.ajax({
                 type: "POST",
                 url: "/procedimentoBotox/salvarHistoricoBotox",
                 data: {
-                    areaAplicada: areaAplicada
+                    areaAplicada: areaAplicada,
+                    pacienteId: pacienteId
                 },
             });
         }
+
+        // Captura a imagem desenhada no canvas
+        var desenhoCanvas = document.getElementById("desenhoCanvas");
+        var imagemBase64 = desenhoCanvas.toDataURL(); // Converte o canvas para Base64
 
         $.ajax({
             type: "POST",
@@ -297,7 +364,8 @@ $(document).ready(function() {
             contentType: "application/json",
             data: JSON.stringify({
                 pacienteId: pacienteId,
-                procedimentos: listaProcedimentos
+                procedimentos: listaProcedimentos,
+                imagemBase64: imagemBase64 // Adiciona a imagem ao payload da requisição
             }),
             success: function(response) {
                 Swal.fire({
@@ -305,6 +373,7 @@ $(document).ready(function() {
                     text: "Procedimento salvo com sucesso!",
                     icon: "success"
                 }).then(() => {
+                    location.reload();
                 });
             },
             error: function(response) {
@@ -312,6 +381,7 @@ $(document).ready(function() {
             }
         });
     });
+
 });
 
 function formatDate(date) {

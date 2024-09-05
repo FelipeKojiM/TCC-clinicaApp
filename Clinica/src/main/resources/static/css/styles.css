@@ -45,3 +45,20 @@
     display: none;
 }
 
+.image-container {
+    position: relative;
+    width: 500px; /* Ajuste para o tamanho da imagem original */
+    height: 600px; /* Ajuste para o tamanho da imagem original */
+}
+
+.image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#imagemExibida {
+    display: none; /* Inicialmente escondida até ser carregada */
+    opacity: 0.5; /* Ajuste a opacidade conforme necessário */
+}
+

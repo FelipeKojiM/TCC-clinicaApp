@@ -20,6 +20,8 @@ public class HistoricoVinculoBotox {
 
     private Integer vinculoProcedimentoBotox;
 
+    private Integer pacienteId;
+
     private LocalDate dataProcedimento;
 
     private String areaAplicada;

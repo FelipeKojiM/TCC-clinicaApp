@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface ProcedimentoBotoxRepository extends JpaRepository<ProcedimentoBotox, Integer> {
 
-    List<ProcedimentoBotox> findByPacienteId(Integer pacienteId);
+    List<ProcedimentoBotox> findByIdVinculoProcedimento(Integer idVinculoProcedimento);
 
     ProcedimentoBotox getProcedimentoById(Integer id);
 

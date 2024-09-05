@@ -16,7 +16,7 @@ public class ProcedimentoBotoxService {
 
     public void salvar(ProcedimentoBotox procedimento) {procedimentoBotoxRepository.save(procedimento);}
 
-    public List<ProcedimentoBotox> findByPacienteId(Integer pacienteId) {return procedimentoBotoxRepository.findByPacienteId(pacienteId);}
+    public List<ProcedimentoBotox> findByIdVinculoProcedimento(Integer idVinculoProcedimento) {return procedimentoBotoxRepository.findByIdVinculoProcedimento(idVinculoProcedimento);}
 
     public ProcedimentoBotox getProcedimento(Integer id) {return procedimentoBotoxRepository.getProcedimentoById(id);}
 
@@ -26,5 +26,4 @@ public class ProcedimentoBotoxService {
 
     public Integer obterUltimoIdProcedimento() {return procedimentoBotoxRepository.findMaxId();}
 
-    public List<Object[]> listarVinculosAgrupados() {return procedimentoBotoxRepository.findByVinculosProcedimento();}
 }
