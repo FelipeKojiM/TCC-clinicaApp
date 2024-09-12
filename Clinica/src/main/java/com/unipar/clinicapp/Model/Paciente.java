@@ -1,10 +1,13 @@
 package com.unipar.clinicapp.Model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,4 +27,14 @@ public class Paciente implements Serializable{
     private String logradouro;
     private String numero;
 
+    @OneToMany
+    private List<Agendamento> eventos;
+
+    public Paciente() {}
+
+    @JsonCreator
+    public Paciente(@JsonProperty("id") Integer id, @JsonProperty("nome") String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
 }

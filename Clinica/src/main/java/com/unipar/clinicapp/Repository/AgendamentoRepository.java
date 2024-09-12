@@ -8,8 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AgendamentoRepository extends JpaRepository<Agendamento, Integer> {
 
-    void deleteById(Integer id);
-
-    Agendamento getAgendamentoById(Integer id);
+    boolean existsById(Integer id);
 
 }

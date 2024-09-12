@@ -22,7 +22,7 @@ public class PacienteService {
 
     public void delete(Integer id) {pacienteRepository.deleteById(id);}
 
-    public Paciente getPaciente(Integer id) {return pacienteRepository.getPacienteById(id);}
+    public Paciente getPaciente(Integer id) {return pacienteRepository.findById(id).orElse(null);}
 
     public Paciente update(Paciente paciente){return this.pacienteRepository.save(paciente);}
 

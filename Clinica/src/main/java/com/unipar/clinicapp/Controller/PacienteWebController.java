@@ -2,6 +2,7 @@ package com.unipar.clinicapp.Controller;
 
 import com.unipar.clinicapp.Model.Paciente;
 import com.unipar.clinicapp.Service.PacienteService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,12 @@ public class PacienteWebController {
 
     public PacienteWebController(PacienteService pacienteService) {
         this.pacienteService = pacienteService;
+    }
+
+    @GetMapping("/listarPacientes")
+    public ResponseEntity<List<Paciente>> getAllPacientes() {
+        List<Paciente> pacientes = pacienteService.getAll();
+        return ResponseEntity.ok(pacientes);
     }
 
     @GetMapping("/abrirPacientes")
