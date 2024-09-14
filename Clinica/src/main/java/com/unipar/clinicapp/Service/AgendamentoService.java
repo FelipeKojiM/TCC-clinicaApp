@@ -26,4 +26,8 @@ public class AgendamentoService {
 
     public boolean getById(Integer id) {return agendamentoRepository.existsById(id);}
 
+    public Agendamento getId(Integer id) {return agendamentoRepository.findById(id).orElse(null); }
+
+    public void deletar(Integer id) {agendamentoRepository.deleteById(id);}
+
 }

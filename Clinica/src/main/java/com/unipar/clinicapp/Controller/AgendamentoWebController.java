@@ -1,6 +1,7 @@
 package com.unipar.clinicapp.Controller;
 
 import com.unipar.clinicapp.Model.Agendamento;
+import com.unipar.clinicapp.Model.ProcedimentoCapilar;
 import com.unipar.clinicapp.Service.AgendamentoService;
 import com.unipar.clinicapp.Service.PacienteService;
 import org.springframework.http.HttpStatus;
@@ -27,15 +28,9 @@ public class AgendamentoWebController {
 
     @PostMapping("/salvarAgendamento")
     @ResponseBody  // Garante que o retorno seja em formato JSON e não uma view
-    public ResponseEntity<String> salvarAgendamento(@RequestBody Agendamento agendamento) {
-        try {
-            agendamentoService.salvarAgendamento(agendamento);
-
-            return ResponseEntity.ok("Agendamento salvo com sucesso!");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao salvar o agendamento");
-        }
+    public ResponseEntity<Agendamento> salvarAgendamento(@RequestBody Agendamento agendamento) {
+        Agendamento agendamentoSalvo = agendamentoService.salvarAgendamento(agendamento);
+        return ResponseEntity.ok(agendamentoSalvo);
     }
 
     @GetMapping("/listarAgendamentos")
@@ -69,6 +64,31 @@ public class AgendamentoWebController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro ao atualizar o agendamento");
         }
+    }
+
+    @PostMapping("/editarProcedimentoAgendamento/{id}")
+    @ResponseBody
+    public String editarProcedimento(@PathVariable Integer id, @RequestParam("procedimento") String procedimento) {
+        try {
+
+            Agendamento agendamento = agendamentoService.getId(id);
+            if (agendamento == null) {
+                return "Agendamento não encontrado";
+            }
+
+            agendamento.setProcedimento(procedimento);
+            agendamentoService.salvarAgendamento(agendamento);
+
+            return "Procedimento do agendamento editado com sucesso";
+        } catch (Exception exception) {
+            return "Erro ao editar procedimento: " + exception.getMessage();
+        }
+    }
+
+    @PostMapping("/deletarAgendamento")
+    public String deletarAgendamento(@RequestParam("id") Integer id) {
+        agendamentoService.deletar(id);
+        return "redirect:/agenda";
     }
 
 }

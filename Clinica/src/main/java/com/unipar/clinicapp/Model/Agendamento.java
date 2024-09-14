@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Entity
 @Getter
@@ -17,9 +18,9 @@ public class Agendamento implements Serializable {
 
     private String procedimento;
 
-    private LocalDateTime inicio;
+    private ZonedDateTime inicio;
 
-    private LocalDateTime fim;
+    private ZonedDateTime fim;
 
     @ManyToOne
     @JoinColumn(name = "paciente_id")

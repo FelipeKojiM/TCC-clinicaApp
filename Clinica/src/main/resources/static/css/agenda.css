@@ -52,3 +52,17 @@ body {
     color: #333;
     margin-bottom: 20px;
 }
+
+.select2-container--default .select2-selection--multiple {
+    height: auto;
+    min-height: 38px;
+    padding: 5px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    padding: 0;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    margin: 2px;
+}
