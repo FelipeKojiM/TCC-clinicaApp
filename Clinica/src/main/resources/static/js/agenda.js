@@ -1,41 +1,41 @@
 $(document).ready(function() {
-    var calendarEl = document.getElementById('calendar');
+    var calendarEl = document.getElementById("calendar");
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'timeGridWeek', // visualização inicial
+        initialView: "timeGridWeek", // visualização inicial
         headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'timeGridWeek,timeGridDay'
+            left: "prev,next today",
+            center: "title",
+            right: "timeGridWeek,timeGridDay"
         },
         buttonText: {
-            prev: '<',
-            next: '>',
-            today: 'Hoje',
-            week: 'Semana',
-            day: 'Dia',
-            list: 'Lista'
+            prev: "<",
+            next: ">",
+            today: "Hoje",
+            week: "Semana",
+            day: "Dia",
+            list: "Lista"
         },
-        allDayText: 'Dia Todo',
-        timeZone: 'local',
-        locale: 'pt-br', // Definir o idioma do calendário
+        allDayText: "Dia Todo",
+        timeZone: "local",
+        locale: "pt-br", // Definir o idioma do calendário
         editable: true, // Permitir que os eventos sejam movidos
         selectable: true, // Permitir a seleção de horários para criar eventos
 
         select: function(info) {
             var inicio = info.start.toISOString();
             var fim = info.end.toISOString();
-            $('#eventModal').modal('show');
+            $("#eventModal").modal("show");
 
             $.ajax({
-                url: '/listarPacientes',
-                method: 'GET',
+                url: "/listarPacientes",
+                method: "GET",
                 success: function(pacientes) {
-                    $('#paciente').empty();
-                    $('#paciente').append('<option value="">Selecione um paciente</option>');
+                    $("#paciente").empty();
+                    $("#paciente").append("<option value=\"\">Selecione um paciente</option>");
 
                     $.each(pacientes, function(index, paciente) {
-                        $('#paciente').append('<option value="' + paciente.id + '">' + paciente.nome + '</option>');
+                        $("#paciente").append("<option value=\"" + paciente.id + "\">" + paciente.nome + "</option>");
                     });
                 },
                 error: function() {
@@ -64,15 +64,15 @@ $(document).ready(function() {
                 };
 
                 $.ajax({
-                    url: '/salvarAgendamento',
-                    method: 'POST',
-                    contentType: 'application/json',
+                    url: "/salvarAgendamento",
+                    method: "POST",
+                    contentType: "application/json",
                     data: JSON.stringify(agendamentoData),
                     success: function(response) {
                         var id = response.id;
                         calendar.addEvent({
                             id: id,
-                            title: procedimento + ' - ' + pacienteNome, // Inclui o nome do paciente no título
+                            title: procedimento + " - " + pacienteNome, // Inclui o nome do paciente no título
                             start: info.start,   // Hora de início
                             end: info.end,       // Hora de fim
                             extendedProps: {     // Informações adicionais
@@ -93,7 +93,7 @@ $(document).ready(function() {
 
         eventClick: function(info) {
             var id = info.event.id;
-            var procedimento = info.event.title.split(' - ')[0]; // Obtém apenas o título do procedimento
+            var procedimento = info.event.title.split(" - ")[0]; // Obtém apenas o título do procedimento
 
             Swal.fire({
                 title: "Editar Procedimento",
@@ -116,8 +116,8 @@ $(document).ready(function() {
                 if (result.isConfirmed) {
                     var procedimento = result.value;
                     $.ajax({
-                        url: '/editarProcedimentoAgendamento/' + id,
-                        method: 'POST',
+                        url: "/editarProcedimentoAgendamento/" + id,
+                        method: "POST",
                         data: {
                             procedimento: procedimento
                         },
@@ -132,8 +132,8 @@ $(document).ready(function() {
                     });
                 } else if (result.isDenied) {
                     $.ajax({
-                        url: '/deletarAgendamento',
-                        method: 'POST',
+                        url: "/deletarAgendamento",
+                        method: "POST",
                         data: {
                             id: id
                         },
@@ -170,12 +170,12 @@ $(document).ready(function() {
             // Verifica a data do evento em relação a hoje
             if (dataEvento < hoje) {
                 // Evento passado
-                $(info.el).css('background-color', 'gray');
-                $(info.el).css('border-color', 'gray');
+                $(info.el).css("background-color", "gray");
+                $(info.el).css("border-color", "gray");
             } else if (dataEvento.toDateString() === hoje.toDateString()) {
                 // Evento para hoje
-                $(info.el).css('background-color', '#198754');
-                $(info.el).css('border-color', 'green');
+                $(info.el).css("background-color", "#198754");
+                $(info.el).css("border-color", "green");
             }
         },
 
@@ -184,13 +184,13 @@ $(document).ready(function() {
     // Função para carregar os procedimentos ao carregar a página
     function carregarProcedimentos() {
         $.ajax({
-            url: '/listarAgendamentos',
-            method: 'GET',
+            url: "/listarAgendamentos",
+            method: "GET",
             success: function(data) {
                 data.forEach(function(agendamento) {
                     calendar.addEvent({
                         id: agendamento.id,
-                        title: agendamento.procedimento + ' - ' + agendamento.paciente.nome, // Inclui o nome do paciente no título
+                        title: agendamento.procedimento + " - " + agendamento.paciente.nome, // Inclui o nome do paciente no título
                         start: agendamento.inicio,
                         end: agendamento.fim,
                         extendedProps: {
@@ -210,7 +210,7 @@ $(document).ready(function() {
 
     function atualizarAgendamento(event) {
 
-        var procedimento = event.title.split(' - ')[0];
+        var procedimento = event.title.split(" - ")[0];
 
         var updatedEvent = {
             id: event.id,
@@ -220,9 +220,9 @@ $(document).ready(function() {
             paciente: event.extendedProps.paciente
         };
         $.ajax({
-            url: '/agendamentos/' + updatedEvent.id,
-            method: 'PUT',
-            contentType: 'application/json',
+            url: "/agendamentos/" + updatedEvent.id,
+            method: "PUT",
+            contentType: "application/json",
             data: JSON.stringify(updatedEvent),
             success: function (response) {
                 Swal.fire("Agendamento atualizado com sucesso!", "", "success");
