@@ -8,26 +8,58 @@ $(document).ready(function() {
             center: 'title',
             right: 'timeGridWeek,timeGridDay'
         },
+        buttonText: {
+            prev: '<',
+            next: '>',
+            today: 'Hoje',
+            week: 'Semana',
+            day: 'Dia',
+            list: 'Lista'
+        },
+        allDayText: 'Dia Todo',
         timeZone: 'local',
         locale: 'pt-br', // Definir o idioma do calendário
         editable: true, // Permitir que os eventos sejam movidos
         selectable: true, // Permitir a seleção de horários para criar eventos
 
-        // Função executada ao selecionar um intervalo de datas no calendário
         select: function(info) {
-            var title = prompt('Informe o nome do procedimento:');
-            var pacienteId = prompt('Informe o ID do paciente:');
+            var inicio = info.start.toISOString();
+            var fim = info.end.toISOString();
+            $('#eventModal').modal('show');
 
-            if (title && pacienteId) {
-                var inicio = info.start.toISOString();
-                var fim = info.end.toISOString();
+            $.ajax({
+                url: '/listarPacientes',
+                method: 'GET',
+                success: function(pacientes) {
+                    $('#paciente').empty();
+                    $('#paciente').append('<option value="">Selecione um paciente</option>');
+
+                    $.each(pacientes, function(index, paciente) {
+                        $('#paciente').append('<option value="' + paciente.id + '">' + paciente.nome + '</option>');
+                    });
+                },
+                error: function() {
+                    Swal.fire("Erro ao listar os Pacientes", "Entre em contato com o Suporte!", "info");
+                }
+            });
+
+            $("#salvarAgendamento").off("click").on("click", function () {
+                var procedimento = $("#procedimento").val();
+                var pacienteId   = $("#paciente").val();
+                var pacienteNome = $("#paciente option:selected").text();
+
+                if (!procedimento || !pacienteId) {
+                    Swal.fire("Atenção", "Informe todos os campos", "warning");
+                    return;
+                }
 
                 var agendamentoData = {
-                    procedimento: title,
+                    procedimento: procedimento,
                     inicio: inicio,
                     fim: fim,
                     paciente: {
-                        id: pacienteId
+                        id: pacienteId,
+                        nome: pacienteNome
                     }
                 };
 
@@ -37,27 +69,37 @@ $(document).ready(function() {
                     contentType: 'application/json',
                     data: JSON.stringify(agendamentoData),
                     success: function(response) {
-                        alert('Agendamento salvo com sucesso!');
-                        carregarProcedimentos();
+                        var id = response.id;
+                        calendar.addEvent({
+                            id: id,
+                            title: procedimento + ' - ' + pacienteNome, // Inclui o nome do paciente no título
+                            start: info.start,   // Hora de início
+                            end: info.end,       // Hora de fim
+                            extendedProps: {     // Informações adicionais
+                                pacienteId: pacienteId,
+                                nomePaciente: pacienteNome
+                            }
+                        });
+                        Swal.fire("Procedimento salvo com sucesso!", "", "success");
                     },
                     error: function(xhr, status, error) {
-                        console.error('Erro ao salvar agendamento:', error);
-                        alert('Erro ao salvar o agendamento!');
-                    }
+                        Swal.fire("Erro ao salvar o Procedimento", "", "danger");
+                    },
                 });
-            }
-            calendar.unselect();
+                $("#eventModal").modal("hide");
+                $("#procedimento").val("");
+            });
         },
 
         eventClick: function(info) {
-            var nomePaciente = info.event.extendedProps.paciente ? info.event.extendedProps.paciente.nome : 'Desconhecido';
             var id = info.event.id;
+            var procedimento = info.event.title.split(' - ')[0]; // Obtém apenas o título do procedimento
 
             Swal.fire({
-                title: nomePaciente,
-                text: "Digite uma observação:",
+                title: "Editar Procedimento",
+                text: "Editar Procedimento:",
                 input: "text",
-                inputPlaceholder: "Escreva algo",
+                inputValue: procedimento,
                 showCancelButton: true,
                 showDenyButton: true,
                 confirmButtonText: "Salvar",
@@ -66,7 +108,7 @@ $(document).ready(function() {
                 reverseButtons: true,
                 preConfirm: (inputValue) => {
                     if (inputValue === "") {
-                        Swal.showValidationMessage("Você precisa escrever algo!");
+                        Swal.showValidationMessage("Informe o Procedimento!");
                         return false;
                     }
                 }
@@ -74,7 +116,7 @@ $(document).ready(function() {
                 if (result.isConfirmed) {
                     var procedimento = result.value;
                     $.ajax({
-                        url: '/editarProcedimentoAgendamento/' + id, // Use o ID corretamente
+                        url: '/editarProcedimentoAgendamento/' + id,
                         method: 'POST',
                         data: {
                             procedimento: procedimento
@@ -109,28 +151,34 @@ $(document).ready(function() {
         },
 
         eventDrop: function(info) {
-            var updatedEvent = {
-                id: info.event.id,
-                procedimento: info.event.title,
-                inicio: info.event.start.toISOString(),
-                fim: info.event.end.toISOString(),
-                paciente: info.event.extendedProps.paciente
-            };
+            atualizarAgendamento(info.event);
+        },
 
-            $.ajax({
-                url: '/agendamentos/' + updatedEvent.id, // Use o ID corretamente
-                method: 'PUT',
-                contentType: 'application/json',
-                data: JSON.stringify(updatedEvent),
-                success: function(response) {
-                    alert('Agendamento atualizado com sucesso!');
-                },
-                error: function(xhr, status, error) {
-                    console.error('Erro ao atualizar agendamento:', error);
-                    alert('Erro ao atualizar o agendamento!');
-                }
-            });
-        }
+        eventResize: function(info) {
+            atualizarAgendamento(info.event);
+        },
+
+        eventDidMount: function(info) {
+            var hoje = new Date();
+            // Define a hora como 00:00:00 para comparação
+            hoje.setHours(0, 0, 0, 0);
+
+            var dataEvento = new Date(info.event.start);
+            // Define a hora como 00:00:00 para comparação
+            dataEvento.setHours(0, 0, 0, 0);
+
+            // Verifica a data do evento em relação a hoje
+            if (dataEvento < hoje) {
+                // Evento passado
+                $(info.el).css('background-color', 'gray');
+                $(info.el).css('border-color', 'gray');
+            } else if (dataEvento.toDateString() === hoje.toDateString()) {
+                // Evento para hoje
+                $(info.el).css('background-color', '#198754');
+                $(info.el).css('border-color', 'green');
+            }
+        },
+
     });
 
     // Função para carregar os procedimentos ao carregar a página
@@ -142,21 +190,46 @@ $(document).ready(function() {
                 data.forEach(function(agendamento) {
                     calendar.addEvent({
                         id: agendamento.id,
-                        title: agendamento.procedimento,
+                        title: agendamento.procedimento + ' - ' + agendamento.paciente.nome, // Inclui o nome do paciente no título
                         start: agendamento.inicio,
                         end: agendamento.fim,
                         extendedProps: {
-                            paciente: agendamento.paciente // Adicione o paciente aqui
+                            paciente: agendamento.paciente
                         }
                     });
                 });
             },
             error: function(xhr, status, error) {
-                console.error('Erro ao carregar agendamentos:', error);
+                Swal.fire("Erro ao listar Agendamentos", "Entre em contato com o Suporte!", "info");
             }
         });
     }
 
     calendar.render();
     carregarProcedimentos();
+
+    function atualizarAgendamento(event) {
+
+        var procedimento = event.title.split(' - ')[0];
+
+        var updatedEvent = {
+            id: event.id,
+            procedimento: procedimento,
+            inicio: event.start.toISOString(),
+            fim: event.end ? event.end.toISOString() : null,
+            paciente: event.extendedProps.paciente
+        };
+        $.ajax({
+            url: '/agendamentos/' + updatedEvent.id,
+            method: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(updatedEvent),
+            success: function (response) {
+                Swal.fire("Agendamento atualizado com sucesso!", "", "success");
+            },
+            error: function (xhr, status, error) {
+                Swal.fire("Erro ao atualizar o Agendamento!", "", "error");
+            }
+        });
+    }
 });
