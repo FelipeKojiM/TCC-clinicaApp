@@ -31,8 +31,8 @@ public class FichaCapilarWebController {
     }
 
     @PostMapping("/salvarFichaCapilar")
-    public String saveCapilar(FichaCapilar fichaCapilar) {
-        if (fichaCapilar.getPaciente() == null) {
+    public String saveCapilar(FichaCapilar fichaCapilar, @RequestParam("pacienteIdFichaCapilar") Integer paciente) {
+        if(fichaCapilarService.getFichaProcedimentoByPacienteId(paciente) == null){
             fichaCapilarService.save(fichaCapilar);
         } else {
             fichaCapilarService.update(fichaCapilar);

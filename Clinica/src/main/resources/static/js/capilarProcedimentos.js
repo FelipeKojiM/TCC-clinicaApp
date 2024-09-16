@@ -113,7 +113,7 @@ $(document).ready(function() {
                         $("#atividadeFisica").val(data.atividadeFisica);
                         $("#sono").val(data.sono);
                         $("#estresse").val(data.estresse);
-                        $("#fichaId").val(data.fichaId || "");
+                        $("#fichaCapilarId").val(data.id);
                     } else {
                         limparCampos();
                     }

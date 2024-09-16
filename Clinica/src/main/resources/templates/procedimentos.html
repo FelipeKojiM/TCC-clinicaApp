@@ -197,11 +197,6 @@
                                 <div class="col-md-6">
                                     <p>Anamnese Capilar</p>
                                 </div>
-                                <div class="col-md-6 d-flex justify-content-end">
-                                    <input type="hidden" id="fichaCapilarId" name="fichaCapilarId">
-                                    <input type="hidden" id="pacienteIdFichaCapilar" name="pacienteIdFichaCapilar">
-                                    <button type="submit" class="btn btn-outline-dark">Salvar Ficha</button>
-                                </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Paciente</label>
@@ -372,12 +367,15 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12 d-flex justify-content-end" style="margin-top: 16px">
-                                    <button id="limparCampos" type="submit" class="btn btn-secondary">Limpar</button>
+                                    <input type="hidden" id="fichaCapilarId" name="fichaCapilarId">
+                                    <input type="hidden" id="pacienteIdFichaCapilar" name="pacienteIdFichaCapilar">
+                                    <button type="submit" class="btn btn-outline-dark">Salvar Ficha</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
+                <hr>
                 <div class="row">
                     <div class="col-md-12">
                         <form id="formSalvarProcedimentoCapilar" th:action="@{/salvarProcedimentoCapilar}" method="post">
@@ -399,7 +397,7 @@
                                 </div>
                                 <div class="col-md-12 d-flex justify-content-end" style="margin-top: 16px">
                                     <input type="hidden" id="procedimentoCapilarId" name="procedimentoCapilarId">
-                                    <input type="hidden" id="pacienteIdProcedimentoCapilar" name="pacienteId">
+                                    <input type="hidden" id="pacienteIdProcedimentoCapilar" name="paciente">
                                     <button id="salvarProcedimentoCapilar" type="submit" class="btn btn-success" >Salvar</button>
                                 </div>
                             </div>

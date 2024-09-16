@@ -1,8 +1,9 @@
 $(document).ready(function() {
     var calendarEl = document.getElementById("calendar");
 
+    // inicia o full calendar e eventos
     var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: "timeGridWeek", // visualização inicial
+        initialView: "timeGridWeek",
         headerToolbar: {
             left: "prev,next today",
             center: "title",
@@ -18,10 +19,11 @@ $(document).ready(function() {
         },
         allDayText: "Dia Todo",
         timeZone: "local",
-        locale: "pt-br", // Definir o idioma do calendário
-        editable: true, // Permitir que os eventos sejam movidos
-        selectable: true, // Permitir a seleção de horários para criar eventos
+        locale: "pt-br",
+        editable: true,
+        selectable: true,
 
+        // ao clicar abre modal de cadastro do agendamento
         select: function(info) {
             var inicio = info.start.toISOString();
             var fim = info.end.toISOString();
@@ -69,17 +71,8 @@ $(document).ready(function() {
                     contentType: "application/json",
                     data: JSON.stringify(agendamentoData),
                     success: function(response) {
-                        var id = response.id;
-                        calendar.addEvent({
-                            id: id,
-                            title: procedimento + " - " + pacienteNome, // Inclui o nome do paciente no título
-                            start: info.start,   // Hora de início
-                            end: info.end,       // Hora de fim
-                            extendedProps: {     // Informações adicionais
-                                pacienteId: pacienteId,
-                                nomePaciente: pacienteNome
-                            }
-                        });
+                        calendar.removeAllEvents();
+                        carregarProcedimentos();
                         Swal.fire("Procedimento salvo com sucesso!", "", "success");
                     },
                     error: function(xhr, status, error) {
@@ -91,15 +84,25 @@ $(document).ready(function() {
             });
         },
 
+        // abre sweet alert para edicao
         eventClick: function(info) {
             var id = info.event.id;
             var procedimento = info.event.title.split(" - ")[0]; // Obtém apenas o título do procedimento
+            var confirmacao = info.event.extendedProps.confirmacao;
+            var comparecimento = info.event.extendedProps.comparecimento;
 
             Swal.fire({
                 title: "Editar Procedimento",
-                text: "Editar Procedimento:",
                 input: "text",
                 inputValue: procedimento,
+                html: `
+                        <label style="display: flex; align-items: center; margin: 10px 0 0 10px;">
+                            <input type="checkbox" id="confirmar" ${confirmacao ? 'checked' : ''} style="margin-right: 5px;"> Confirmação
+                        </label>
+                        <label style="display: flex; align-items: center; margin: 10px 0 0 10px;">
+                            <input type="checkbox" id="naoCompareceu" ${comparecimento ? 'checked' : ''} style="margin-right: 5px;"> Não Compareceu
+                        </label>
+                    `,
                 showCancelButton: true,
                 showDenyButton: true,
                 confirmButtonText: "Salvar",
@@ -107,19 +110,25 @@ $(document).ready(function() {
                 cancelButtonText: "Cancelar",
                 reverseButtons: true,
                 preConfirm: (inputValue) => {
-                    if (inputValue === "") {
+
+
+                    if(inputValue === "") {
                         Swal.showValidationMessage("Informe o Procedimento!");
                         return false;
                     }
                 }
             }).then((result) => {
+                var confirmacao = $("#confirmar").is(":checked");
+                var comparecimento = $("#naoCompareceu").is(":checked");
                 if (result.isConfirmed) {
                     var procedimento = result.value;
                     $.ajax({
                         url: "/editarProcedimentoAgendamento/" + id,
                         method: "POST",
                         data: {
-                            procedimento: procedimento
+                            procedimento: procedimento,
+                            confirmacao: confirmacao,
+                            comparecimento: comparecimento
                         },
                         success: function(response) {
                             Swal.fire("Procedimento atualizado com sucesso!", "", "success");
@@ -150,51 +159,68 @@ $(document).ready(function() {
             });
         },
 
+        // atualiza ao arrastar
         eventDrop: function(info) {
             atualizarAgendamento(info.event);
         },
 
+        // atualiza ao aumentar ou diminuir o horario
         eventResize: function(info) {
             atualizarAgendamento(info.event);
         },
 
+        // cores dos agendamentos
         eventDidMount: function(info) {
             var hoje = new Date();
-            // Define a hora como 00:00:00 para comparação
             hoje.setHours(0, 0, 0, 0);
 
             var dataEvento = new Date(info.event.start);
-            // Define a hora como 00:00:00 para comparação
             dataEvento.setHours(0, 0, 0, 0);
 
-            // Verifica a data do evento em relação a hoje
-            if (dataEvento < hoje) {
-                // Evento passado
-                $(info.el).css("background-color", "gray");
-                $(info.el).css("border-color", "gray");
-            } else if (dataEvento.toDateString() === hoje.toDateString()) {
-                // Evento para hoje
-                $(info.el).css("background-color", "#198754");
-                $(info.el).css("border-color", "green");
+            var confirmacao = info.event.extendedProps.confirmacao;
+            var comparecimento = info.event.extendedProps.comparecimento;
+
+            var backgroundColor = "";
+            var borderColor = "";
+
+            if (comparecimento || (comparecimento && confirmacao)) {
+                backgroundColor = "#dc3545";
+                borderColor = "red";
+            } else if (confirmacao) {
+                backgroundColor = "#198754";
+                borderColor = "green";
+            } else if (dataEvento < hoje) {
+                backgroundColor = "gray";
+                borderColor = "gray";
+            } else {
+                backgroundColor = "";
+                borderColor = "";
             }
+
+            $(info.el).css("background-color", backgroundColor);
+            $(info.el).css("border-color", borderColor);
         },
 
     });
 
-    // Função para carregar os procedimentos ao carregar a página
+    // carrega os agendamentos
     function carregarProcedimentos() {
         $.ajax({
             url: "/listarAgendamentos",
             method: "GET",
             success: function(data) {
+                console.log(data);
+
                 data.forEach(function(agendamento) {
                     calendar.addEvent({
                         id: agendamento.id,
-                        title: agendamento.procedimento + " - " + agendamento.paciente.nome, // Inclui o nome do paciente no título
+                        title: agendamento.procedimento + " - " + agendamento.paciente.nome,
                         start: agendamento.inicio,
                         end: agendamento.fim,
                         extendedProps: {
-                            paciente: agendamento.paciente
+                            paciente: agendamento.paciente,
+                            confirmacao: agendamento.confirmacao,
+                            comparecimento: agendamento.comparecimento
                         }
                     });
                 });
@@ -208,6 +234,7 @@ $(document).ready(function() {
     calendar.render();
     carregarProcedimentos();
 
+    // atualiza o agendamento
     function atualizarAgendamento(event) {
 
         var procedimento = event.title.split(" - ")[0];
@@ -217,7 +244,9 @@ $(document).ready(function() {
             procedimento: procedimento,
             inicio: event.start.toISOString(),
             fim: event.end ? event.end.toISOString() : null,
-            paciente: event.extendedProps.paciente
+            paciente: event.extendedProps.paciente,
+            confirmacao: event.extendedProps.confirmacao,
+            comparecimento: event.extendedProps.comparecimento
         };
         $.ajax({
             url: "/agendamentos/" + updatedEvent.id,

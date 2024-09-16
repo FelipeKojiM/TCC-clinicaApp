@@ -1,9 +1,6 @@
 package com.unipar.clinicapp.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +14,8 @@ public class ProcedimentoHiperidrose {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer pacienteId;
+    @ManyToOne
+    private Paciente paciente;
     private LocalDate data;
     private String protocoloUtilizado;
     private String resultadoObservado;

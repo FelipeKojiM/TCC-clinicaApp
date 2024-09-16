@@ -1,5 +1,6 @@
 package com.unipar.clinicapp.Controller;
 
+import com.unipar.clinicapp.Model.Paciente;
 import com.unipar.clinicapp.Model.ProcedimentoCapilar;
 import com.unipar.clinicapp.Service.ProcedimentoCapilarService;
 import org.springframework.stereotype.Controller;
@@ -24,11 +25,11 @@ public class ProcedimentoCapilarWebController {
     }
 
     @PostMapping("/salvarProcedimentoCapilar")
-    public String salvarProcedimento(@RequestParam("pacienteId") Integer pacienteId,
+    public String salvarProcedimento(@RequestParam("paciente") Paciente paciente,
                                      @RequestParam("protocoloUtilizado") String protocoloUtilizado,
                                      @RequestParam("resultadoObservado") String resultadoObservado) {
         ProcedimentoCapilar procedimento = new ProcedimentoCapilar();
-        procedimento.setPacienteId(pacienteId);
+        procedimento.setPaciente(paciente);
         procedimento.setProtocoloUtilizado(protocoloUtilizado);
         procedimento.setResultadoObservado(resultadoObservado);
         procedimento.setData(LocalDate.now());

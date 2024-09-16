@@ -29,6 +29,8 @@ public class AgendamentoWebController {
     @PostMapping("/salvarAgendamento")
     @ResponseBody  // Garante que o retorno seja em formato JSON e não uma view
     public ResponseEntity<Agendamento> salvarAgendamento(@RequestBody Agendamento agendamento) {
+        agendamento.setConfirmacao(false);
+        agendamento.setComparecimento(false);
         Agendamento agendamentoSalvo = agendamentoService.salvarAgendamento(agendamento);
         return ResponseEntity.ok(agendamentoSalvo);
     }
@@ -57,6 +59,10 @@ public class AgendamentoWebController {
 
             // Atualiza o agendamento
             agendamento.setId(id);
+            agendamento.setProcedimento(agendamento.getProcedimento());
+            agendamento.setPaciente(agendamento.getPaciente());
+            agendamento.setConfirmacao(agendamento.getConfirmacao());
+            agendamento.setComparecimento(agendamento.getComparecimento());
             agendamentoService.salvarAgendamento(agendamento);
 
             return ResponseEntity.ok("Agendamento atualizado com sucesso!");
@@ -68,7 +74,9 @@ public class AgendamentoWebController {
 
     @PostMapping("/editarProcedimentoAgendamento/{id}")
     @ResponseBody
-    public String editarProcedimento(@PathVariable Integer id, @RequestParam("procedimento") String procedimento) {
+    public String editarProcedimento(@PathVariable Integer id, @RequestParam("procedimento") String procedimento,
+                                     @RequestParam(value = "confirmacao", required = false) Boolean confirmacao,
+                                     @RequestParam(value = "comparecimento", required = false) Boolean comparecimento) {
         try {
 
             Agendamento agendamento = agendamentoService.getId(id);
@@ -77,6 +85,8 @@ public class AgendamentoWebController {
             }
 
             agendamento.setProcedimento(procedimento);
+            agendamento.setConfirmacao(confirmacao);
+            agendamento.setComparecimento(comparecimento);
             agendamentoService.salvarAgendamento(agendamento);
 
             return "Procedimento do agendamento editado com sucesso";

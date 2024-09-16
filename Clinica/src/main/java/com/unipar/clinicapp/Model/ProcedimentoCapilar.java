@@ -15,7 +15,9 @@ public class ProcedimentoCapilar {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer pacienteId;
+    @ManyToOne
+    private Paciente paciente;
+
     private LocalDate data;
     private String protocoloUtilizado;
     private String resultadoObservado;
