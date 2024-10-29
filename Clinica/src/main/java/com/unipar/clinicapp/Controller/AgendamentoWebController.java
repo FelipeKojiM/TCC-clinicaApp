@@ -1,12 +1,14 @@
 package com.unipar.clinicapp.Controller;
 
 import com.unipar.clinicapp.Model.Agendamento;
+import com.unipar.clinicapp.Model.Paciente;
 import com.unipar.clinicapp.Model.ProcedimentoCapilar;
 import com.unipar.clinicapp.Service.AgendamentoService;
 import com.unipar.clinicapp.Service.PacienteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +24,9 @@ public class AgendamentoWebController {
     }
 
     @GetMapping("/agenda")
-    public String abrirAgenda(){
+    public String abrirAgenda(Model model){
+        List<Paciente> pacientes = pacienteService.getAll();
+        model.addAttribute("pacientes", pacientes);
         return "agenda";
     }
 

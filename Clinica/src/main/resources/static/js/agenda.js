@@ -1,4 +1,11 @@
 $(document).ready(function() {
+    $(".select2").select2({
+        placeholder: "Selecione uma opção",
+        allowClear: true,
+        width: "100%",
+        closeOnSelect: false
+    });
+
     var calendarEl = document.getElementById("calendar");
 
     // inicia o full calendar e eventos
@@ -28,22 +35,6 @@ $(document).ready(function() {
             var inicio = info.start.toISOString();
             var fim = info.end.toISOString();
             $("#eventModal").modal("show");
-
-            $.ajax({
-                url: "/listarPacientes",
-                method: "GET",
-                success: function(pacientes) {
-                    $("#paciente").empty();
-                    $("#paciente").append("<option value=\"\">Selecione um paciente</option>");
-
-                    $.each(pacientes, function(index, paciente) {
-                        $("#paciente").append("<option value=\"" + paciente.id + "\">" + paciente.nome + "</option>");
-                    });
-                },
-                error: function() {
-                    Swal.fire("Erro ao listar os Pacientes", "Entre em contato com o Suporte!", "info");
-                }
-            });
 
             $("#salvarAgendamento").off("click").on("click", function () {
                 var procedimento = $("#procedimento").val();

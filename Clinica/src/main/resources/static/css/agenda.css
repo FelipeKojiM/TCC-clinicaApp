@@ -53,16 +53,21 @@ body {
     margin-bottom: 20px;
 }
 
-.select2-container--default .select2-selection--multiple {
-    height: auto;
-    min-height: 38px;
-    padding: 5px;
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    height: 35px; /* Altura do campo */
+    line-height: 35px; /* Centraliza o texto verticalmente */
 }
 
-.select2-container--default .select2-selection--multiple .select2-selection__rendered {
-    padding: 0;
+.select2-container--default .select2-selection--single {
+    height: 35px; /* Define a altura do campo */
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    text: black;
 }
 
-.select2-container--default .select2-selection--multiple .select2-selection__choice {
-    margin: 2px;
+.select2-container--default .select2-selection--single .select2-selection__placeholder {
+    line-height: 35px; /* Centraliza o placeholder verticalmente */
+    color: #7a7a7a; /* Altere esta cor para a desejada */
+    opacity: 10;
+    margin-left: 7px;
 }

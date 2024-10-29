@@ -18,12 +18,6 @@ public class PacienteWebController {
         this.pacienteService = pacienteService;
     }
 
-    @GetMapping("/listarPacientes")
-    public ResponseEntity<List<Paciente>> getAllPacientes() {
-        List<Paciente> pacientes = pacienteService.getAll();
-        return ResponseEntity.ok(pacientes);
-    }
-
     @GetMapping("/abrirPacientes")
     public String paciente(){
         return "pacientes";
