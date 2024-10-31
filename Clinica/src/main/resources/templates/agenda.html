@@ -47,36 +47,49 @@
                         <div id="calendar"></div>
                     </div>
                     <div class="col-md-4">
+                        <form th:action="@{/salvarEncaixe}" method="post">
+                            <div class="col-md-12">
+                                <label class="font-weight-bold">Encaixes</label>
+                                <div class="cleafix"></div>
+                                <label>Paciente</label>
+                                <select class="form-control select2" name="paciente" id="pacienteEncaixe">
+                                    <option value="">Selecione o Paciente</option>
+                                    <option th:each="paciente : ${pacientes}"
+                                            th:value="${paciente.id}"
+                                            th:text="${paciente.nome}"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-12" style="margin: 8px 0 8px 0">
+                                <label>Procedimento</label>
+                                <div class="clearfix"></div>
+                                <input type="text" name="procedimento" class="form-control" placeholder="Procedimento">
+                            </div>
+                            <div class="col-md-12 d-flex justify-content-end" style="margin: 12px 0 12px 0">
+                                <button type="submit" class="btn btn-sm btn-secondary">Adicionar</button>
+                            </div>
+                        </form>
                         <div class="col-md-12">
-                            <label class="font-weight-bold">Encaixes</label>
-                            <div class="cleafix"></div>
-                            <label>Paciente</label>
-                            <select class="form-control select2" id="pacienteEncaixe">
-                                <option value="">Selecione o Paciente</option>
-                                <option th:each="paciente : ${pacientes}"
-                                        th:value="${paciente.id}"
-                                        th:text="${paciente.nome}"></option>
-                            </select>
-                        </div>
-                        <div class="col-md-12" style="margin: 8px 0 8px 0">
-                            <label>Procedimento</label>
-                            <div class="clearfix"></div>
-                            <input type="text" placeholder="Procedimento">
-                        </div>
-                            <table id="tabelaPacientes" class="table table-striped table-bordered">
-                                <thead>
+                            <form th:action="@{/deletarEncaixe}" method="post" id="formDeletarEncaixe">
+                                <table id="tabelaPacientes" class="table">
+                                    <thead>
                                     <tr>
                                         <th>Paciente</th>
                                         <th>Procedimento</th>
+                                        <th>Ação</th>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Isadora</td>
-                                        <td>Botox</td>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="encaixe : ${encaixes}">
+                                        <td th:text="${encaixe.paciente.nome}"></td>
+                                        <td th:text="${encaixe.procedimento}"></td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-danger btn-delete btnDeletarEncaixe" th:data-id="${encaixe.id}"><i class="fa fa-trash"></i></button>
+                                        </td>
                                     </tr>
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                                <input type="hidden" id="idEncaixe" name="idEncaixe">
+                            </form>
                         </div>
                     </div>
                 </div>

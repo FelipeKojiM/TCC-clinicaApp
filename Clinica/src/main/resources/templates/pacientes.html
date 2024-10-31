@@ -43,28 +43,31 @@
                             <th>Ações</th>
                         </tr>
                         </thead>
-                            <tbody>
-                                <tr th:each="paciente : ${pacientes}">
-                                    <td                  th:text="${paciente.id}"></td>
-                                    <td class="nome"     th:text="${paciente.nome}"></td>
-                                    <td class="telefone" th:text="${paciente.telefone}"></td>
-                                    <td class="cpf"      th:text="${paciente.cpf}"></td>
-                                    <td class="email"    th:text="${paciente.email}"></td>
-                                    <td>
-                                        <ul class="list-inline m-0">
-                                            <li class="list-inline-item">
-                                                <button class="btn btn-success btn-sm rounded-0 editarPaciente" type="button" title="Edit" th:data-id="${paciente.id}"><i class="fa fa-edit"></i></button>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <button class="btn btn-danger btn-sm rounded-0 botaoDeletarPaciente" type="button" title="Delete" th:data-id="${paciente.id}"><i class="fa fa-trash"></i></button>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <button class="btn btn-secondary btn-sm rounded-0 botaoMostrarPaciente" type="button" title="View" th:data-id="${paciente.id}"><i class="fa fa-eye"></i></button>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                            </tbody>
+                        <tbody>
+                            <tr th:each="paciente : ${pacientes}">
+                                <td                  th:text="${paciente.id}"></td>
+                                <td class="nome"     th:text="${paciente.nome}"></td>
+                                <td class="telefone" th:text="${paciente.telefone}"></td>
+                                <td class="cpf"      th:text="${paciente.cpf}"></td>
+                                <td class="email"    th:text="${paciente.email}"></td>
+                                <td>
+                                    <ul class="list-inline m-0">
+                                        <li class="list-inline-item">
+                                            <button class="btn btn-success btn-sm border-dark rounded editarPaciente" type="button" title="Edit" th:data-id="${paciente.id}"><i class="fa fa-edit"></i></button>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <button class="btn btn-danger btn-sm border-dark rounded botaoDeletarPaciente" type="button" title="Delete" th:data-id="${paciente.id}"><i class="fa fa-trash"></i></button>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <button class="btn btn-secondary btn-sm border-dark rounded botaoMostrarPaciente" type="button" title="View" th:data-id="${paciente.id}"><i class="fa fa-eye"></i></button>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <button class="btn btn-success btn-sm border border-dark rounded botaoAbrirWhatsApp" type="button" title="Enviar Mensagem" th:data-id="${paciente.telefone}"><i class="fa fa-whatsapp" aria-hidden="true"></i></button>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -92,7 +95,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="telefone">Telefone</label>
-                            <input type="text" class="form-control" id="telefone" placeholder="Telefone" name="telefone"/>
+                            <input type="text" class="form-control telefone" id="telefone" placeholder="Telefone" name="telefone"/>
                         </div>
                     </div>
                     <div class="col-4">
@@ -104,7 +107,7 @@
                     <div class="col-4">
                         <div class="form-group">
                             <label for="cpf">CPF</label>
-                            <input type="text" class="form-control" id="cpf" placeholder="CPF" name="cpf"/>
+                            <input type="text" class="form-control cpf" id="cpf" placeholder="CPF" name="cpf"/>
                         </div>
                     </div>
                     <div class="col-4">
@@ -116,7 +119,7 @@
                     <div class="col-3">
                         <div class="form-group">
                             <label for="cep">Cep</label>
-                            <input type="number" class="form-control" id="cep" placeholder="CEP" name="cep"/>
+                            <input type="text" class="form-control" id="cep" placeholder="CEP" name="cep"/>
                         </div>
                     </div>
                     <div class="col-3">
@@ -176,6 +179,7 @@
 <script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://cdn.datatables.net/2.1.4/js/dataTables.bootstrap4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 <script src="/static/js/pacientes.js"></script>
 </body>
 </html>

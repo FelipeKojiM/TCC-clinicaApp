@@ -1,9 +1,11 @@
 package com.unipar.clinicapp.Controller;
 
 import com.unipar.clinicapp.Model.Agendamento;
+import com.unipar.clinicapp.Model.Encaixe;
 import com.unipar.clinicapp.Model.Paciente;
 import com.unipar.clinicapp.Model.ProcedimentoCapilar;
 import com.unipar.clinicapp.Service.AgendamentoService;
+import com.unipar.clinicapp.Service.EncaixeService;
 import com.unipar.clinicapp.Service.PacienteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +20,21 @@ public class AgendamentoWebController {
 
     private final AgendamentoService agendamentoService;
     private final PacienteService pacienteService;
+    private final EncaixeService encaixeService;
 
-    public AgendamentoWebController(AgendamentoService agendamentoService, PacienteService pacienteService) {this.agendamentoService = agendamentoService;
+    public AgendamentoWebController(AgendamentoService agendamentoService, PacienteService pacienteService, EncaixeService encaixeService) {
+        this.agendamentoService = agendamentoService;
         this.pacienteService = pacienteService;
+        this.encaixeService = encaixeService;
     }
 
     @GetMapping("/agenda")
     public String abrirAgenda(Model model){
         List<Paciente> pacientes = pacienteService.getAll();
         model.addAttribute("pacientes", pacientes);
+
+        List<Encaixe> encaixes = encaixeService.findAll();
+        model.addAttribute("encaixes", encaixes);
         return "agenda";
     }
 

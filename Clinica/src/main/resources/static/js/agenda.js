@@ -3,7 +3,7 @@ $(document).ready(function() {
         placeholder: "Selecione uma opção",
         allowClear: true,
         width: "100%",
-        closeOnSelect: false
+        closeOnSelect: true
     });
 
     var calendarEl = document.getElementById("calendar");
@@ -55,7 +55,6 @@ $(document).ready(function() {
                         nome: pacienteNome
                     }
                 };
-
                 $.ajax({
                     url: "/salvarAgendamento",
                     method: "POST",
@@ -78,21 +77,32 @@ $(document).ready(function() {
         // abre sweet alert para edicao
         eventClick: function(info) {
             var id = info.event.id;
+            var telefone = info.event.extendedProps.telefone;
             var procedimento = info.event.title.split(" - ")[0]; // Obtém apenas o título do procedimento
             var confirmacao = info.event.extendedProps.confirmacao;
             var comparecimento = info.event.extendedProps.comparecimento;
+
+            console.log(telefone)
 
             Swal.fire({
                 title: "Editar Procedimento",
                 input: "text",
                 inputValue: procedimento,
-                html: `
-                        <label style="display: flex; align-items: center; margin: 10px 0 0 10px;">
+                html:  `
+                        <label style="display: flex; align-items: center; margin: 10px 0;">
                             <input type="checkbox" id="confirmar" ${confirmacao ? 'checked' : ''} style="margin-right: 5px;"> Confirmação
                         </label>
-                        <label style="display: flex; align-items: center; margin: 10px 0 0 10px;">
+                        <label style="display: flex; align-items: center; margin: 10px 0;">
                             <input type="checkbox" id="naoCompareceu" ${comparecimento ? 'checked' : ''} style="margin-right: 5px;"> Não Compareceu
                         </label>
+                        <div style="display: flex; align-items: center;"> <!-- Alterado para "center" para centralizar verticalmente -->
+                            <button class="btn btn-success btn-sm border border-dark rounded botaoAbrirWhatsApp" 
+                                    type="button" 
+                                    title="Enviar Mensagem" 
+                                    data-id="${telefone}">
+                                <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                            </button>
+                        </div>
                     `,
                 showCancelButton: true,
                 showDenyButton: true,
@@ -101,8 +111,6 @@ $(document).ready(function() {
                 cancelButtonText: "Cancelar",
                 reverseButtons: true,
                 preConfirm: (inputValue) => {
-
-
                     if(inputValue === "") {
                         Swal.showValidationMessage("Informe o Procedimento!");
                         return false;
@@ -200,8 +208,7 @@ $(document).ready(function() {
             url: "/listarAgendamentos",
             method: "GET",
             success: function(data) {
-                console.log(data);
-
+                console.log(data)
                 data.forEach(function(agendamento) {
                     calendar.addEvent({
                         id: agendamento.id,
@@ -210,6 +217,7 @@ $(document).ready(function() {
                         end: agendamento.fim,
                         extendedProps: {
                             paciente: agendamento.paciente,
+                            telefone: agendamento.paciente.telefone,
                             confirmacao: agendamento.confirmacao,
                             comparecimento: agendamento.comparecimento
                         }
@@ -252,4 +260,31 @@ $(document).ready(function() {
             }
         });
     }
+
+    $(".btnDeletarEncaixe").on("click", function(e) {
+        e.preventDefault();
+        const id = $(this).data("id");
+        Swal.fire({
+            title: "Tem certeza?",
+            text: "Deseja deletar o Encaixe?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Sim"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $('#idEncaixe').val(id);
+                $('#formDeletarEncaixe').submit();
+            }
+        });
+    });
+
+    $("body").on("click", ".botaoAbrirWhatsApp", function() {
+        var telefone = $(this).data('id');
+        var url = "https://api.whatsapp.com/send?phone=" + telefone;
+
+        window.open(url, '_blank');
+    });
+
 });

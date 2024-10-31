@@ -11,12 +11,12 @@ $("#tabelaPacientes").DataTable({
         info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
     },
     columnDefs: [
-        { width: "10%", targets: 0, className: "text-left"},
+        { width: "5%", targets: 0, className: "text-left"},
         { width: "20%", targets: 1, className: "text-left"},
         { width: "20%", targets: 2, className: "text-left"},
         { width: "20%", targets: 3, className: "text-left"},
         { width: "20%", targets: 4, className: "text-left"},
-        { width: "10%", targets: 5, className: "text-left"},
+        { width: "15%", targets: 5, className: "text-left"},
     ],
     drawCallback: function (settings) {
         var api = this.api();
@@ -57,6 +57,7 @@ $(".editarPaciente").on("click", function () {
     $("#cadastrarPacientes").modal("show");
     $("#tituloModalPaciente").html("Editar Paciente");
     $("#botaoCadastrarPaciente").addClass("hidden", true);
+    $("#botaoAbrirWhatsApp").addClass("hidden", true);
     $("#botaoEditarPaciente").removeClass("hidden", true);
 });
 
@@ -64,6 +65,7 @@ $("#buttonModalPacientes").on("click", function () {
     $("#cadastrarPacientes").modal("show");
     $("#tituloModalPaciente").html("Cadastrar Paciente");
     $("#botaoEditarPaciente").addClass("hidden", true);
+    $("#botaoAbrirWhatsApp").addClass("hidden", true);
     $("#botaoCadastrarPaciente").removeClass("hidden", true);
     $("#botaoFecharModal").html("Cancelar");
     $("#nome").val("");
@@ -87,6 +89,11 @@ $("#botaoCadastrarPaciente").on("click", function () {
     var logradouro      = $("#logradouro").val();
     var numero          = $("#numero").val();
     var email           = $("#email").val();
+
+    telefone        = telefone.replace(/[^0-9]/g, '');
+    data_nascimento = data_nascimento.replace(/[^0-9]/g, '');
+    cep             = cep.replace(/[^0-9]/g, '');
+    cpf             = cpf.replace(/[^0-9]/g, '');
 
     if (nome !== "" && telefone !== "" && data_nascimento !== "" && cpf !== "" && cep !== "" && email !== "") {
         $.post("/pacientes/save", { nome: nome, telefone: telefone, data_nascimento: data_nascimento, cpf: cpf, cep: cep, bairro: bairro, logradouro: logradouro, numero: numero, email: email }, function (data) {
@@ -118,6 +125,11 @@ $("#botaoEditarPaciente").on("click", function () {
     var logradouro      = $("#logradouro").val();
     var numero          = $("#numero").val();
     var email           = $("#email").val();
+
+    telefone        = telefone.replace(/[^0-9]/g, '');
+    data_nascimento = data_nascimento.replace(/[^0-9]/g, '');
+    cep             = cep.replace(/[^0-9]/g, '');
+    cpf             = cpf.replace(/[^0-9]/g, '');
 
     if (nome !== "" && telefone !== "" && data_nascimento !== "" && cpf !== "" && cep !== "" && email !== "") {
         Swal.fire({
@@ -238,5 +250,21 @@ $('.botaoMostrarPaciente').on('click', function () {
 
     $("#botaoEditarPaciente").addClass("hidden");
     $("#botaoCadastrarPaciente").addClass("hidden");
+    $("#botaoAbrirWhatsApp").removeClass("hidden", true);
     $("#botaoFecharModal").html("Fechar");
+});
+
+$(document).ready(function(){
+
+    $(".telefone").inputmask("(99) 99999-9999", { placeholder: " " });
+    $(".cpf").inputmask("999.999.999-99", { placeholder: " " });
+    $("#cep").inputmask("99.999-99", { placeholder: " " });
+    $("#data_nascimento").inputmask("99/99/9999", { placeholder: " " });
+
+    $(".botaoAbrirWhatsApp").on("click", function() {
+        var telefone = $(this).data('id');
+        var url = "https://api.whatsapp.com/send?phone=" + telefone;
+
+        window.open(url, '_blank');
+    });
 });
