@@ -76,11 +76,6 @@ header {
     background-color: #dddddd;
 }
 
-.content h1 {
-    color: #333;
-    margin-bottom: 20px;
-}
-
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     height: 35px; /* Altura do campo */
     line-height: 35px; /* Centraliza o texto verticalmente */

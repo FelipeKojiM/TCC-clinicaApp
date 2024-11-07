@@ -12,16 +12,50 @@ body {
 }
 
 .sidebar {
-    width: 250px;
-    background-color: #333;
-    color: #fff;
-    height: 100vh;
-    position: fixed;
+    background-color: #e8e8e8;
     top: 0;
     left: 0;
     overflow: auto;
-    padding-top: 20px;
-    padding-left: 20px;
+    width: 225px;
+    color: #30363e;
+    height: 100vh;
+    position: fixed;
+    padding: 20px 20px 0 20px;
+    z-index: 1050; /* A sidebar terá um z-index bem alto */
+    border-right: 1px solid #cfcfcf; /* Define a cor e a espessura da borda */
+}
+
+/* Header */
+header {
+    position: fixed;  /* Tornar o header fixo também */
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: #b8b8b8;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Conteúdo Principal */
+.content {
+    margin-left: 225px; /* Ajuste para dar espaço à sidebar */
+    padding: 20px;
+    padding-top: 80px;  /* Espaço para o header */
+    width: 100%;
+    background: #fafafa;
+}
+
+.tittle-span {
+    font-family:'Georgia',serif;
+}
+
+#header {
+    background-color: #30363e;
+    transition: top 0.3s;
+}
+
+.header-hidden {
+    top: -60px;
 }
 
 .sidebar h2 {
@@ -31,7 +65,7 @@ body {
 
 .sidebar a {
     display: block;
-    color: #fff;
+    color: #30363e;
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 4px;
@@ -39,14 +73,7 @@ body {
 }
 
 .sidebar a:hover {
-    background-color: #575757;
-}
-
-.content {
-    margin-left: 250px;
-    padding: 20px;
-    flex: 1;
-    background-color: #fff;
+    background-color: #dddddd;
 }
 
 .procedimento {
