@@ -1,4 +1,21 @@
 $(document).ready(function() {
+
+    //header
+    let prevScrollPos = $(window).scrollTop();
+
+    $(window).scroll(function () {
+        let currentScrollPos = $(window).scrollTop();
+
+        if (prevScrollPos > currentScrollPos) {
+            $("#header").removeClass("header-hidden");
+        } else {
+            $("#header").addClass("header-hidden");
+        }
+
+        prevScrollPos = currentScrollPos;
+    });
+
+
     $(".select2").select2({
         placeholder: "Selecione uma opção",
         allowClear: true,
@@ -24,7 +41,7 @@ $(document).ready(function() {
             day: "Dia",
             list: "Lista"
         },
-        allDayText: "Dia Todo",
+        allDayText: "Geral",
         timeZone: "local",
         locale: "pt-br",
         editable: true,
@@ -81,8 +98,6 @@ $(document).ready(function() {
             var procedimento = info.event.title.split(" - ")[0]; // Obtém apenas o título do procedimento
             var confirmacao = info.event.extendedProps.confirmacao;
             var comparecimento = info.event.extendedProps.comparecimento;
-
-            console.log(telefone)
 
             Swal.fire({
                 title: "Editar Procedimento",
