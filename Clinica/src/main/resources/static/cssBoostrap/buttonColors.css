@@ -1,47 +1,75 @@
-.btn-pastel-primary {
-    background-color: #5aa9f8; /* Azul pastel 80% mais saturado */
+/* Botão em tom pastel para Danger */
+.btn-pastel-danger {
+    background-color: #da574a;
+    border-color: #ca2715;
     color: #ffffff;
-    border-color: #6aaae5;
+}
+
+.btn-pastel-danger:hover {
+    background-color: #ca2715;
+    border-color: #C0392B;
+    color: #ffffff;
 }
 
 .btn-pastel-secondary {
-    background-color: #7e7f85; /* Cinza pastel 80% mais saturado */
-    color: #ffffff;
-    border-color: #a0a3a9;
+    background-color: #ffffff;
+    color: #272727;
+    border-color: #bababa;
 }
 
+.btn-pastel-secondary:hover {
+    background-color: #bababa;
+    color: #272727;
+    border-color: #bababa;
+}
+
+/* Botão em tom pastel para Primary */
+.btn-pastel-primary {
+    background-color: #A9CCE3;
+    border-color: #A9CCE3;
+    color: #1F618D;
+}
+
+.btn-pastel-primary:hover {
+    background-color: #7FB3D5;
+    border-color: #7FB3D5;
+    color: #1F618D;
+}
+
+/* Botão em tom pastel para Success */
 .btn-pastel-success {
-    background-color: #52d086; /* Verde pastel 80% mais saturado */
+    background-color: #57baa4;
+    border-color: #47cdad;
     color: #ffffff;
-    border-color: #75bf90;
 }
 
-.btn-pastel-danger {
-    background-color: #fa676f; /* Vermelho pastel 80% mais saturado */
+.btn-pastel-success:hover {
+    background-color: #47cdad;
     color: #ffffff;
-    border-color: #d96f75;
 }
 
+/* Botão em tom pastel para Warning */
 .btn-pastel-warning {
-    background-color: #fcd453; /* Amarelo pastel 80% mais saturado */
-    color: #ffffff;
-    border-color: #ffd055;
+    background-color: #F9E79F;
+    border-color: #F9E79F;
+    color: #B7950B;
 }
 
+.btn-pastel-warning:hover {
+    background-color: #F7DC6F;
+    border-color: #F7DC6F;
+    color: #B7950B;
+}
+
+/* Botão em tom pastel para Info */
 .btn-pastel-info {
-    background-color: #44cbe1; /* Azul claro pastel 80% mais saturado */
-    color: #ffffff;
-    border-color: #57b7c7;
+    background-color: #AED6F1;
+    border-color: #AED6F1;
+    color: #1F618D;
 }
 
-.btn-pastel-light {
-    background-color: #e3e3e3; /* Branco pastel com mais cor */
-    color: #ffffff;
-    border-color: #cacaca;
-}
-
-.btn-pastel-dark {
-    background-color: #49729b; /* Cinza escuro pastel 80% mais saturado */
-    color: #ffffff;
-    border-color: #7f8386;
+.btn-pastel-info:hover {
+    background-color: #85C1E9;
+    border-color: #85C1E9;
+    color: #1F618D;
 }

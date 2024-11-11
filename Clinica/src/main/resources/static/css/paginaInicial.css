@@ -12,26 +12,36 @@ body {
 }
 
 .sidebar {
-    width: 250px;
-    background-color: #333;
-    color: #fff;
-    height: 100vh;
-    position: fixed;
+    background-color: #e8e8e8;
     top: 0;
     left: 0;
     overflow: auto;
-    padding-top: 20px;
-    padding-left: 20px;
+    width: 225px;
+    color: #30363e;
+    height: 100vh;
+    position: fixed;
+    padding: 20px 20px 0 20px;
+    z-index: 1050; /* A sidebar terá um z-index bem alto */
+    border-right: 1px solid #cfcfcf; /* Define a cor e a espessura da borda */
+}
+
+/* Conteúdo Principal */
+.content {
+    margin-left: 225px; /* Ajuste para dar espaço à sidebar */
+    padding: 20px;
+    padding-top: 80px;  /* Espaço para o header */
+    width: 100%;
+    background: #ffffff;
 }
 
 .sidebar h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 0;
 }
 
 .sidebar a {
     display: block;
-    color: #fff;
+    color: #30363e;
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 4px;
@@ -39,17 +49,6 @@ body {
 }
 
 .sidebar a:hover {
-    background-color: #575757;
-}
-
-.content {
-    margin-left: 250px;
-    padding: 20px;
-    flex: 1;
-}
-
-.content h1 {
-    color: #333;
-    margin-bottom: 20px;
+    background-color: #dddddd;
 }
 

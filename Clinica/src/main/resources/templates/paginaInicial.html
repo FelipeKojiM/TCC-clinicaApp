@@ -7,15 +7,31 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/paginaInicial.css">
+    <link rel="stylesheet" href="/static/css/header.css">
 </head>
 <body>
+
+<div th:replace="~{header :: header}"></div>
+
 <div class="sidebar">
     <h2 class="text-center">Menu</h2>
+    <hr style="margin-top: 6px; background: #30363e;">
     <a href="/paginaInicial"><i class="fa fa-home"></i> Home</a>
     <a href="/pacientes"><i class="fa fa-address-book" aria-hidden="true"></i> Pacientes</a>
     <a href="/agenda"><i class="fa fa-book" aria-hidden="true"></i> Agenda</a>
     <a href="/procedimentos"><i class="fa fa-user-md" aria-hidden="true"></i> Procedimentos</a>
     <a href="/contratos"><i class="fa fa-print" aria-hidden="true"></i> Contratos</a>
+</div>
+
+<div class="content">
+    <div th:if="${isAdmin}">
+        <p>Esta seção é visível apenas para administradores.</p>
+        <a href="/paginaAdmin">Acessar painel administrativo</a>
+    </div>
+
+    <div th:unless="${isAdmin}">
+        <p>Bem-vindo à área de usuário comum.</p>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

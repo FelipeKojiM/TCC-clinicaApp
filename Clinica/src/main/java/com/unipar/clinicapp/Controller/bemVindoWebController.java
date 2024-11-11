@@ -24,14 +24,29 @@ public class bemVindoWebController {
     public String abrirProcedimentos(){return "procedimentos";}
 
     @PostMapping("/login")
-    public String Login(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, Model model) {
+    public String login(@RequestParam("username") String username,@RequestParam("password") String password,HttpSession session,Model model) {
+
         Usuario usuario = usuarioService.validarUsuario(username, password);
+
         if (usuario != null) {
             session.setAttribute("UsuarioLogado", username);
-            return "redirect:/paginaInicial";
+
+            if (usuario.getRole()){
+                session.setAttribute("isAdmin", true);
+                return "redirect:/paginaInicial";
+            } else {
+                session.setAttribute("isAdmin", false);
+                return "redirect:/paginaInicial";
+            }
         } else {
             model.addAttribute("erro", "Usuário ou Senha inválidos!");
             return "bemVindo";
         }
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "bemVindo";
     }
 }

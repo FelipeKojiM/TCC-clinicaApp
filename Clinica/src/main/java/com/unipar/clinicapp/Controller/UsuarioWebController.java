@@ -24,17 +24,17 @@ public class UsuarioWebController{
         return "usuarios";
     }
 
-    @PostMapping(path = "usuarios/save")
-    public String saveUsuario(Usuario usuario, @RequestParam("login") String login, Model model) {
-        String erro = usuarioService.validarLoginDisponivel(login);
-        if (erro != null) {
-            model.addAttribute("erro", "Usuário ou Senha inválidos!");
-            return "redirect:/usuarios";
-        } else {
-            usuarioService.salvarUsuario(usuario);
-            return "redirect:/usuarios";
-        }
-    }
+//    @PostMapping(path = "usuarios/save")
+//    public String saveUsuario(Usuario usuario, @RequestParam("login") String login, Model model) {
+//        String erro = usuarioService.validarLoginDisponivel(login);
+//        if (erro != null) {
+//            model.addAttribute("erro", "Usuário ou Senha inválidos!");
+//            return "redirect:/usuarios";
+//        } else {
+//            usuarioService.salvarUsuario(usuario);
+//            return "redirect:/usuarios";
+//        }
+//    }
 
     @PostMapping("/retornarLogin")
     public String retornar(){ return "redirect:/login";}

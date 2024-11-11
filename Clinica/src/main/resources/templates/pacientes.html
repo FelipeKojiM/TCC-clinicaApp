@@ -11,26 +11,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/paciente.css">
     <link rel="stylesheet" href="/static/cssBoostrap/buttonColors.css">
+    <link rel="stylesheet" href="/static/css/header.css">
 </head>
 <body>
 
-<header class="navbar fixed-top" id="header">
-    <div class="container-fluid" style="height: 50px">
-        <span class="navbar-brand mx-auto tittle-span" style="padding-left: 600px; color: white; font-size: 18px;">Elegance - Estética Avançada</span>
-        <div class="dropdown ml-auto">
-            <a class="nav-link dropdown-toggle d-flex align-items-center" style="color: white" href="#" role="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="https://via.placeholder.com/40" class="rounded-circle mr-2" alt="Foto do Usuário">
-                <span style="color: white">Nome do Usuário</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="/perfil">Perfil</a>
-                <a class="dropdown-item" href="/configuracoes">Configurações</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/logout">Sair</a>
-            </div>
-        </div>
-    </div>
-</header>
+<div th:replace="~{header :: header}"></div>
 
 <div class="sidebar">
     <h2 class="text-center" style="margin: 0">Menu</h2>
@@ -75,16 +60,16 @@
                                 <td>
                                     <ul class="list-inline m-0">
                                         <li class="list-inline-item">
-                                            <button class="btn btn-pastel-success btn-sm rounded editarPaciente" type="button" title="Edit" th:data-id="${paciente.id}"><i class="fa fa-edit"></i></button>
+                                            <button class="btn btn-pastel-success btn-sm rounded editarPaciente" style="padding: 4px 0 4px 0; width: 30px" type="button" title="Edit" th:data-id="${paciente.id}"><i class="fa fa-edit"></i></button>
                                         </li>
                                         <li class="list-inline-item">
-                                            <button class="btn btn-pastel-danger btn-sm rounded botaoDeletarPaciente" type="button" title="Delete" th:data-id="${paciente.id}"><i class="fa fa-trash"></i></button>
+                                            <button class="btn btn-pastel-danger btn-sm rounded botaoDeletarPaciente" style="padding: 4px 0 4px 0; width: 30px" type="button" title="Delete" th:data-id="${paciente.id}"><i class="fa fa-trash"></i></button>
                                         </li>
                                         <li class="list-inline-item">
-                                            <button class="btn btn-pastel-secondary btn-sm rounded botaoMostrarPaciente" type="button" title="View" th:data-id="${paciente.id}"><i class="fa fa-eye"></i></button>
+                                            <button class="btn btn-pastel-secondary btn-sm rounded botaoMostrarPaciente" style="padding: 4px 0 4px 0; width: 30px" type="button" title="View" th:data-id="${paciente.id}"><i class="fa fa-eye"></i></button>
                                         </li>
                                         <li class="list-inline-item">
-                                            <button class="btn btn-pastel-success btn-sm border rounded botaoAbrirWhatsApp" type="button" title="Enviar Mensagem" th:data-id="${paciente.telefone}"><i class="fa fa-whatsapp" aria-hidden="true"></i></button>
+                                            <button class="btn btn-pastel-success btn-sm border rounded botaoAbrirWhatsApp" style="padding: 4px 0 4px 0; width: 30px" type="button" title="Enviar Mensagem" th:data-id="${paciente.telefone}"><i class="fa fa-whatsapp" aria-hidden="true"></i></button>
                                         </li>
                                     </ul>
                                 </td>

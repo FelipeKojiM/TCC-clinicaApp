@@ -198,17 +198,17 @@ $(document).ready(function() {
             var borderColor = "";
 
             if (comparecimento || (comparecimento && confirmacao)) {
-                backgroundColor = "#dc3545";
-                borderColor = "red";
+                backgroundColor = "#da574a";
+                borderColor = "#ca2715";
             } else if (confirmacao) {
-                backgroundColor = "#198754";
-                borderColor = "green";
+                backgroundColor = "#57baa4";
+                borderColor = "#47cdad";
             } else if (dataEvento < hoje) {
-                backgroundColor = "gray";
-                borderColor = "gray";
+                backgroundColor = "#bababa";
+                borderColor = "#bababa";
             } else {
-                backgroundColor = "";
-                borderColor = "";
+                backgroundColor = "#A9CCE3";
+                borderColor = "#A9CCE3";
             }
 
             $(info.el).css("background-color", backgroundColor);

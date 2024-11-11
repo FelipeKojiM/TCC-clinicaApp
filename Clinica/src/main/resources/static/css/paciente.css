@@ -31,9 +31,10 @@ header {
     width: 100%;
     top: 0;
     left: 0;
-    background-color: #b8b8b8;
     padding: 10px;
     text-align: center;
+    background-color: #30363e;
+    transition: top 0.3s;
 }
 
 /* Conteúdo Principal */
@@ -47,11 +48,6 @@ header {
 
 .tittle-span {
     font-family:'Georgia',serif;
-}
-
-#header {
-    background-color: #30363e;
-    transition: top 0.3s;
 }
 
 .header-hidden {

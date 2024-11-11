@@ -1,0 +1,19 @@
+/* Header */
+header {
+    position: fixed;  /* Tornar o header fixo também */
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    text-align: center;
+    background: #30363e;
+    transition: top 0.3s;
+}
+
+.header-hidden {
+    top: -60px;
+}
+
+.tittle-span {
+    font-family:'Georgia',serif;
+}

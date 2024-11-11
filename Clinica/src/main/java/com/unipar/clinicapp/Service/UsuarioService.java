@@ -26,12 +26,12 @@ public class UsuarioService {
 
     public Usuario validarUsuario(String login, String senha) {return this.usuarioRepository.findByLoginAndSenha(login, senha);}
 
-    public String validarLoginDisponivel(String login) {
-        Usuario usuarioExistente = usuarioRepository.findByLogin(login);
-        if (usuarioExistente != null) {
-            return "Login já em uso, tente outro!";
-        }
-        return null;
-    }
+//    public String validarLoginDisponivel(String login) {
+//        Usuario usuarioExistente = usuarioRepository.findByLogin(login);
+//        if (usuarioExistente != null) {
+//            return "Login já em uso, tente outro!";
+//        }
+//        return null;
+//    }
 
 }

@@ -21,5 +21,6 @@ public class Usuario implements Serializable {
     @Column(unique = true)
     private String login;
     private String senha;
+    private Boolean role;
 
 }
