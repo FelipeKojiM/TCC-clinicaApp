@@ -18,11 +18,6 @@ public class PacienteWebController {
         this.pacienteService = pacienteService;
     }
 
-    @GetMapping("/abrirPacientes")
-    public String paciente(){
-        return "pacientes";
-    }
-
     @GetMapping(path = "/pacientes")
     public String getAllPacientes(Model model){
         List<Paciente> pacientes = pacienteService.getAll();

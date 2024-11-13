@@ -17,13 +17,6 @@ public class UsuarioWebController{
     public UsuarioWebController(UsuarioService usuarioService){this.usuarioService = usuarioService;
     }
 
-    @GetMapping(path = "/usuarios")
-    public String getAllUsuarios(Model model){
-        List<Usuario> usuarios = usuarioService.getAll();
-        model.addAttribute("usuarios", usuarios);
-        return "usuarios";
-    }
-
 //    @PostMapping(path = "usuarios/save")
 //    public String saveUsuario(Usuario usuario, @RequestParam("login") String login, Model model) {
 //        String erro = usuarioService.validarLoginDisponivel(login);

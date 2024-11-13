@@ -5,10 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+
 @Entity
 @Getter
 @Setter
-public class ProcedimentoHiperidrose {
+public class ProcedimentoPeeling {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,8 +17,9 @@ public class ProcedimentoHiperidrose {
 
     @ManyToOne
     private Paciente paciente;
-    private LocalDate data;
-    private String protocoloUtilizado;
-    private String resultadoObservado;
 
+    private LocalDate data;
+    private String quantidadeAplicada;
+    private String marcaProduto;
+    private String observacoes;
 }

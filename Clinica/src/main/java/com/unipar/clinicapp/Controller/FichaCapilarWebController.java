@@ -23,13 +23,6 @@ public class FichaCapilarWebController {
         this.pacienteService = pacienteService;
     }
 
-    @GetMapping("/procedimentos")
-    public String retornaPacientes(Model model) {
-        List<Paciente> pacientes = pacienteService.getAll();
-        model.addAttribute("pacientes", pacientes);
-        return "procedimentos";
-    }
-
     @PostMapping("/salvarFichaCapilar")
     public String saveCapilar(FichaCapilar fichaCapilar, @RequestParam("pacienteIdFichaCapilar") Integer paciente) {
         if(fichaCapilarService.getFichaProcedimentoByPacienteId(paciente) == null){

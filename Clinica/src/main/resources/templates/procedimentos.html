@@ -45,16 +45,7 @@
                     <a class="nav-link" href="#capilar" data-target="#capilar">Capilar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#ultraformer" data-target="#ultraformer">Ultraformer</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="#preenchimentos" data-target="#preenchimentos">Preenchimentos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#microAgulhamento" data-target="#microAgulhamento">MicroAgulhamento Facial</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#hiperidrose" data-target="#hiperidrose">Hiperidrose</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#peeling" data-target="#peeling">Peeling</a>
@@ -79,7 +70,7 @@
                         <h2>Botox</h2>
                     </div>
                     <div class="col-md-12">
-                        <p>Ficha de aplicação de Botox.</p>
+                        <p>Ficha de aplicação de Botox</p>
                     </div>
                     <div class="col-md-6" style="margin-bottom: 40px">
                         <label>Paciente</label>
@@ -91,7 +82,9 @@
                         </select>
                     </div>
                     <div class="col-md-6 d-flex w-25 h-50 justify-content-end" style="margin-top: 22px">
-                        <button id="iniciarProcedimentoBotox" class="btn btn-outline-dark">Iniciar Procedimento</button>
+                        <div th:if="${isAdmin}">
+                            <button id="iniciarProcedimentoBotox" class="btn btn-outline-dark">Iniciar Procedimento</button>
+                        </div>
                     </div>
                 </div>
                 <form id="formSalvarProcedimentoBotox" th:action="@{/procedimentoBotox/salvar}" method="post">
@@ -372,13 +365,15 @@
                                 <div class="col-md-12 d-flex justify-content-end" style="margin-top: 16px">
                                     <input type="hidden" id="fichaCapilarId" name="fichaCapilarId">
                                     <input type="hidden" id="pacienteIdFichaCapilar" name="pacienteIdFichaCapilar">
-                                    <button type="submit" class="btn btn-outline-dark">Salvar Ficha</button>
+                                    <div th:if="${isAdmin}">
+                                        <button type="submit" class="btn btn-outline-dark">Salvar Ficha</button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-                <hr>
+                <hr style="margin-top: 5%">
                 <div class="row">
                     <div class="col-md-12">
                         <form id="formSalvarProcedimentoCapilar" th:action="@{/salvarProcedimentoCapilar}" method="post">
@@ -401,7 +396,9 @@
                                 <div class="col-md-12 d-flex justify-content-end" style="margin-top: 16px">
                                     <input type="hidden" id="procedimentoCapilarId" name="procedimentoCapilarId">
                                     <input type="hidden" id="pacienteIdProcedimentoCapilar" name="paciente">
-                                    <button id="salvarProcedimentoCapilar" type="submit" class="btn btn-success" >Salvar</button>
+                                    <div th:if="${isAdmin}">
+                                        <button id="salvarProcedimentoCapilar" type="submit" class="btn btn-success" >Salvar</button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -426,100 +423,17 @@
                 </div>
             </div>
 
-            <div id="ultraformer" class="section">
-                <h2>Limpeza Facial</h2>
-                <p>Descrição sobre o procedimento de limpeza facial.</p>
-
-                <form th:action="@{/salvarFichaLimpezaFacial}" method="post">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Paciente</label>
-                                <select class="form-control w-25" name="paciente" placeholder="Selecione o Paciente" required>
-                                    <option value="">Selecione o Paciente</option>
-                                    <option th:each="paciente : ${pacientes}"
-                                            th:value="${paciente.id}"
-                                            th:text="${paciente.nome}"></option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="tipoLimpeza">Tipo de Limpeza</label>
-                                <select class="form-control" id="tipoLimpeza" name="tipoLimpeza" required>
-                                    <option value="">Selecione uma Opção</option>
-                                    <option value="Limpeza de Pele Profunda">Limpeza de Pele Profunda</option>
-                                    <option value="Limpeza de Pele com Ácido">Limpeza de Pele com Ácido</option>
-                                    <option value="Limpeza de Pele com Vapor">Limpeza de Pele com Vapor</option>
-                                    <option value="Limpeza de Pele com Máscara">Limpeza de Pele com Máscara</option>
-                                    <option value="Limpeza Facial com Hidrafacial">Limpeza Facial com Hidrafacial</option>
-                                    <option value="Limpeza de Pele Natural">Limpeza de Pele Natural</option>
-                                    <option value="Peeling Químico">Peeling Químico</option>
-                                    <option value="Limpeza Facial Esfoliante">Limpeza Facial Esfoliante</option>
-                                </select>
-
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="produtosUtilizados">Produtos Utilizados</label>
-                                <input type="text" id="produtosUtilizados" name="produtosUtilizados" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="tipoPele">Tipo de Pele</label>
-                                <select class="form-control" id="tipoPele" name="tipoPele" required>
-                                    <option value="">Selecione uma Opção</option>
-                                    <option value="Pele Normal">Pele Normal</option>
-                                    <option value="Pele Oleosa">Pele Oleosa</option>
-                                    <option value="Pele Seca">Pele Seca</option>
-                                    <option value="Pele Mista">Pele Mista</option>
-                                    <option value="Pele Sensível">Pele Sensível</option>
-                                    <option value="Pele Acneica">Pele Acneica</option>
-                                    <option value="Pele Envelhecida">Pele Envelhecida</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="dataTratamento">Data do Tratamento</label>
-                                <input type="date" id="dataTratamento" name="dataTratamento" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="resultadoEsperado">Resultado Esperado</label>
-                                <textarea id="resultadoEsperado" name="resultadoEsperado" class="form-control textarea-expand" rows="2" required></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-12 d-flex justify-content-end">
-                            <button type="submit" class="btn btn-outline-dark">Salvar Ficha</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
             <div id="preenchimentos" class="section">
-                <h2>Dengue</h2>
-                <p>Descrição sobre o procedimento relacionado à dengue.</p>
-            </div>
-
-            <div id="microAgulhamento" class="section"></div>
-
-            <div id="hiperidrose" class="section">
-                <h2>Hiperidrose</h2>
+                <h2>Preenchimentos</h2>
+                <p>Ficha de Preenchimentos</p>
                 <div class="row">
                     <div class="col-md-12">
-                        <form id="formSalvarProcedimentoHiperidrose" action="/procedimentoHiperidrose/salvar" method="post">
+                        <form id="formSalvarPreenchimento" action="/procedimentoPreenchimento/salvar" method="post">
                             <div class="row">
-                                <div class="col-md-12">
-                                    <h2>Tratamento</h2>
-                                </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Paciente</label>
-                                        <select class="form-control w-25" name="pacienteId" required>
+                                        <select class="form-control w-25" name="pacienteId" id="pacientePreenchimento" required>
                                             <option value="">Selecione o Paciente</option>
                                             <option th:each="paciente : ${pacientes}"
                                                     th:value="${paciente.id}"
@@ -527,50 +441,126 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="protocoloUtilizado">Protocolo Utilizado</label>
-                                        <textarea name="protocoloUtilizado" class="form-control textarea-expand" rows="1" required></textarea>
+                                        <label>Área Aplicada</label>
+                                        <select class="form-control" name="areaAplicada" required>
+                                            <option value="">Selecione uma Opção</option>
+                                            <option value="Labial">Labial</option>
+                                            <option value="Mandíbula">Mandíbula</option>
+                                            <option value="Olheira">Olheira</option>
+                                            <option value="Queixo">Queixo</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="resultadoObservado">Resultado Observado</label>
-                                        <textarea name="resultadoObservado" class="form-control textarea-expand" rows="1" required></textarea>
+                                        <label>Quantidade Aplicada</label>
+                                        <input name="quantidadeAplicada" class="form-control" required/>
                                     </div>
                                 </div>
-                                <div class="col-md-12 d-flex justify-content-end" style="margin-top: 16px">
-                                    <button id="salvarProcedimentoHiperidrose" type="submit" class="btn btn-secondary">Salvar</button>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Marca Produto</label>
+                                        <input name="marcaProduto" class="form-control" required/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Observações</label>
+                                        <input name="observacoes" class="form-control" required/>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 d-flex justify-content-end">
+                                    <button id="salvarPreenchimento" type="submit" class="btn btn-success">Salvar</button>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div class="container-fluid d-flex flex-column min-vh-100">
-                        <div class="row flex-grow-1">
-                            <div class="col-md-12 d-flex flex-column">
-                                <table id="tabelaHiperidroseProc" class="table table-striped table-bordered flex-fill">
-                                    <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Data</th>
-                                        <th>Protocolo Utilizado</th>
-                                        <th>Resultado Observado</th>
-                                        <th>Ações</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                    <tfoot>
-                                    </tfoot>
-                                </table>
-                            </div>
-                        </div>
+                    <div class="col-md-12">
+                        <hr style="margin-bottom: 40px">
+                    </div>
+                    <div class="col-md-12">
+                        <table id="tabelaPreenchimento" class="table table-striped table-bordered flex-fill">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Data</th>
+                                <th>Área Aplicada</th>
+                                <th>Quantidade Aplicada</th>
+                                <th>Marca Produto</th>
+                                <th>Observações</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
 
-            <div id="peeling" class="section"> </div>
+            <div id="peeling" class="section">
+                <h2>Peeling</h2>
+                <p>Ficha de Peeling</p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="formSalvarPeeling" action="/procedimentoPeeling/salvar" method="post">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Paciente</label>
+                                        <select class="form-control w-25" name="pacienteId" id="pacientePeeling" required>
+                                            <option value="">Selecione o Paciente</option>
+                                            <option th:each="paciente : ${pacientes}"
+                                                    th:value="${paciente.id}"
+                                                    th:text="${paciente.nome}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Quantidade Aplicada</label>
+                                        <input name="quantidadeAplicada" class="form-control" required/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Marca Produto</label>
+                                        <input name="marcaProduto" class="form-control" required/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Observações</label>
+                                        <input name="observacoes" class="form-control" required/>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-success">Salvar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-12">
+                        <hr style="margin-bottom: 40px">
+                    </div>
+                    <div class="col-md-12">
+                        <table id="tabelaPeeling" class="table table-striped table-bordered flex-fill">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Data</th>
+                                <th>Quantidade Aplicada</th>
+                                <th>Marca Produto</th>
+                                <th>Observações</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
             <div id="mesoject" class="section"> </div>
         </div>
@@ -666,7 +656,8 @@
 <script src="/static/js/procedimentos.js"></script>
 <script src="/static/js/capilarProcedimentos.js"></script>
 <script src="/static/js/botoxProcedimentos.js"></script>
-<script src="/static/js/hiperidroseProcedimentos.js"></script>
+<script src="/static/js/preenchimentoProcedimentos.js"></script>
+<script src="/static/js/peelingProcedimentos.js"></script>
 
 </body>
 </html>

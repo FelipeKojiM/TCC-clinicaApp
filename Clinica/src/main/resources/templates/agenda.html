@@ -42,7 +42,7 @@
                                 <label class="font-weight-bold">Encaixes</label>
                                 <div class="cleafix"></div>
                                 <label>Paciente</label>
-                                <select class="form-control select2" name="paciente" id="pacienteEncaixe">
+                                <select class="form-control select2" name="paciente" id="pacienteEncaixe" required>
                                     <option value="">Selecione o Paciente</option>
                                     <option th:each="paciente : ${pacientes}"
                                             th:value="${paciente.id}"
@@ -52,7 +52,7 @@
                             <div class="col-md-12" style="margin: 8px 0 8px 0">
                                 <label>Procedimento</label>
                                 <div class="clearfix"></div>
-                                <input type="text" name="procedimento" class="form-control" placeholder="Procedimento">
+                                <input type="text" name="procedimento" class="form-control" placeholder="Procedimento" required>
                             </div>
                             <div class="col-md-12 d-flex justify-content-end" style="margin: 12px 0 12px 0">
                                 <button type="submit" class="btn btn-sm btn-secondary">Adicionar</button>

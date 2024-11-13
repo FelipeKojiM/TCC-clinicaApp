@@ -20,9 +20,6 @@ public class FichaBotoxWebController {
     private final FichaBotoxService botoxService;
     private final PacienteService pacienteService;
 
-    @GetMapping("/testeFotoBotox")
-    public String testeFotoBotox(){return "testeFotoBotox";}
-
     @Autowired
     public FichaBotoxWebController(FichaBotoxService botoxService, PacienteService pacienteService) {
         this.botoxService = botoxService;

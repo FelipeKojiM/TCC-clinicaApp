@@ -15,10 +15,7 @@ public class bemVindoWebController {
     @Autowired
     UsuarioService usuarioService;
 
-    @GetMapping("/bemvindo")
-    public String bemVindo(){
-        return "bemVindo";
-    }
+
 
     @GetMapping("/abrirProcedimentos")
     public String abrirProcedimentos(){return "procedimentos";}

@@ -1,10 +1,4 @@
 $(document).ready(function() {
-    $(".select2").select2({
-        placeholder: "Selecione opções",
-        allowClear: true,
-        width: "100%",
-        closeOnSelect: false
-    });
 
     //inicia a data table procedimentos capilares
     var tabelaCapilarProc = $("#tabelaCapilarProc").DataTable({

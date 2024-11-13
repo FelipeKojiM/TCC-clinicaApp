@@ -12,18 +12,23 @@ $(document).ready(function () {
 
     showSection("#procedimentos");
 
-    $(document).ready(function () {
-        function autoResizeTextarea(textarea) {
-            $(textarea).css("height", "auto");
-            $(textarea).css("height", textarea.scrollHeight + "px");
-        }
+    function autoResizeTextarea(textarea) {
+        $(textarea).css("height", "auto");
+        $(textarea).css("height", textarea.scrollHeight + "px");
+    }
 
-        $("textarea").each(function () {
-            autoResizeTextarea(this);
-        });
+    $("textarea").each(function () {
+        autoResizeTextarea(this);
+    });
 
-        $("textarea").on("input", function () {
-            autoResizeTextarea(this);
-        });
+    $("textarea").on("input", function () {
+        autoResizeTextarea(this);
+    });
+
+    $(".select2").select2({
+        placeholder: "Selecione opções",
+        allowClear: true,
+        width: "100%",
+        closeOnSelect: false
     });
 });

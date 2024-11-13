@@ -1,9 +1,7 @@
 package com.unipar.clinicapp.Controller;
-
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @ControllerAdvice
 public class GlobalAttributesController {
