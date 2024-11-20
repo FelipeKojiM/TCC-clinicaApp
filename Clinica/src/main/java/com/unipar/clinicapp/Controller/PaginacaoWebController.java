@@ -37,6 +37,17 @@ public class PaginacaoWebController {
         return "bemVindo";
     }
 
+    @GetMapping("/contratos")
+    public String contratos(Model model, HttpSession session) {
+        if (session.getAttribute("UsuarioLogado") == null) {
+            return "redirect:/bemvindo";
+        } else {
+            List<Paciente> pacientes = pacienteService.getAll();
+            model.addAttribute("pacientes", pacientes);
+
+            return "contratos";
+        }
+    }
 
     @GetMapping("/agenda")
     public String abrirAgenda(Model model, HttpSession session) {

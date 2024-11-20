@@ -49,5 +49,10 @@ public class PacienteWebController {
         return "redirect:/pacientes";
     }
 
+    @PostMapping("/pacientes/getById/{id}")
+    @ResponseBody
+    public Paciente getById(@PathVariable Integer id) {
+        return pacienteService.getPaciente(id);
+    }
 
 }

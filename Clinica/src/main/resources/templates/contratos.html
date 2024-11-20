@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página com Menu Lateral</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/paginaInicial.css">
+    <link rel="stylesheet" href="/static/css/header.css">
+</head>
+<body>
+
+<div th:replace="~{header :: header}"></div>
+
+<div class="sidebar">
+    <h2 class="text-center">Menu</h2>
+    <hr style="margin-top: 6px; background: #30363e;">
+    <a href="/paginaInicial"><i class="fa fa-home"></i> Home</a>
+    <a href="/pacientes"><i class="fa fa-address-book" aria-hidden="true"></i> Pacientes</a>
+    <a href="/agenda"><i class="fa fa-book" aria-hidden="true"></i> Agenda</a>
+    <a href="/procedimentos"><i class="fa fa-user-md" aria-hidden="true"></i> Procedimentos</a>
+    <a href="/contratos"><i class="fa fa-print" aria-hidden="true"></i> Contratos</a>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-md-12 text-right">
+                        <button class="btn btn-success mt-3" id="gerarPdf">Gerar PDF</button>
+                    </div>
+                    <div class="col-md-12 d-flex justify-content-end" style="margin-top: 20px">
+                        <div class="form-group">
+                        <label>Informe o Paciente</label>
+                        <select class="form-control select2" name="paciente" id="paciente" style="width: 250px" required>
+                            <option value="">Selecione o Paciente</option>
+                            <option th:each="paciente : ${pacientes}"
+                                    th:value="${paciente.id}"
+                                    th:text="${paciente.nome}"></option>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="container">
+                            <h2 class="text-center" style="margin: 40px 0 40px 0">Contrato de Prestação de Serviços Estéticos</h2>
+                            <div class="col-md-12 text-center">
+                                <p>Este Contrato de Prestação de Serviços Estéticos (doravante referido como "Contrato") é celebrado entre o(a) profissional responsável<p>
+                                <p><b> Maria da Rosa </b>, CPF 123.321.000-99 (doravante referido como "Prestador de Serviços")<p>
+                                <p>e</p>
+                                <p><label id="nomePaciente"></label> ,CPF <label id="cpfPaciente"></label> (doravante referido como "Cliente")</p>
+                                <p>coletivamente referidos como "Partes".</p>
+                            </div>
+                            <div class="col-md-12">
+                            </div>
+                            <h4>Descrição dos Serviços</h4>
+                            <p>
+                                O Prestador de Serviços concorda em fornecer os seguintes serviços estéticos ao Cliente de acordo com
+                                os termos e condições estabelecidos neste Contrato:
+                            </p>
+
+                            <div class="col-md-12 text-center">
+                                <p>________________________________________________________________________________</p>
+                                <p>________________________________________________________________________________</p>
+                            </div>
+
+                            <h4>Honorários e Pagamento</h4>
+                            <p>
+                                O Cliente concorda em pagar ao Prestador de Serviços os honorários acordados pelos serviços estéticos
+                                prestados. Os detalhes dos honorários e opções de pagamento são os seguintes:
+                            </p>
+
+                            <div class="col-md-12 d-flex">
+                                <div class="col-md-6 form-group">
+                                    <input id="valorPagamento" type="text" class="form-control" placeholder="Valor:" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <select class="form-control select2" id="formaPagamento" required>
+                                        <option value="">Selecione uma forma de Pagamento</option>
+                                        <option value="1">À vista - Dinheiro</option>
+                                        <option value="2">À vista - Crédito</option>
+                                        <option value="3">À vista - Débito</option>
+                                        <option value="4">À vista - Pix</option>
+                                        <option value="5">À prazo - Crédito</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <h4>Responsabilidades</h4>
+                            <ul>
+                                <li>
+                                    O Prestador de Serviços se compromete a realizar os serviços conforme descritos e com altos padrões
+                                    profissionais, em conformidade com todas as leis e regulamentos aplicáveis.
+                                </li>
+                                <li>
+                                    O Cliente é responsável por fornecer informações precisas e completas sobre sua saúde e histórico.
+                                </li>
+                                <li>
+                                    O Contrato pode ser encerrado por qualquer uma das Partes mediante aviso prévio por escrito.
+                                </li>
+                            </ul>
+
+                            <div class="col-md-12 text-center" style="margin: 40px 0 20px 0">
+                                <h4>Assinaturas</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 text-center">
+                                    <p>_________________________</p>
+                                    <p>ASSINATURA DO(A) PACIENTE</p>
+                                </div>
+                                <div class="col-md-6 text-center">
+                                    <p>_________________________</p>
+                                    <p>ASSINATURA DO(A) PROFISSIONAL</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+<script src="/static/js/contratos.js"></script>
+</body>
+</html>
