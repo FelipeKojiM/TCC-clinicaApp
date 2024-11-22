@@ -1,28 +1,30 @@
 
 .titulo{
-    font-size: 60px;
+    font-size: 40px;
     font-family: Georgia, serif;
+    margin-bottom: 0;
 }
 
-.saibaMais {
+.info{
+    padding: 0 220px 0 220px;
+}
+
+.btn-voltar {
     background-color: #30363e;
     color: white;
     text-decoration: none;
     transition: all 0.3s ease;
 }
 
-.saibaMais:hover {
+.btn-voltar:hover {
     background-color: #747d88;
     color: white;
     border-color: #49515e;
     text-decoration: none;
 }
 
-#imgQrCode{
-    width: 100px;
-}
-
-.login{
-    background-color: #efefef;
-    padding: 20px;
+.grid{
+    background: #ffffff;
+    padding: 40px;
+    margin: 20px 0 20px 0;
 }

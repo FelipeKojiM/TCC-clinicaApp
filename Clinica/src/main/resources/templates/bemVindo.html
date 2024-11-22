@@ -8,24 +8,63 @@
     <link rel="stylesheet" href="/static/css/bemVindo.css">
 </head>
 <body>
+<main role="main">
 
-<div class="container">
-    <div class="form-container">
-        <form th:action="@{/login}" method="post">
-            <div class="bemVindo" style="margin-bottom: 24px">
-                <h3>Bem-vindo(a)</h3>
-            </div>
-
-            <label for="username" class="labelCadastrar">Usuário</label>
-            <input id="username" type="text" placeholder="Digite seu nome de usuário" name="username" required>
-
-            <label for="password" class="labelCadastrar">Senha</label>
-            <input id="password" type="password" placeholder="Digite sua senha" name="password" required>
-
-            <button id="btLogin" type="submit" class="buttonCadastrar">Login</button>
-        </form>
+    <div class="jumbotron">
+        <div class="container">
+            <p class="titulo">Elegance - Estética Avançada</p>
+            <p>"Uma Plataforma Eficiente e Completa para sua Clínicas Estética, redefina a Gestão com Ferramentas Avançadas para
+                Controle de Agendamentos e Atendimento Personalizado,
+                Elevando a Satisfação dos Clientes e Otimizando Cada Detalhe do Dia a Dia,
+                Garantindo Resultados Extraordinários no Cuidado com a Beleza, Saúde e Bem-Estar,
+                Tudo Isso com uma Interface Intuitiva e Funcionalidade de Última Geração que Transforma a Sua Clínica em um Modelo de Eficiência e Sucesso no Setor Estético"</p>
+            <p><a class="btn btn-sm saibaMais" href="saibaMais" role="button">Saiba mais »</a></p>
+        </div>
     </div>
-</div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Entre em Contato!</h2>
+                <p>Ficou interessado? Entre em contato e dê os primeiros passos para falicitar seu dia a dia!</p>
+                <img id="imgQrCode" src="/static/images/qrCodeWhats.jpeg">
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="login rounded">
+                    <form th:action="@{/login}" method="post">
+                        <div class="bemVindo text-center" style="margin-bottom: 24px">
+                            <h3>Bem-vindo(a)</h3>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="username" class="labelCadastrar">Usuário</label>
+                                <input id="username" type="text" class="form-control" placeholder="Digite seu nome de usuário" name="username" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="password" class="labelCadastrar">Senha</label>
+                            <input id="password" type="password" class="form-control" placeholder="Digite sua senha" name="password" required>
+                        </div>
+
+                        <div class="col-md-12 d-flex justify-content-end" style="margin-top: 10px">
+                            <button id="btLogin" type="submit" class="btn btn-success border buttonCadastrar">Entrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+</main>
+
+<footer>
+    <div class="container text-right">
+        <p>© 2024-2024 Elegance - Estética Avançada</p>
+    </div>
+</footer>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>

@@ -37,6 +37,11 @@ public class PaginacaoWebController {
         return "bemVindo";
     }
 
+    @GetMapping("/saibaMais")
+    public String saibaMais() {
+        return "saibaMais";
+    }
+
     @GetMapping("/contratos")
     public String contratos(Model model, HttpSession session) {
         if (session.getAttribute("UsuarioLogado") == null) {
