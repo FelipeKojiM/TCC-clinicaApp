@@ -1,5 +1,6 @@
 package com.unipar.clinicapp.Controller;
 
+import com.google.gson.Gson;
 import com.unipar.clinicapp.Model.Encaixe;
 import com.unipar.clinicapp.Model.Paciente;
 import com.unipar.clinicapp.Model.Usuario;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class PaginacaoWebController {
@@ -92,10 +94,12 @@ public class PaginacaoWebController {
     }
 
     @GetMapping("/paginaInicial")
-    public String paginaInicial(HttpSession session) {
+    public String paginaInicial(HttpSession session, Model model) {
         if (session.getAttribute("UsuarioLogado") == null) {
             return "redirect:/bemvindo";
         } else {
+            Map<Integer, Long> agendamentosPorDia = agendamentoService.getAgendamentosPorDia();
+            model.addAttribute("agendamentosPorDia", agendamentosPorDia);
             return "paginaInicial";
         }
     }

@@ -32,10 +32,50 @@
     <div th:unless="${isAdmin}">
         <p>Bem-vindo à área de usuário comum.</p>
     </div>
+    <div class="row>">
+        <div class="col-md-12">
+            <div id="agendamento"></div>
+        </div>
+    </div>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<div id="container" style="width: 100%; height: 400px;"></div>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script th:inline="javascript">
+
+    var agendamentosPorDia = /*[[${agendamentosPorDia}]]*/ {};
+
+    var dias = Object.keys(agendamentosPorDia);
+    var totais = Object.values(agendamentosPorDia);
+
+    Highcharts.chart('agendamento', {
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: 'Agendamentos por Dia'
+        },
+        xAxis: {
+            categories: dias,
+            title: {
+                text: 'Dia do Mês'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Quantidade de Agendamentos'
+            }
+        },
+        series: [{
+            name: 'Agendamentos',
+            data: totais
+        }]
+    });
+</script>
 </body>
 </html>
