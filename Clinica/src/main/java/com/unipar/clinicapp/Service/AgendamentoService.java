@@ -1,16 +1,13 @@
 package com.unipar.clinicapp.Service;
 
 import com.unipar.clinicapp.Model.Agendamento;
-import com.unipar.clinicapp.Model.FichaCapilar;
-import com.unipar.clinicapp.Model.Medico;
-import com.unipar.clinicapp.Model.Paciente;
 import com.unipar.clinicapp.Repository.AgendamentoRepository;
 import com.unipar.clinicapp.Repository.PacienteRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.ZonedDateTime;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class AgendamentoService {
@@ -33,16 +30,51 @@ public class AgendamentoService {
 
     public void deletar(Integer id) {agendamentoRepository.deleteById(id);}
 
-    public Map<Integer, Long> getAgendamentosPorDia() {
-        List<Object[]> resultados = agendamentoRepository.countAgendamentosPorDia();
+    public Map<String, Long> getAgendamentosPorPeriodo(ZonedDateTime startDate, ZonedDateTime endDate) {
+        List<Object[]> resultados = agendamentoRepository.countAgendamentosPorPeriodo(startDate, endDate);
 
-        // Transformar a lista de Object[] em um Map para facilitar o uso
-        Map<Integer, Long> agendamentosPorDia = new LinkedHashMap<>();
-        for (Object[] resultado : resultados) {
-            Integer dia = ((Number) resultado[0]).intValue();
-            Long total = ((Number) resultado[1]).longValue();
-            agendamentosPorDia.put(dia, total);
+        // Cria o mapa com as chaves no formato "dia/mes"
+        Map<String, Long> agendamentosMap = new HashMap<>();
+
+        // Preenche o mapa com os resultados
+        for (Object[] r : resultados) {
+            Integer dia = ((Number) r[0]).intValue(); // Dia
+            Integer mes = ((Number) r[1]).intValue(); // Mês
+            Long quantidade = ((Number) r[2]).longValue(); // Quantidade de agendamentos
+
+            // Concatena o dia e o mês para formar a chave "dia/mes"
+            String chave = dia + "/" + mes;
+
+            // Coloca no mapa a chave formatada e a quantidade
+            agendamentosMap.put(chave, quantidade);
         }
-        return agendamentosPorDia;
+
+        // Ordenando o mapa por dia e mês
+        Map<String, Long> agendamentosMapOrdenado = agendamentosMap.entrySet()
+                .stream()
+                .sorted((entry1, entry2) -> {
+                    String[] chave1 = entry1.getKey().split("/");
+                    String[] chave2 = entry2.getKey().split("/");
+
+                    int mes1 = Integer.parseInt(chave1[1]);
+                    int mes2 = Integer.parseInt(chave2[1]);
+
+                    if (mes1 == mes2) {
+                        int dia1 = Integer.parseInt(chave1[0]);
+                        int dia2 = Integer.parseInt(chave2[0]);
+                        return Integer.compare(dia1, dia2);
+                    }
+
+                    return Integer.compare(mes1, mes2);
+                })
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1,
+                        LinkedHashMap::new
+                ));
+
+        return agendamentosMapOrdenado;
     }
+
 }

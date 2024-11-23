@@ -5,8 +5,10 @@ import com.unipar.clinicapp.Repository.ProcedimentoBotoxRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ProcedimentoBotoxService {
@@ -25,5 +27,47 @@ public class ProcedimentoBotoxService {
     public void delete(Integer id) {procedimentoBotoxRepository.deleteById(id);}
 
     public Integer obterUltimoIdProcedimento() {return procedimentoBotoxRepository.findMaxId();}
+
+    public Map<String, Long> getBotoxPorPeriodo(LocalDate startDate, LocalDate endDate) {
+        List<Object[]> resultados = procedimentoBotoxRepository.countBotoxPorPeriodo(startDate, endDate);
+
+        Map<String, Long> botoxMap = new HashMap<>();
+
+        for (Object[] r : resultados) {
+            Integer dia = ((Number) r[0]).intValue();
+            Integer mes = ((Number) r[1]).intValue();
+            Long quantidade = ((Number) r[2]).longValue();
+
+            String chave = dia + "/" + mes;
+
+            botoxMap.put(chave, quantidade);
+        }
+
+        Map<String, Long> botoxMapOrdenado = botoxMap.entrySet()
+                .stream()
+                .sorted((entry1, entry2) -> {
+                    String[] chave1 = entry1.getKey().split("/");
+                    String[] chave2 = entry2.getKey().split("/");
+
+                    int mes1 = Integer.parseInt(chave1[1]);
+                    int mes2 = Integer.parseInt(chave2[1]);
+
+                    if (mes1 == mes2) {
+                        int dia1 = Integer.parseInt(chave1[0]);
+                        int dia2 = Integer.parseInt(chave2[0]);
+                        return Integer.compare(dia1, dia2);
+                    }
+
+                    return Integer.compare(mes1, mes2);
+                })
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1,
+                        LinkedHashMap::new
+                ));
+
+        return botoxMapOrdenado;
+    }
 
 }

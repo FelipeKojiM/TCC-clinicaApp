@@ -6,6 +6,7 @@
     <title>Página com Menu Lateral</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="/static/css/paginaInicial.css">
     <link rel="stylesheet" href="/static/css/header.css">
 </head>
@@ -23,59 +24,44 @@
     <a href="/contratos"><i class="fa fa-print" aria-hidden="true"></i> Contratos</a>
 </div>
 
-<div class="content">
-    <div th:if="${isAdmin}">
-        <p>Esta seção é visível apenas para administradores.</p>
-        <a href="/paginaAdmin">Acessar painel administrativo</a>
-    </div>
 
-    <div th:unless="${isAdmin}">
-        <p>Bem-vindo à área de usuário comum.</p>
-    </div>
-    <div class="row>">
-        <div class="col-md-12">
-            <div id="agendamento"></div>
+<!--            <div th:if="${isAdmin}">-->
+<!--                <p>Esta seção é visível apenas para administradores.</p>-->
+<!--                <a href="/paginaAdmin">Acessar painel administrativo</a>-->
+<!--            </div>-->
+
+<!--            <div th:unless="${isAdmin}">-->
+<!--                <p>Bem-vindo à área de usuário comum.</p>-->
+<!--            </div>-->
+
+<div class="content">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <label>Selecione uma Data</label>
+                    <div id="dataGraficos" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;">
+                        <i class="fa fa-calendar"></i>&nbsp;
+                        <span></span> <i class="fa fa-caret-down"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="row>">
+                <div class="col-md-12" style="margin-top: 20px">
+                    <div id="agendamento"></div>
+                </div>
+                <div class="col-md-12" style="margin-top: 200px">
+                    <div id="procedimentos"></div>
+                </div>
+            </div>
         </div>
     </div>
-
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<div id="container" style="width: 100%; height: 400px;"></div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
-<script th:inline="javascript">
-
-    var agendamentosPorDia = /*[[${agendamentosPorDia}]]*/ {};
-
-    var dias = Object.keys(agendamentosPorDia);
-    var totais = Object.values(agendamentosPorDia);
-
-    Highcharts.chart('agendamento', {
-        chart: {
-            type: 'line'
-        },
-        title: {
-            text: 'Agendamentos por Dia'
-        },
-        xAxis: {
-            categories: dias,
-            title: {
-                text: 'Dia do Mês'
-            }
-        },
-        yAxis: {
-            title: {
-                text: 'Quantidade de Agendamentos'
-            }
-        },
-        series: [{
-            name: 'Agendamentos',
-            data: totais
-        }]
-    });
-</script>
+<script src="/static/js/paginaInicial.js"></script>
 </body>
 </html>
