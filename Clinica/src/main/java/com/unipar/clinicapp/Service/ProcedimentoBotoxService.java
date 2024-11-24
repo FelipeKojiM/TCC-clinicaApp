@@ -70,4 +70,8 @@ public class ProcedimentoBotoxService {
         return botoxMapOrdenado;
     }
 
+    public Map<String, Long> obterContagemDePacientesBotox() {
+        return procedimentoBotoxRepository.obterContagemDePacientesPorQuantidadeDeProcedimentos();
+    }
+
 }

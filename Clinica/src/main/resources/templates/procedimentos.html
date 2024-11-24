@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="/static/css/procedimentos.css">
     <link rel="stylesheet" href="/static/css/botox.css">
     <link rel="stylesheet" href="/static/css/header.css">
@@ -60,8 +61,43 @@
     <div class="card">
         <div class="card-body">
 
-            <div id="procedimentos" class="section">
-
+            <div id="procedimentos" class="section" style="padding-top: 0">
+                <div class="row">
+                    <div class="col-md-12 text-center"><hr></div>
+                    <div class="col-md-2">
+                        <label>Selecione uma Data</label>
+                        <div id="dataGraficos" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;">
+                            <i class="fa fa-calendar"></i>&nbsp;
+                            <span></span> <i class="fa fa-caret-down"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-md-6">
+                        <div id="agendamento"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="procedimentosRealizados"></div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 40px;">
+                    <div class="col-md-12 text-center">
+                        <hr>
+                        <p style="font-size: 30px"><b>Pacientes em Atividade</b></p>
+                    </div>
+                    <div class="col-md-3">
+                        <div id="botoxGrafico"></div>
+                    </div>
+                    <div class="col-md-3">
+                        <div id="capilarGrafico"></div>
+                    </div>
+                    <div class="col-md-3">
+                        <div id="peelingGrafico"></div>
+                    </div>
+                    <div class="col-md-3">
+                        <div id="preenchimentoGrafico"></div>
+                    </div>
+                </div>
             </div>
 
             <div id="botox" class="section">
@@ -444,7 +480,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Área Aplicada</label>
-                                        <select class="form-control" name="areaAplicada" required>
+                                        <select class="form-control" name="areaAplicada" id="areaAplicadaPreenchimento" required>
                                             <option value="">Selecione uma Opção</option>
                                             <option value="Labial">Labial</option>
                                             <option value="Mandíbula">Mandíbula</option>
@@ -456,19 +492,19 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Quantidade Aplicada</label>
-                                        <input name="quantidadeAplicada" class="form-control" required/>
+                                        <input name="quantidadeAplicada" id="quantidadeAplicadaPreenchimento" class="form-control" required/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Marca Produto</label>
-                                        <input name="marcaProduto" class="form-control" required/>
+                                        <input name="marcaProduto" id="marcaProdutoPreenchimento" class="form-control" required/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Observações</label>
-                                        <input name="observacoes" class="form-control" required/>
+                                        <input name="observacoes" id="observacoesPreenchimento" class="form-control" required/>
                                     </div>
                                 </div>
                                 <div class="col-md-12 d-flex justify-content-end">
@@ -520,23 +556,23 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Quantidade Aplicada</label>
-                                        <input name="quantidadeAplicada" class="form-control" required/>
+                                        <input name="quantidadeAplicada" id="quantidadeAplicadaPeeling" class="form-control" required/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Marca Produto</label>
-                                        <input name="marcaProduto" class="form-control" required/>
+                                        <input name="marcaProduto" id="marcaProdutoPeeling" class="form-control" required/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Observações</label>
-                                        <input name="observacoes" class="form-control" required/>
+                                        <input name="observacoes" id="observacoesPeeling" class="form-control" required/>
                                     </div>
                                 </div>
                                 <div class="col-md-12 d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-success">Salvar</button>
+                                    <button type="submit" id="salvarPeeling" class="btn btn-success">Salvar</button>
                                 </div>
                             </div>
                         </form>
@@ -653,6 +689,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="/static/js/procedimentos.js"></script>
 <script src="/static/js/capilarProcedimentos.js"></script>
 <script src="/static/js/botoxProcedimentos.js"></script>

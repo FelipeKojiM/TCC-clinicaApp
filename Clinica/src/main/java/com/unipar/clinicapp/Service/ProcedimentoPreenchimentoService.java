@@ -66,4 +66,8 @@ public class ProcedimentoPreenchimentoService {
 
         return preenchimentoMapOrdenado;
     }
+
+    public Map<String, Long> obterContagemDePacientesPreenchimento() {
+        return procedimentoPreenchimentoRepository.obterContagemDePacientesPorQuantidadeDeProcedimentos();
+    }
 }

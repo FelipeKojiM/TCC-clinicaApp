@@ -3,9 +3,11 @@ package com.unipar.clinicapp.Controller;
 import com.unipar.clinicapp.Model.Encaixe;
 import com.unipar.clinicapp.Model.Paciente;
 import com.unipar.clinicapp.Model.Usuario;
+import com.unipar.clinicapp.Repository.ProcedimentoBotoxRepository;
 import com.unipar.clinicapp.Repository.ProcedimentoPeelingRepository;
 import com.unipar.clinicapp.Service.*;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,11 +36,12 @@ public class PaginacaoWebController {
     private final ProcedimentoPeelingRepository procedimentoPeelingRepository;
     private final ProcedimentoPreenchimentoService procedimentoPreenchimentoService;
     private final ProcedimentoPeelingService procedimentoPeelingService;
+    private final ProcedimentoBotoxRepository procedimentoBotoxRepository;
 
     public PaginacaoWebController(AgendamentoService agendamentoService,
                                   PacienteService pacienteService,
                                   EncaixeService encaixeService,
-                                  UsuarioService usuarioService, ProcedimentoBotoxService procedimentoBotoxService, ProcedimentoCapilarService procedimentoCapilarService, ProcedimentoPeelingRepository procedimentoPeelingRepository, ProcedimentoPreenchimentoService procedimentoPreenchimentoService, ProcedimentoPeelingService procedimentoPeelingService) {
+                                  UsuarioService usuarioService, ProcedimentoBotoxService procedimentoBotoxService, ProcedimentoCapilarService procedimentoCapilarService, ProcedimentoPeelingRepository procedimentoPeelingRepository, ProcedimentoPreenchimentoService procedimentoPreenchimentoService, ProcedimentoPeelingService procedimentoPeelingService, ProcedimentoBotoxRepository procedimentoBotoxRepository) {
         this.agendamentoService = agendamentoService;
         this.pacienteService = pacienteService;
         this.encaixeService = encaixeService;
@@ -48,6 +51,7 @@ public class PaginacaoWebController {
         this.procedimentoPeelingRepository = procedimentoPeelingRepository;
         this.procedimentoPreenchimentoService = procedimentoPreenchimentoService;
         this.procedimentoPeelingService = procedimentoPeelingService;
+        this.procedimentoBotoxRepository = procedimentoBotoxRepository;
     }
 
     @GetMapping("/bemvindo")
@@ -129,13 +133,18 @@ public class PaginacaoWebController {
         LocalDate endDate = LocalDate.parse(endDateStr);
 
         ZonedDateTime startDateTime = startDate.atStartOfDay(ZoneId.systemDefault());
-        ZonedDateTime endDateTime = endDate.atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime endDateTime = endDate.atTime(LocalTime.MAX).atZone(ZoneId.systemDefault());
 
-        Map<String, Long> agendamentos       = agendamentoService.getAgendamentosPorPeriodo(startDateTime, endDateTime);
-        Map<String, Long> botox              = procedimentoBotoxService.getBotoxPorPeriodo(startDate, endDate);
-        Map<String, Long> capilar            = procedimentoCapilarService.getCapilarPorPeriodo(startDate, endDate);
-        Map<String, Long> peeling            = procedimentoPeelingService.getPeelingPorPeriodo(startDate, endDate);
-        Map<String, Long> preenchimento      = procedimentoPreenchimentoService.getPreenchimentoPorPeriodo(startDate, endDate);
+        Map<String, Long> agendamentos                    = agendamentoService.getAgendamentosPorPeriodo(startDateTime, endDateTime);
+        Map<String, Long> botox                           = procedimentoBotoxService.getBotoxPorPeriodo(startDate, endDate);
+        Map<String, Long> capilar                         = procedimentoCapilarService.getCapilarPorPeriodo(startDate, endDate);
+        Map<String, Long> peeling                         = procedimentoPeelingService.getPeelingPorPeriodo(startDate, endDate);
+        Map<String, Long> preenchimento                   = procedimentoPreenchimentoService.getPreenchimentoPorPeriodo(startDate, endDate);
+        Map<String, Long> contagemPacientesBotox          = procedimentoBotoxService.obterContagemDePacientesBotox();
+        Map<String, Long> contagemPacientesCapilar        = procedimentoCapilarService.obterContagemDePacientesCapilar();
+        Map<String, Long> contagemPacientesPeeling        = procedimentoPeelingService.obterContagemDePacientesPeeling();
+        Map<String, Long> contagemPacientesPreenchimento  = procedimentoPreenchimentoService.obterContagemDePacientesPreenchimento();
+
 
         Map<String, Map<String, Long>> response = new HashMap<>();
         response.put("agendamentos", agendamentos);
@@ -143,6 +152,10 @@ public class PaginacaoWebController {
         response.put("capilar", capilar);
         response.put("peeling", peeling);
         response.put("preenchimento", preenchimento);
+        response.put("contagemPacientesBotox", contagemPacientesBotox);
+        response.put("contagemPacientesCapilar", contagemPacientesCapilar);
+        response.put("contagemPacientesPeeling", contagemPacientesPeeling);
+        response.put("contagemPacientesPreenchimento", contagemPacientesPreenchimento);
 
         return response;
     }

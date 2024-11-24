@@ -59,10 +59,9 @@ $(document).ready(function() {
                             title: "Sucesso!",
                             text: "Ficha salva com sucesso!",
                             icon: "success"
-                        });
-                        setTimeout(function () {
-                            window.location.href = "/procedimentos#capilar";
-                        }, 2000);
+                        }).then(() => {
+                        location.reload();
+                    });
                     },
                     error: function (xhr, status, error) {
                         Swal.fire({

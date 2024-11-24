@@ -69,4 +69,8 @@ public class ProcedimentoCapilarService {
 
         return capilarMapOrdenado;
     }
+
+    public Map<String, Long> obterContagemDePacientesCapilar() {
+        return procedimentoCapilarRepository.obterContagemDePacientesPorQuantidadeDeProcedimentos();
+    }
 }

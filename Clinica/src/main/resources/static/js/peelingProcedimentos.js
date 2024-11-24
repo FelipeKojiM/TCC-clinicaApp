@@ -26,4 +26,52 @@ $(document).ready(function (){
             });
         }
     });
+
+    $("#salvarPeeling").on("click", function (e) {
+        e.preventDefault();
+
+        var pacientePeeling = $("#pacientePeeling").val();
+        var quantidadeAplicadaPeeling = $("#quantidadeAplicadaPeeling").val();
+        var marcaProdutoPeeling = $("#marcaProdutoPeeling").val();
+        var observacoesPeeling = $("#observacoesPeeling").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/procedimentoPeeling/salvar",
+            data: {
+                pacienteId: pacientePeeling,
+                quantidadeAplicada: quantidadeAplicadaPeeling,
+                marcaProduto: marcaProdutoPeeling,
+                observacoes: observacoesPeeling
+            },
+            success: function(response) {
+                if (response.status === "success") {
+                    Swal.fire({
+                        title: "Sucesso!",
+                        text: response.message,
+                        icon: "success"
+                    }).then(() => {
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Erro!",
+                        text: response.message,
+                        icon: "error"
+                    });
+                    $("#pacientePeeling").val('');
+                    $("#quantidadeAplicadaPeeling").val('');
+                    $("#marcaProdutoPeeling").val('');
+                    $("#observacoesPeeling").val('');
+                }
+            },
+            error: function(xhr, status, error) {
+                Swal.fire({
+                    title: "Erro!",
+                    text: "Ocorreu um erro inesperado!",
+                    icon: "error"
+                });
+            }
+        });
+    });
 });

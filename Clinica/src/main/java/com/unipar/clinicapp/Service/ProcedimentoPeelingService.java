@@ -66,4 +66,8 @@ public class ProcedimentoPeelingService {
 
         return peelingMapOrdenado;
     }
+
+    public Map<String, Long> obterContagemDePacientesPeeling() {
+        return procedimentoPeelingRepository.obterContagemDePacientesPorQuantidadeDeProcedimentos();
+    }
 }
