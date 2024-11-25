@@ -31,4 +31,7 @@ public interface ProcedimentoPeelingRepository extends JpaRepository<Procediment
         """)
     Map<String, Long> obterContagemDePacientesPorQuantidadeDeProcedimentos();
 
+    @Query("SELECT COUNT(p) FROM ProcedimentoPeeling p WHERE p.data = :dataInicio")
+    long contarProcedimentosPorData(@Param("dataInicio") LocalDate dataInicio);
+
 }

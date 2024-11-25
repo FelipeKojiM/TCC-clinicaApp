@@ -2,6 +2,7 @@ package com.unipar.clinicapp.Repository;
 
 import com.unipar.clinicapp.Model.ProcedimentoBotox;
 import com.unipar.clinicapp.Model.ProcedimentoCapilar;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -45,4 +46,6 @@ public interface ProcedimentoBotoxRepository extends JpaRepository<ProcedimentoB
         """)
     Map<String, Long> obterContagemDePacientesPorQuantidadeDeProcedimentos();
 
+    @Query("SELECT COUNT(p) FROM ProcedimentoBotox p WHERE p.data = :dataInicio")
+    long contarProcedimentosPorData(@Param("dataInicio") LocalDate dataInicio);
 }

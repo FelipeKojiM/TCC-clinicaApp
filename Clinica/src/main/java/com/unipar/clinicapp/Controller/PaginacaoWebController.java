@@ -118,6 +118,22 @@ public class PaginacaoWebController {
         if (session.getAttribute("UsuarioLogado") == null) {
             return "redirect:/bemvindo";
         } else {
+            long quantidadePacientes = pacienteService.obterQuantidadeDePacientes();
+            model.addAttribute("quantidadePacientes", quantidadePacientes);
+
+            ZonedDateTime agora = ZonedDateTime.now(ZoneId.systemDefault());
+            long quantidadeAgendamentosHoje  = agendamentoService.contarAgendamentosPorData(agora);
+            long confirmadosParaHoje         = agendamentoService.contarConfirmacaoPorData(agora);
+            long quantidadeBotoxHoje         = procedimentoBotoxService.contarBotoxHoje();
+            long quantidadeCapilarHoje       = procedimentoCapilarService.contarCapilarHoje();
+            long quantidadePeelingHoje       = procedimentoPeelingService.contarPeelingHoje();
+            long quantidadePreenchimentoHoje = procedimentoPreenchimentoService.contarPrenchimentoHoje();
+            long procedimentosRealizadosHoje = quantidadeBotoxHoje + quantidadeCapilarHoje + quantidadePeelingHoje + quantidadePreenchimentoHoje;
+            System.out.println(procedimentosRealizadosHoje);
+
+            model.addAttribute("procedimentosRealizadosHoje", procedimentosRealizadosHoje);
+            model.addAttribute("quantidadeAgendamentosHoje", quantidadeAgendamentosHoje);
+            model.addAttribute("confirmadosParaHoje", confirmadosParaHoje);
             return "paginaInicial";
         }
     }

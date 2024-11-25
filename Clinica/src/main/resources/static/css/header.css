@@ -17,3 +17,15 @@ header {
 .tittle-span {
     font-family:'Georgia',serif;
 }
+
+.btn-sair {
+    background-color: #30363e;
+    color: white;
+    border: none;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-sair:hover {
+    background-color: #30363e; /* Cor de fundo quando passar o mouse */
+    transform: scale(1.05); /* Leve aumento de tamanho */
+}

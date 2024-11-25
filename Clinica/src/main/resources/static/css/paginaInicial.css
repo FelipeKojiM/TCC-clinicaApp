@@ -20,8 +20,7 @@ body {
     color: #30363e;
     height: 100vh;
     position: fixed;
-    padding: 20px 20px 0 20px;
-    z-index: 1050; /* A sidebar terá um z-index bem alto */
+    padding: 90px 20px 0 20px;
     border-right: 1px solid #cfcfcf; /* Define a cor e a espessura da borda */
 }
 
@@ -51,4 +50,36 @@ body {
 .sidebar a:hover {
     background-color: #dddddd;
 }
+
+.panel {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    margin: 20px;
+}
+
+.typing-effect {
+    font-size: 16px; /* Tamanho da fonte */
+    font-family: 'Courier New', Courier, monospace; /* Fonte monoespaçada */
+    display: inline-block;
+    white-space: nowrap; /* Impede que o texto quebre a linha */
+    overflow: hidden; /* Esconde o texto inicialmente */
+    width: 0; /* Começa com a largura 0 */
+    animation: typing 5s steps(30) forwards;
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+#imgQrCode{
+    width: 90px;
+}
+
 

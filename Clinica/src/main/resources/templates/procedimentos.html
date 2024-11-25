@@ -51,9 +51,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#peeling" data-target="#peeling">Peeling</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#mesoject" data-target="#mesoject">Mesoject</a>
-                </li>
             </ul>
         </div>
     </nav>
@@ -83,7 +80,7 @@
                 <div class="row" style="margin-top: 40px;">
                     <div class="col-md-12 text-center">
                         <hr>
-                        <p style="font-size: 30px"><b>Pacientes em Atividade</b></p>
+                        <p style="font-size: 20px"><b>Pacientes em Atividade</b></p>
                     </div>
                     <div class="col-md-3">
                         <div id="botoxGrafico"></div>
@@ -411,33 +408,33 @@
                 </div>
                 <hr style="margin-top: 5%">
                 <div class="row">
-                    <div class="col-md-12">
-                        <form id="formSalvarProcedimentoCapilar" th:action="@{/salvarProcedimentoCapilar}" method="post">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h2>Tratamento</h2>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="protocoloUtilizado">Protocolo Utilizado</label>
-                                        <textarea id="protocoloUtilizado" name="protocoloUtilizado" class="form-control textarea-expand" rows="1" required></textarea>
+                    <div th:if="${isAdmin}">
+                        <div class="col-md-12">
+                            <form id="formSalvarProcedimentoCapilar" th:action="@{/salvarProcedimentoCapilar}" method="post">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h2>Tratamento</h2>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="resultadoObservado">Resultado Observado</label>
-                                        <textarea id="resultadoObservado" name="resultadoObservado" class="form-control textarea-expand" rows="1" required></textarea>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="protocoloUtilizado">Protocolo Utilizado</label>
+                                            <textarea id="protocoloUtilizado" name="protocoloUtilizado" class="form-control textarea-expand" rows="1" required></textarea>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12 d-flex justify-content-end" style="margin-top: 16px">
-                                    <input type="hidden" id="procedimentoCapilarId" name="procedimentoCapilarId">
-                                    <input type="hidden" id="pacienteIdProcedimentoCapilar" name="paciente">
-                                    <div th:if="${isAdmin}">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="resultadoObservado">Resultado Observado</label>
+                                            <textarea id="resultadoObservado" name="resultadoObservado" class="form-control textarea-expand" rows="1" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 d-flex justify-content-end" style="margin-top: 16px">
+                                        <input type="hidden" id="procedimentoCapilarId" name="procedimentoCapilarId">
+                                        <input type="hidden" id="pacienteIdProcedimentoCapilar" name="paciente">
                                         <button id="salvarProcedimentoCapilar" type="submit" class="btn btn-success" >Salvar</button>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -449,7 +446,6 @@
                                 <th>Data</th>
                                 <th>Protocolo Utilizado</th>
                                 <th>Resultado Observado</th>
-                                <th>Ações</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -477,38 +473,40 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Área Aplicada</label>
-                                        <select class="form-control" name="areaAplicada" id="areaAplicadaPreenchimento" required>
-                                            <option value="">Selecione uma Opção</option>
-                                            <option value="Labial">Labial</option>
-                                            <option value="Mandíbula">Mandíbula</option>
-                                            <option value="Olheira">Olheira</option>
-                                            <option value="Queixo">Queixo</option>
-                                        </select>
+                                <div th:if="${isAdmin}">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Área Aplicada</label>
+                                            <select class="form-control" name="areaAplicada" id="areaAplicadaPreenchimento" required>
+                                                <option value="">Selecione uma Opção</option>
+                                                <option value="Labial">Labial</option>
+                                                <option value="Mandíbula">Mandíbula</option>
+                                                <option value="Olheira">Olheira</option>
+                                                <option value="Queixo">Queixo</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Quantidade Aplicada</label>
-                                        <input name="quantidadeAplicada" id="quantidadeAplicadaPreenchimento" class="form-control" required/>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Quantidade Aplicada</label>
+                                            <input name="quantidadeAplicada" id="quantidadeAplicadaPreenchimento" class="form-control" required/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Marca Produto</label>
-                                        <input name="marcaProduto" id="marcaProdutoPreenchimento" class="form-control" required/>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Marca Produto</label>
+                                            <input name="marcaProduto" id="marcaProdutoPreenchimento" class="form-control" required/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Observações</label>
-                                        <input name="observacoes" id="observacoesPreenchimento" class="form-control" required/>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Observações</label>
+                                            <input name="observacoes" id="observacoesPreenchimento" class="form-control" required/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12 d-flex justify-content-end">
-                                    <button id="salvarPreenchimento" type="submit" class="btn btn-success">Salvar</button>
+                                    <div class="col-md-12 d-flex justify-content-end">
+                                        <button id="salvarPreenchimento" type="submit" class="btn btn-success">Salvar</button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -553,26 +551,30 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Quantidade Aplicada</label>
-                                        <input name="quantidadeAplicada" id="quantidadeAplicadaPeeling" class="form-control" required/>
+                                <div th:if="${isAdmin}">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Quantidade Aplicada</label>
+                                            <input name="quantidadeAplicada" id="quantidadeAplicadaPeeling" class="form-control" required/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Marca Produto</label>
-                                        <input name="marcaProduto" id="marcaProdutoPeeling" class="form-control" required/>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Marca Produto</label>
+                                            <input name="marcaProduto" id="marcaProdutoPeeling" class="form-control" required/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Observações</label>
-                                        <input name="observacoes" id="observacoesPeeling" class="form-control" required/>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Observações</label>
+                                            <input name="observacoes" id="observacoesPeeling" class="form-control" required/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12 d-flex justify-content-end">
-                                    <button type="submit" id="salvarPeeling" class="btn btn-success">Salvar</button>
+                                    <div class="col-md-12 d-flex justify-content-end">
+                                        <div th:if="${isAdmin}">
+                                            <button type="submit" id="salvarPeeling" class="btn btn-success">Salvar</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -597,8 +599,6 @@
                     </div>
                 </div>
             </div>
-
-            <div id="mesoject" class="section"> </div>
         </div>
     </div>
 </div>

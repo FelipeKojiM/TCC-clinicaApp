@@ -24,20 +24,84 @@
     <a href="/contratos"><i class="fa fa-print" aria-hidden="true"></i> Contratos</a>
 </div>
 
-
-<!--            <div th:if="${isAdmin}">-->
-<!--                <p>Esta seção é visível apenas para administradores.</p>-->
-<!--                <a href="/paginaAdmin">Acessar painel administrativo</a>-->
-<!--            </div>-->
-
-<!--            <div th:unless="${isAdmin}">-->
-<!--                <p>Bem-vindo à área de usuário comum.</p>-->
-<!--            </div>-->
-
 <div class="content">
     <div class="card">
         <div class="card-body">
-
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="panel">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h2>Bem vindo(a), <span style="color: #30363e" th:text="${usuarioLogado}">Nome do Usuário</span> 👋!</h2>
+                                <p class="typing-effect">Você é capaz de muito mais do que pensa.</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p id="dataHoje"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p>Dúvidas? Entre em contato com nosso suporte 24Hrs!</p>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <img id="imgQrCode" src="/static/images/qrCodeWhats.jpeg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="panel">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p style="margin-bottom: 0">Pacientes<br><span style="font-size: 40px" th:text="${quantidadePacientes}"></span></p>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="/pacientes" style="color: #30363e"><i style="font-size: 35px" class="fa fa-address-book-o" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="panel">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p style="margin-bottom: 0">Agendados para Hoje<br><span style="font-size: 40px" th:text="${quantidadeAgendamentosHoje}"></span></p>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="/agenda" style="color: #30363e"><i style="font-size: 35px" class="fa fa-book" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="panel">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p style="margin-bottom: 0">Confirmados para Hoje<br><span style="font-size: 40px" th:text="${confirmadosParaHoje}"></span></p>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="/agenda" style="color: #30363e"><i style="font-size: 35px" class="fa fa-check-square-o" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="panel">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p style="margin-bottom: 0">Procedimentos Realizados Hoje<br><span style="font-size: 40px" th:text="${procedimentosRealizadosHoje}"></span></p>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="/procedimentos" style="color: #30363e"><i style="font-size: 35px" class="fa fa-handshake-o" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

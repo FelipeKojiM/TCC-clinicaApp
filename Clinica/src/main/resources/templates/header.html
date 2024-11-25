@@ -12,16 +12,11 @@
     <div class="container-fluid" style="height: 50px">
         <span class="navbar-brand mx-auto tittle-span" style="padding-left: 600px; color: white; font-size: 18px;">Elegance - Estética Avançada</span>
         <div class="dropdown ml-auto">
-            <a class="nav-link dropdown-toggle d-flex align-items-center" style="color: white" href="#" role="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img id="imagemUsuario" src="https://via.placeholder.com/40" class="rounded-circle mr-2" alt="Foto do Usuário">
-                <span style="color: white">Nome do Usuário</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                <div class="dropdown-divider"></div>
-                <form th:action="@{/logout}" method="post" style="display:inline;">
-                    <button type="submit" class="dropdown-item"><i class="fa fa-caret-square-o-left" aria-hidden="true"></i> Sair</button>
-                </form>
-            </div>
+            <img id="imagemUsuario" src="https://via.placeholder.com/40" class="rounded-circle mr-2" alt="Foto do Usuário">
+            <span style="color: white; margin-right: 40px" th:text="${usuarioLogado}">Nome do Usuário</span>
+            <form th:action="@{/logout}" method="post" style="display:inline;">
+                <button type="submit" class="btn-sair"><i class="fa fa-caret-square-o-left" aria-hidden="true"></i> Sair</button>
+            </form>
         </div>
     </div>
 </header>

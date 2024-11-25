@@ -70,4 +70,10 @@ public class ProcedimentoPreenchimentoService {
     public Map<String, Long> obterContagemDePacientesPreenchimento() {
         return procedimentoPreenchimentoRepository.obterContagemDePacientesPorQuantidadeDeProcedimentos();
     }
+
+    public long contarPrenchimentoHoje() {
+        LocalDate hoje = LocalDate.now();
+        System.out.println(hoje);
+        return procedimentoPreenchimentoRepository.contarProcedimentosPorData(hoje);
+    }
 }

@@ -48,6 +48,7 @@ public class ProcedimentoCapilarWebController {
     @PostMapping("/editarProcedimentoCapilar/{id}")
     public String updateProcedimentoCapilar(ProcedimentoCapilar procedimentoCapilar) {
         procedimentoCapilarService.update(procedimentoCapilar);
+        System.out.println(procedimentoCapilar);
         return "redirect:/procedimentos#capilar";
     }
 

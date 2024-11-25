@@ -228,32 +228,6 @@ $('.botaoDeletarPaciente').on('click', function () {
     });
 });
 
-$('.botaoMostrarPaciente').on('click', function () {
-    var pacienteId = $(this).data('id');
-
-    $.ajax({
-        url: "/api/pacientes/" + pacienteId,
-        type: "GET",
-        success: function (data) {
-            $("#nome").val(data.nome);
-            $("#telefone").val(data.telefone);
-            $("#data_nascimento").val(data.data_nascimento);
-            $("#cpf").val(data.cpf);
-            $("#cep").val(data.cep);
-            $("#bairro").val(data.bairro);
-            $("#logradouro").val(data.logradouro);
-            $("#numero").val(data.numero);
-            $("#email").val(data.email);
-            $("#cadastrarPacientes").modal("show");
-        }
-    });
-
-    $("#botaoEditarPaciente").addClass("hidden");
-    $("#botaoCadastrarPaciente").addClass("hidden");
-    $("#botaoAbrirWhatsApp").removeClass("hidden", true);
-    $("#botaoFecharModal").html("Fechar");
-});
-
 $(document).ready(function(){
 
     $(".telefone").inputmask("(99) 99999-9999", { placeholder: " " });

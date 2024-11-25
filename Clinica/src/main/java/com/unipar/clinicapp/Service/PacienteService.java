@@ -5,6 +5,7 @@ import com.unipar.clinicapp.Repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 @Service
 public class PacienteService {
@@ -32,5 +33,9 @@ public class PacienteService {
             return "Nome já em uso, tente outro!";
         }
         return null;
+    }
+
+    public long obterQuantidadeDePacientes() {
+        return pacienteRepository.contarPacientes();
     }
 }

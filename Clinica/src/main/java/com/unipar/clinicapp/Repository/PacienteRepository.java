@@ -21,4 +21,7 @@ public interface PacienteRepository extends JpaRepository<Paciente, Integer> {
 
     Optional<Paciente> findById(Integer id);
 
+    // Consulta para contar a quantidade de pacientes
+    @Query("SELECT COUNT(p) FROM Paciente p")
+    long contarPacientes();
 }

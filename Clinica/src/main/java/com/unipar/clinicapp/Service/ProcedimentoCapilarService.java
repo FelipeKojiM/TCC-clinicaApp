@@ -73,4 +73,10 @@ public class ProcedimentoCapilarService {
     public Map<String, Long> obterContagemDePacientesCapilar() {
         return procedimentoCapilarRepository.obterContagemDePacientesPorQuantidadeDeProcedimentos();
     }
+
+    public long contarCapilarHoje() {
+        LocalDate hoje = LocalDate.now();
+        System.out.println(hoje);
+        return procedimentoCapilarRepository.contarProcedimentosPorData(hoje);
+    }
 }

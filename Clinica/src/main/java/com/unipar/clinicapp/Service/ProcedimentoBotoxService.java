@@ -3,9 +3,11 @@ package com.unipar.clinicapp.Service;
 import com.unipar.clinicapp.Model.ProcedimentoBotox;
 import com.unipar.clinicapp.Repository.ProcedimentoBotoxRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -72,6 +74,11 @@ public class ProcedimentoBotoxService {
 
     public Map<String, Long> obterContagemDePacientesBotox() {
         return procedimentoBotoxRepository.obterContagemDePacientesPorQuantidadeDeProcedimentos();
+    }
+
+    public long contarBotoxHoje() {
+        LocalDate hoje = LocalDate.now();
+        return procedimentoBotoxRepository.contarProcedimentosPorData(hoje);
     }
 
 }

@@ -5,6 +5,8 @@ import com.unipar.clinicapp.Repository.AgendamentoRepository;
 import com.unipar.clinicapp.Repository.PacienteRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -75,6 +77,20 @@ public class AgendamentoService {
                 ));
 
         return agendamentosMapOrdenado;
+    }
+
+    public long contarAgendamentosPorData(ZonedDateTime agora) {
+        LocalDate inicioDoDia = agora.toLocalDate();
+        ZonedDateTime inicioZoned = inicioDoDia.atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime fimZoned = inicioZoned.plusDays(1);
+        return agendamentoRepository.contarAgendamentosPorData(inicioZoned, fimZoned);
+    }
+
+    public long contarConfirmacaoPorData(ZonedDateTime agora) {
+        LocalDate inicioDoDia = agora.toLocalDate();
+        ZonedDateTime inicioZoned = inicioDoDia.atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime fimZoned = inicioZoned.plusDays(1);
+        return agendamentoRepository.contarConfirmadosPorData(inicioZoned, fimZoned);
     }
 
 }

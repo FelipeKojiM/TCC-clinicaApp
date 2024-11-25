@@ -23,14 +23,12 @@ $(document).ready(function() {
             { data: 'data' },
             { data: 'protocoloUtilizado' },
             { data: 'resultadoObservado' },
-            { data: 'acoes', orderable: false }
         ],
         columnDefs: [
             { width: "10%", targets: 0, className: "text-left" },
             { width: "20%", targets: 1, className: "text-left" },
             { width: "30%", targets: 2, className: "text-left" },
             { width: "30%", targets: 3, className: "text-left" },
-            { width: "10%", targets: 4, className: "text-left" }
         ],
     });
 
@@ -133,8 +131,7 @@ $(document).ready(function() {
                                 data: item.data,
                                 protocoloUtilizado: item.protocoloUtilizado,
                                 resultadoObservado: item.resultadoObservado,
-                                acoes: '<ul class="list-inline m-0"><li class="list-inline-item"><button class="btn btn-danger btn-sm rounded-0 botaoDeletarProcedimento" type="button" title="Delete" data-id="' + item.id + '"><i class="fa fa-trash"></i></button></li>' +
-                                    '<li class="list-inline-item"><button class="btn btn-success btn-sm rounded-0 editarProcedimento" type="button" title="Editar" data-id="' + item.id + '"><i class="fa fa-edit"></i></button></li></ul>'
+                                acoes: '<ul class="list-inline m-0"><li class="list-inline-item"><button class="btn btn-success btn-sm rounded-0 editarProcedimento" type="button" title="Editar" data-id="' + item.id + '"><i class="fa fa-edit"></i></button></li></ul>'
                             }).draw();
                         });
                     } else {
@@ -193,8 +190,7 @@ $(document).ready(function() {
                                                 data: item.data,
                                                 protocoloUtilizado: item.protocoloUtilizado,
                                                 resultadoObservado: item.resultadoObservado,
-                                                acoes: '<ul class="list-inline m-0"><li class="list-inline-item"><button class="btn btn-danger btn-sm rounded-0 botaoDeletarProcedimento" type="button" title="Delete" data-id="' + item.id + '"><i class="fa fa-trash"></i></button></li>' +
-                                                    '<li class="list-inline-item"><button class="btn btn-success btn-sm rounded-0 editarProcedimento" type="button" title="Editar" data-id="' + item.id + '"><i class="fa fa-edit"></i></button></li></ul>'
+                                                acoes: '<ul class="list-inline m-0"><li class="list-inline-item"><button class="btn btn-success btn-sm rounded-0 editarProcedimento" type="button" title="Editar" data-id="' + item.id + '"><i class="fa fa-edit"></i></button></li></ul>'
                                             }).draw();
                                         });
                                     } else {
@@ -226,7 +222,7 @@ $(document).ready(function() {
             contentType: "application/json",
             data: JSON.stringify({ id: idProcedimentoCapilar }),
             success: function (data) {
-                $("#upIdPacienteProcedimentoCapilar").val(data.pacienteId);
+                $("#upIdPacienteProcedimentoCapilar").val(data.paciente.id);
                 $("#upDataProcedimentoCapilar").val(data.data);
                 $("#upProtocoloUtilizadoCapilar").val(data.protocoloUtilizado);
                 $("#upResultadoObservadoCapilar").val(data.resultadoObservado);
@@ -247,6 +243,7 @@ $(document).ready(function() {
         var resultadoObservadoCapilar     = $("#upResultadoObservadoCapilar").val();
         var dataProcedimentoCapilar       = $("#upDataProcedimentoCapilar").val();
         var IdPacienteProcedimentoCapilar = $("#upIdPacienteProcedimentoCapilar").val();
+        console.log(IdPacienteProcedimentoCapilar)
 
         if (protocoloUtilizadoCapilar !== "" && resultadoObservadoCapilar !== "") {
             Swal.fire({
@@ -286,8 +283,7 @@ $(document).ready(function() {
                                         data: dataProcedimentoCapilar,
                                         protocoloUtilizado: protocoloUtilizadoCapilar,
                                         resultadoObservado: resultadoObservadoCapilar,
-                                        acoes: '<ul class="list-inline m-0"><li class="list-inline-item"><button class="btn btn-danger btn-sm rounded-0 botaoDeletarProcedimento" type="button" title="Delete" data-id="' + idProcedimentoCapilar + '"><i class="fa fa-trash"></i></button></li>' +
-                                            '<li class="list-inline-item"><button class="btn btn-success btn-sm rounded-0 editarProcedimento" type="button" title="Editar" data-id="' + idProcedimentoCapilar + '"><i class="fa fa-edit"></i></button></li></ul>'
+                                        acoes: '<ul class="list-inline m-0"><li class="list-inline-item"><button class="btn btn-success btn-sm rounded-0 editarProcedimento" type="button" title="Editar" data-id="' + idProcedimentoCapilar + '"><i class="fa fa-edit"></i></button></li></ul>'
                                     }).draw(false);
                                 } else {
                                     console.error("Linha não encontrada para o id: " + idProcedimentoCapilar);

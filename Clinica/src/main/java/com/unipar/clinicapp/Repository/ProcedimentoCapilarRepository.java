@@ -32,4 +32,7 @@ public interface ProcedimentoCapilarRepository extends JpaRepository<Procediment
             ) AS subquery
         """)
     Map<String, Long> obterContagemDePacientesPorQuantidadeDeProcedimentos();
+
+    @Query("SELECT COUNT(p) FROM ProcedimentoCapilar p WHERE p.data = :dataInicio")
+    long contarProcedimentosPorData(@Param("dataInicio") LocalDate dataInicio);
 }

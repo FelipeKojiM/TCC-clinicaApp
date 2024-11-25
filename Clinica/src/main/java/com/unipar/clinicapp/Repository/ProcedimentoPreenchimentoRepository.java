@@ -29,4 +29,7 @@ public interface ProcedimentoPreenchimentoRepository extends JpaRepository<Proce
             ) AS subquery
         """)
     Map<String, Long> obterContagemDePacientesPorQuantidadeDeProcedimentos();
+
+    @Query("SELECT COUNT(p) FROM ProcedimentoPreenchimento p WHERE p.data = :dataInicio")
+    long contarProcedimentosPorData(@Param("dataInicio") LocalDate dataInicio);
 }

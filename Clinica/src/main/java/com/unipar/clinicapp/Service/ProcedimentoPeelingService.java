@@ -70,4 +70,10 @@ public class ProcedimentoPeelingService {
     public Map<String, Long> obterContagemDePacientesPeeling() {
         return procedimentoPeelingRepository.obterContagemDePacientesPorQuantidadeDeProcedimentos();
     }
+
+    public long contarPeelingHoje() {
+        LocalDate hoje = LocalDate.now();
+        System.out.println(hoje);
+        return procedimentoPeelingRepository.contarProcedimentosPorData(hoje);
+    }
 }
