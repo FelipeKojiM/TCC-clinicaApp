@@ -473,8 +473,8 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div th:if="${isAdmin}">
-                                    <div class="col-md-3">
+                                <div class="col-md-3">
+                                    <div th:if="${isAdmin}">
                                         <div class="form-group">
                                             <label>Área Aplicada</label>
                                             <select class="form-control" name="areaAplicada" id="areaAplicadaPreenchimento" required>
@@ -486,25 +486,33 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                </div>
+                                <div class="col-md-3">
+                                    <div th:if="${isAdmin}">
                                         <div class="form-group">
                                             <label>Quantidade Aplicada</label>
-                                            <input name="quantidadeAplicada" id="quantidadeAplicadaPreenchimento" class="form-control" required/>
+                                            <input name="quantidadeAplicada" id="quantidadeAplicadaPreenchimento" class="form-control" placeholder="Informe a quantidade" required/>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                </div>
+                                <div class="col-md-3">
+                                    <div th:if="${isAdmin}">
                                         <div class="form-group">
                                             <label>Marca Produto</label>
-                                            <input name="marcaProduto" id="marcaProdutoPreenchimento" class="form-control" required/>
+                                            <input name="marcaProduto" id="marcaProdutoPreenchimento" class="form-control" placeholder="Informe a Marca do produto" required/>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                </div>
+                                <div class="col-md-3">
+                                    <div th:if="${isAdmin}">
                                         <div class="form-group">
                                             <label>Observações</label>
-                                            <input name="observacoes" id="observacoesPreenchimento" class="form-control" required/>
+                                            <input name="observacoes" id="observacoesPreenchimento" class="form-control" placeholder="Informe as Observações" required/>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 d-flex justify-content-end">
+                                </div>
+                                <div class="col-md-12 d-flex justify-content-end">
+                                    <div th:if="${isAdmin}">
                                         <button id="salvarPreenchimento" type="submit" class="btn btn-success">Salvar</button>
                                     </div>
                                 </div>
@@ -551,29 +559,33 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div th:if="${isAdmin}">
-                                    <div class="col-md-3">
+                                <div class="col-md-3">
+                                    <div th:if="${isAdmin}">
                                         <div class="form-group">
                                             <label>Quantidade Aplicada</label>
-                                            <input name="quantidadeAplicada" id="quantidadeAplicadaPeeling" class="form-control" required/>
+                                            <input name="quantidadeAplicada" id="quantidadeAplicadaPeeling" class="form-control" placeholder="Informe a quantidade" required/>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                </div>
+                                <div class="col-md-3">
+                                    <div th:if="${isAdmin}">
                                         <div class="form-group">
                                             <label>Marca Produto</label>
-                                            <input name="marcaProduto" id="marcaProdutoPeeling" class="form-control" required/>
+                                            <input name="marcaProduto" id="marcaProdutoPeeling" class="form-control" placeholder="Informe a Marca do produto" required/>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                </div>
+                                <div class="col-md-3">
+                                    <div th:if="${isAdmin}">
                                         <div class="form-group">
                                             <label>Observações</label>
-                                            <input name="observacoes" id="observacoesPeeling" class="form-control" required/>
+                                            <input name="observacoes" id="observacoesPeeling" class="form-control" placeholder="Informe as Observações" required/>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 d-flex justify-content-end">
-                                        <div th:if="${isAdmin}">
-                                            <button type="submit" id="salvarPeeling" class="btn btn-success">Salvar</button>
-                                        </div>
+                                </div>
+                                <div class="col-md-12 d-flex justify-content-end">
+                                    <div th:if="${isAdmin}">
+                                        <button type="submit" id="salvarPeeling" class="btn btn-success">Salvar</button>
                                     </div>
                                 </div>
                             </div>

@@ -12,8 +12,8 @@
     <div class="container-fluid" style="height: 50px">
         <span class="navbar-brand mx-auto tittle-span" style="padding-left: 600px; color: white; font-size: 18px;">Elegance - Estética Avançada</span>
         <div class="dropdown ml-auto">
-            <img id="imagemUsuario" src="https://via.placeholder.com/40" class="rounded-circle mr-2" alt="Foto do Usuário">
-            <span style="color: white; margin-right: 40px" th:text="${usuarioLogado}">Nome do Usuário</span>
+            <span style="color: white;" th:text="${usuarioLogado}">Nome do Usuário</span>
+            <i class="fa fa-user-circle" style="color: white; margin-right: 40px" aria-hidden="true"></i>
             <form th:action="@{/logout}" method="post" style="display:inline;">
                 <button type="submit" class="btn-sair"><i class="fa fa-caret-square-o-left" aria-hidden="true"></i> Sair</button>
             </form>

@@ -204,8 +204,8 @@ $(document).ready(function() {
                 backgroundColor = "#54e89d";
                 borderColor = "#05ffc4";
             } else if (dataEvento < hoje) {
-                backgroundColor = "#e6e6e6";
-                borderColor = "#afafaf";
+                backgroundColor = "#a1a1a1";
+                borderColor = "#919191";
             } else {
                 backgroundColor = "#42a6ea";
                 borderColor = "#009aff";
