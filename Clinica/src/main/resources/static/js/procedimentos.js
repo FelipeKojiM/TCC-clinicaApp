@@ -316,7 +316,7 @@ $(document).ready(function () {
             credits: {
                 enabled: false
             },
-            colors: ['#9299a8', '#9188cd'],
+            colors: ['#797979', '#9188cd'],
             series: [{
                 name: 'Pacientes',
                 colorByPoint: true,
